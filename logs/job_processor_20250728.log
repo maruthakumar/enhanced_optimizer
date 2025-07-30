@@ -1,0 +1,773 @@
+2025-07-28 16:15:38,378 - INFO - Samba Job Queue Processor initialized
+2025-07-28 16:15:38,379 - INFO - Monitoring queue: /mnt/optimizer_share/jobs/queue
+2025-07-28 16:15:38,379 - INFO - Starting Samba Job Queue Processor for HeavyDB acceleration
+2025-07-28 16:15:38,379 - INFO - Backend path: /mnt/optimizer_share/backend
+2025-07-28 16:15:38,379 - INFO - Jobs path: /mnt/optimizer_share/jobs
+2025-07-28 16:15:38,379 - INFO - Starting job queue processing loop
+2025-07-29 20:47:42,371 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,372 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,372 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,372 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,372 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,372 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,372 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,373 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,373 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,373 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,373 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,373 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,373 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,373 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,374 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,374 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,374 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,374 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,374 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,374 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,374 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,374 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,375 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,375 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,375 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,375 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,375 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,375 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,375 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,376 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,376 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,376 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,376 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,376 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,376 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,376 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,376 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,377 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,377 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,377 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,377 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,377 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,377 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,377 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,377 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,378 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,378 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,378 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,378 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,378 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,378 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,378 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,378 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,379 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,379 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,379 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,379 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,379 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,379 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,379 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,379 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,380 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,380 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,380 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,380 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,380 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,380 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,380 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,381 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,381 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,381 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,381 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,381 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,381 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,381 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,381 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,382 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,382 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,382 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,382 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,382 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,382 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,382 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,382 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,383 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,383 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,383 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,383 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,383 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,383 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,383 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,383 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,384 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,384 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,384 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,384 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,384 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,384 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,384 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,384 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,385 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,385 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,385 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,385 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,385 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,385 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,385 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,386 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,386 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,386 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,386 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,386 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,386 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,386 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,386 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,387 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,387 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,387 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,387 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,387 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,387 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,387 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,387 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,388 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,388 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,388 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,388 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,388 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,388 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,388 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,388 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,389 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,389 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,389 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,389 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,389 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,389 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,389 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,390 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,390 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,390 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,390 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,390 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,390 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,390 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,390 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,391 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,391 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,391 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,391 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,391 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,391 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,391 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,391 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,392 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,392 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,392 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,392 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,392 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,392 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,392 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,392 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,393 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,393 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,393 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,393 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,393 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,393 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,393 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,393 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,394 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,394 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,394 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,394 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,394 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,394 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,394 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,394 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,395 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,395 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,395 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,395 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,395 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,395 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,395 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,395 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,396 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,396 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,396 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,396 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,396 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,396 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,396 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,396 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,397 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,397 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,397 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,397 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,397 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,397 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,397 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,397 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,397 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,398 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,398 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,398 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,398 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,398 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,398 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,398 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,398 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,399 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,399 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,399 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,399 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,399 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,399 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,399 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,399 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,400 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,400 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,400 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,400 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,400 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,400 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,400 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,400 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,400 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,401 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,401 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,401 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,401 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,401 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,401 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,401 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,401 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,401 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,402 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,402 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,402 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,402 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,402 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,402 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,402 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,402 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,402 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,402 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,402 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,403 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,403 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,403 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,403 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,403 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,403 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,403 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,403 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,404 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,404 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,404 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,404 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,404 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,404 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,404 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,404 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,404 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,404 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,405 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,405 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,405 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,405 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,405 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,405 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,405 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,405 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,405 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,405 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,406 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,406 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,406 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,406 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,406 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,406 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,406 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,406 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,406 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,406 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,407 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,407 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,407 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,407 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,407 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,407 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,407 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,407 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,407 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,408 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,408 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,408 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,408 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,408 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,408 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,408 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,408 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,408 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,408 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,409 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,409 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,409 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,409 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,409 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,409 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,409 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,409 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,409 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,410 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,410 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,410 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,410 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,410 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,410 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,410 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,410 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,410 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,410 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,410 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,411 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,411 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,411 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,411 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,411 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,411 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,411 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,411 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,412 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,412 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,412 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,412 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,412 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,412 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,412 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,412 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,412 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,412 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,412 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,413 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,413 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,413 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,413 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,413 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,413 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,413 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,413 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,414 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,414 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,414 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,414 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,414 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,414 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,414 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,414 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,414 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,414 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,415 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,415 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,415 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,415 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,415 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,415 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,415 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,415 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,415 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,415 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,416 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,416 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,416 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,416 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,416 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,416 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,416 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,416 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,416 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,416 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,417 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,417 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,417 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,417 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,417 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,417 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,417 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,417 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,417 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,417 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,418 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,418 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,418 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,418 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,418 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,418 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,418 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,418 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,418 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,419 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,419 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,419 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,419 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,419 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,419 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,419 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,419 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,419 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,420 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,420 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,420 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,420 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,420 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,420 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,420 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,420 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,420 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,420 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,420 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,421 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,421 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,421 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,421 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,421 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,421 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,421 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,421 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,421 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,421 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,422 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,422 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,422 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,422 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,422 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,422 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,422 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,422 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,422 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,422 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,423 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,423 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,423 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,423 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,423 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,423 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,423 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,423 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,423 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,424 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,424 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,424 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,424 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,424 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,424 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,424 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,424 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,424 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,424 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,424 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,425 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,425 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,425 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,425 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,425 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,425 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,425 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,425 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,425 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,425 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,425 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,426 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,426 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,426 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,426 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,426 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,426 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,426 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,426 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,426 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,426 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,427 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,427 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,427 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,427 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,427 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,427 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,427 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,427 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,427 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,427 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,428 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,428 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,428 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,428 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,428 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,428 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,428 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,428 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,428 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,429 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,429 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,429 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,429 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,429 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,429 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,429 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,429 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,429 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,429 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,429 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,430 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,430 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,430 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,430 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,430 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,430 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,430 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,430 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,430 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,430 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,430 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,431 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,431 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,431 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,431 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,431 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,431 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,431 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,431 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,431 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,431 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,432 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,432 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,432 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,432 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,432 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,432 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,432 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,432 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,432 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,432 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,432 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,433 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,433 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,433 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,433 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,433 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,433 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,433 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,433 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,433 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,434 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,434 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,434 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,434 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,434 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,434 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,434 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,434 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,434 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,434 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,434 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,435 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,435 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,435 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,435 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,435 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,435 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,435 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,435 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,435 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,436 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,436 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,436 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,436 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,436 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,436 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,436 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,436 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,436 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,436 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,436 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,436 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,437 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,437 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,437 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,437 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,437 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,437 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,437 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,437 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,437 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,437 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,438 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,438 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,438 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,438 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,438 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,438 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,438 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,438 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,438 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,438 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,439 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,439 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,439 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,439 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,439 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,439 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,439 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,439 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,439 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,439 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,440 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,440 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,440 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,440 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,440 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,440 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,440 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,440 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,440 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,440 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,441 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,441 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,441 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,441 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,441 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,441 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,441 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,441 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,441 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,441 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,441 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,441 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,442 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,442 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,442 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,442 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,442 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,442 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,442 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,442 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,442 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,442 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,442 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,443 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,443 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,443 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,443 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,443 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,443 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,443 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,443 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,444 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,444 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,444 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,444 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,444 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,444 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,444 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,444 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,444 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,444 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,444 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,444 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,445 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,445 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,445 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,445 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,445 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,445 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,445 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,445 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,445 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,445 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,445 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,446 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,446 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,446 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,446 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,446 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,446 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,446 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,446 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,446 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,446 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,446 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,447 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,447 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,447 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,447 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,447 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,447 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,447 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,447 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,447 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,447 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,447 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,448 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,448 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,448 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,448 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,448 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,448 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,448 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,448 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,448 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,448 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,448 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,449 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,449 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,449 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,449 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,449 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,449 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,449 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,449 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,449 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,449 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,450 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,450 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,450 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,450 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,450 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,450 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,450 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,450 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,450 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,450 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,450 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,450 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,451 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,451 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,451 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,451 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,451 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,451 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,451 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,451 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,451 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,451 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,451 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,452 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,452 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,452 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,452 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,452 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,452 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,452 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,452 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,452 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,452 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,452 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,452 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,453 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,453 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,453 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,453 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,453 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,453 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'
+2025-07-29 20:47:42,453 - ERROR - Job opt_python_multi_20250730_154500 failed
+2025-07-29 20:47:42,453 - INFO - Processing job file: optimization_job_python_multi.json
+2025-07-29 20:47:42,453 - INFO - Starting optimization job opt_python_multi_20250730_154500
+2025-07-29 20:47:42,453 - ERROR - Failed to move job file /mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json to /mnt/optimizer_share/jobs/processing: [Errno 13] Permission denied: '/mnt/optimizer_share/jobs/queue/optimization_job_python_multi.json' -> '/mnt/optimizer_share/jobs/processing/optimization_job_python_multi.json'

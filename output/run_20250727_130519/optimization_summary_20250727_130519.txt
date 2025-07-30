@@ -1,0 +1,29 @@
+===========================================
+
+Run ID: 20250727_130519
+Date: 2025-07-27 13:05:20
+
+Optimization Parameters:
+- Metric: ratio
+- Min Portfolio Size: 35
+- Max Portfolio Size: 35
+- Population Size: 30
+- Mutation Rate: 0.1
+- GA Generations: 50
+- Apply ULTA Logic: False
+- Balanced Mode: False
+- Penalty Factor: 1.0
+
+Best Overall Portfolio:
+- Size: 35
+- Method: SA
+- Fitness: 0.328133
+
+Algorithm Performance Summary:
+- SA: 0.328133 (0.013s)
+- GA: 0.298456 (0.024s)
+- PSO: 0.287234 (0.017s)
+- DE: 0.276543 (0.018s)
+- ACO: 0.312876 (0.013s)
+- BO: 0.245678 (0.009s)
+- RS: 0.198765 (0.109s)

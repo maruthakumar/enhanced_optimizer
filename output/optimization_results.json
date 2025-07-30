@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-07-24T17:31:09.037951",
+  "dataset": "test_portfolio_data.csv",
+  "portfolio_size": 5,
+  "optimization_metric": "ratio",
+  "algorithms_executed": 3,
+  "best_algorithm": "differential_evolution",
+  "best_fitness": 11860.000000000002,
+  "execution_time": 0.2658865451812744,
+  "selected_portfolio": [
+    9,
+    5,
+    5,
+    1,
+    7
+  ]
+}

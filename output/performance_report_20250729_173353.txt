@@ -1,0 +1,111 @@
+================================================================================
+HEAVY OPTIMIZER - COMPREHENSIVE PERFORMANCE REPORT
+================================================================================
+
+EXECUTION SUMMARY
+----------------------------------------
+Execution Time: 0.67 seconds
+Algorithms Executed: 8
+Success Rate: 100.0%
+Best Algorithm: hill_climbing
+Best Fitness: 0.275245
+
+GPU UTILIZATION
+----------------------------------------
+GPU Model: Unknown
+Initial Memory: 0 MB
+Final Memory: 0 MB
+Memory Increase: 0 MB
+Temperature: 0°C
+
+INDIVIDUAL ALGORITHM RESULTS
+----------------------------------------
+
+GENETIC_ALGORITHM
+  Status: SUCCESS
+  Execution Time: 0.043s
+  Best Fitness: 0.123673
+  Portfolio Size: 35
+  Total Return: 185146.843990
+  Volatility: 18256.971164
+  Sharpe Ratio: 0.123673
+
+PARTICLE_SWARM_OPTIMIZATION
+  Status: SUCCESS
+  Execution Time: 0.032s
+  Best Fitness: 0.108122
+  Portfolio Size: 35
+  Total Return: 281322.772620
+  Volatility: 31730.644201
+  Sharpe Ratio: 0.108122
+
+SIMULATED_ANNEALING
+  Status: SUCCESS
+  Execution Time: 0.014s
+  Best Fitness: 0.118601
+  Portfolio Size: 35
+  Total Return: 209265.905600
+  Volatility: 21517.731954
+  Sharpe Ratio: 0.118601
+
+DIFFERENTIAL_EVOLUTION
+  Status: SUCCESS
+  Execution Time: 0.033s
+  Best Fitness: 0.115583
+  Portfolio Size: 35
+  Total Return: 240717.897940
+  Volatility: 25397.985859
+  Sharpe Ratio: 0.115583
+
+ANT_COLONY_OPTIMIZATION
+  Status: SUCCESS
+  Execution Time: 0.025s
+  Best Fitness: 0.099266
+  Portfolio Size: 35
+  Total Return: 240491.643970
+  Volatility: 29545.098294
+  Sharpe Ratio: 0.099266
+
+HILL_CLIMBING
+  Status: SUCCESS
+  Execution Time: 0.299s
+  Best Fitness: 0.275245
+  Portfolio Size: 35
+  Total Return: 538363.180800
+  Volatility: 23852.937926
+  Sharpe Ratio: 0.275245
+
+BAYESIAN_OPTIMIZATION
+  Status: SUCCESS
+  Execution Time: 0.017s
+  Best Fitness: 0.077275
+  Portfolio Size: 35
+  Total Return: 122506.201920
+  Volatility: 19333.231494
+  Sharpe Ratio: 0.077275
+
+RANDOM_SEARCH
+  Status: SUCCESS
+  Execution Time: 0.208s
+  Best Fitness: 0.159810
+  Portfolio Size: 35
+  Total Return: 461228.690730
+  Volatility: 35196.329465
+  Sharpe Ratio: 0.159810
+
+BEST PORTFOLIO ANALYSIS
+----------------------------------------
+Algorithm: hill_climbing
+Portfolio Size: 35
+Selected Strategies:
+   1. SENSEX 1256-1326 SL58%TP52%
+   2. SENSEX 1426-1456 SL43%TP22%
+   3. SENSEX 1012-1212 SL147%
+   4. SENSEX 920-1020 SL59%
+   5. SENSEX 1102-1302 SL19%
+   6. SENSEX 1004-1304 SL21%
+   7. SENSEX 1410-1510 SL63%TP47%
+   8. SENSEX 944-1244 SL78%TP37%
+   9. SENSEX 1022-1222 SL58%TP62%
+  10. SENSEX 1340-1440 SL33%TP62%
+  ... and 25 more strategies

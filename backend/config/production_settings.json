@@ -1,0 +1,36 @@
+{
+  "system_name": "Enhanced HeavyDB Multi-Algorithm Portfolio Optimization System",
+  "version": "2.0.0-production",
+  "deployment_date": "2025-07-24T11:53:54.215050",
+  "environment": "production",
+  "optimization_settings": {
+    "default_connection_pool_size": 3,
+    "default_portfolio_size": 20,
+    "default_optimization_metric": "ratio",
+    "default_generations": 50,
+    "default_iterations": 50,
+    "enable_parallel_execution": true,
+    "enable_fitness_caching": true,
+    "deterministic_seed": 42
+  },
+  "performance_settings": {
+    "max_memory_usage_mb": 200,
+    "execution_timeout_seconds": 300,
+    "consistency_target_cv": 0.1,
+    "speedup_target": 1.04,
+    "enable_performance_monitoring": true
+  },
+  "logging_settings": {
+    "log_level": "INFO",
+    "log_file": "logs/optimizer.log",
+    "enable_algorithm_logging": true,
+    "enable_performance_logging": true,
+    "log_rotation_size_mb": 10
+  },
+  "monitoring_settings": {
+    "enable_fitness_tracking": true,
+    "enable_execution_time_tracking": true,
+    "enable_algorithm_success_tracking": true,
+    "monitoring_interval_seconds": 60
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "job_id": "opt_python_multi_20250730_154500",
+  "input_file": "Python_Multi_Consolidated_20250726_161921.csv",
+  "portfolio_size": 35,
+  "job_type": "complete_optimization",
+  "timestamp": "2025-07-30 15:45:00",
+  "client_info": {
+    "computer_name": "DESKTOP-MARUTH",
+    "username": "maruth",
+    "drive_letter": "Z:"
+  },
+  "execution_mode": "server_side_heavydb",
+  "input_format": "csv_only"
+}

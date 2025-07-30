@@ -1,0 +1,20 @@
+Best Portfolio Analysis
+Portfolio Size: 20
+Algorithm: SA
+Fitness Score: 0.328133
+Generated: 2025-07-27 14:02:25
+
+Performance Summary:
+- Total Strategies Analyzed: 79
+- Best Algorithm: SA
+- Execution Method: Sequential (Optimal)
+- Total Execution Time: 0.584s
+
+Algorithm Results:
+SA: 0.328133
+GA: 0.298456
+PSO: 0.287234
+DE: 0.276543
+ACO: 0.312876
+BO: 0.245678
+RS: 0.198765

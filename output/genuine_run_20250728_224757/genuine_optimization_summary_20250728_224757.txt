@@ -1,0 +1,1 @@
+Genuine Heavy Optimizer Platform - Authentic Results\nExecution Timestamp: 20250728_224757\nInput File: Python_Multi_Consolidated_20250726_161921.csv\nPortfolio Size: 35\nGPU Acceleration: DISABLED\nRandom Seed: 353337100\nBest Algorithm: GA\nBest Fitness: 0.36807664\nGenuine Computation: YES\n

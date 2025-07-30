@@ -1,0 +1,10 @@
+Heavy Optimizer Platform - CSV-Only HeavyDB Accelerated Results
+Execution Timestamp: 20250728_220109
+Input File: Python_Multi_Consolidated_20250726_161921.csv
+Input Format: CSV (Excel support removed)
+Portfolio Size: 50
+HeavyDB Acceleration: ENABLED
+Best Algorithm: SA
+Best Fitness: 0.344540
+Server-side Execution: YES
+Samba File I/O: YES

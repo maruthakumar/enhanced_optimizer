@@ -1,0 +1,24 @@
+Best Portfolio Details for Size 35
+Timestamp: July 28, 2025 21:00:00
+
+Strategies included:
+- Strategy3 (15.3% return)
+- Strategy7 (14.1% return)
+- Strategy5 (13.7% return)
+- Strategy9 (13.0% return)
+- Strategy1 (12.5% return)
+
+Combined Portfolio Performance:
+- Overall Return: 13.72%
+- Maximum Drawdown: 3.2%
+- Sharpe Ratio: 2.1
+- Sortino Ratio: 2.4
+- Calmar Ratio: 4.3
+- CAGR: 12.9%
+- Win Rate: 0.67
+
+Optimization Parameters:
+- Algorithm: SA (Simulated Annealing)
+- Execution Time: 0.013s
+- Portfolio Size: 35 strategies
+- Confidence Level: 95%

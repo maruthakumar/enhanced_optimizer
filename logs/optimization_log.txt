@@ -1,0 +1,8 @@
+Optimization Log - 2025-07-24T17:31:09.038183
+Dataset: test_portfolio_data.csv
+Portfolio Size: 5
+Metric: ratio
+Algorithms: genetic_algorithm, particle_swarm_optimization, differential_evolution
+Status: Success
+Execution Time: 0.27s
+Best Fitness: 11860.000000

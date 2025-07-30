@@ -1,0 +1,18 @@
+Optimization completed successfully on July 28, 2025 21:00:00
+Portfolio Size: 35
+Input File: SENSEX_test_dataset.xlsx
+Processing Time: Excel format (7.2s)
+Algorithm Performance: SA (best), GA, PSO, DE, ACO, BO, RS
+Output Location: /mnt/optimizer_share/output/run_20250728_210000/
+
+Algorithm Execution Summary:
+- SA (Simulated Annealing): 0.013s - Best overall performance
+- GA (Genetic Algorithm): 0.024s - Comprehensive search
+- PSO (Particle Swarm Optimization): 0.017s - Swarm intelligence
+- DE (Differential Evolution): 0.018s - Evolutionary approach
+- ACO (Ant Colony Optimization): 0.013s - Nature-inspired
+- BO (Bayesian Optimization): 0.009s - Fastest individual
+- RS (Random Search): 0.109s - Baseline comparison
+
+Total Algorithm Time: 0.203s
+Total Execution Time: 7.2s

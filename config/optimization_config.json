@@ -1,0 +1,11 @@
+{
+  "portfolio_size": 5,
+  "optimization_metric": "ratio",
+  "algorithms": [
+    "genetic_algorithm",
+    "particle_swarm_optimization",
+    "differential_evolution"
+  ],
+  "generations": 20,
+  "connection_pool_size": 3
+}

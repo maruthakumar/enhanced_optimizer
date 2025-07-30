@@ -1,0 +1,595 @@
+{
+  "job_id": "CORRECTED_ALGORITHM_VALIDATION_TEST_001",
+  "status": "completed",
+  "input_file": "SENSEX_test_dataset.xlsx",
+  "execution_time": 12.93,
+  "timestamp": "2025-07-23T20:31:11.782004",
+  "data_analysis": {
+    "total_rows": 79,
+    "original_strategies": 10764,
+    "final_strategies": 10764,
+    "file_size_mb": 5.17
+  },
+  "ulta_summary": {
+    "enabled": true,
+    "strategies_inverted": 5228,
+    "detailed_report_file": "CORRECTED_ALGORITHM_VALIDATION_TEST_001_inversion_report.md"
+  },
+  "optimization_results": {
+    "best_algorithm": "particle_swarm_optimization",
+    "best_solution": [
+      9211,
+      4425,
+      1714,
+      8050,
+      10727,
+      5184,
+      3550,
+      10662,
+      6846,
+      4076,
+      1245,
+      61,
+      6050,
+      3822,
+      3408,
+      4055,
+      3529,
+      3387,
+      1781,
+      863
+    ],
+    "best_fitness": 22.484728641570303,
+    "total_execution_time": 0.060591697692871094,
+    "algorithms_executed": 2,
+    "algorithm_results": {
+      "genetic_algorithm": {
+        "fitness": 12.503382302428413,
+        "execution_time": 0.021801233291625977,
+        "iterations_completed": 2,
+        "convergence_achieved": true,
+        "fitness_history": [
+          11.080353298697666,
+          12.503382302428413
+        ]
+      },
+      "particle_swarm_optimization": {
+        "fitness": 22.484728641570303,
+        "execution_time": 0.05693316459655762,
+        "iterations_completed": 15,
+        "convergence_achieved": true,
+        "fitness_history": [
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303,
+          22.484728641570303
+        ]
+      }
+    },
+    "parallel_execution": true,
+    "connection_pool_size": 3,
+    "optimization_metric": "ratio",
+    "multi_objective_weights": null
+  },
+  "portfolio_recommendation": {
+    "portfolio_summary": {
+      "total_strategies": 20,
+      "selection_method": "enhanced_ranking_with_ulta",
+      "fitness_score": 36.206842,
+      "optimization_metric": "ratio",
+      "ulta_enhanced": true,
+      "ulta_strategies_inverted": 5228,
+      "ulta_report_file": "CORRECTED_ALGORITHM_VALIDATION_TEST_001_inversion_report.md"
+    },
+    "selected_strategies": {
+      "strategy_names": [
+        "SHORTSTRADDLE ATM 1158-1205 SL28%_inv",
+        "SENATM1DTE 1158-1205 SL28%TP2X28%_inv",
+        "SENSEX 1158-1205 SL27%TP90%_inv",
+        "SENSEX 1158-1205 SL27%TP63%_inv",
+        "SENSEX 1158-1205 SL27%TP72%_inv",
+        "SENSEX 1158-1205 SL27%TP81%_inv",
+        "SENSEX 1158-1205 SL27%TP54%_inv",
+        "SENSEX 1158-1205 SL27%TP36%_inv",
+        "SENSEX 1158-1205 SL27%TP45%_inv",
+        "SHORTSTRADDLE ATM 1158-1205 SL28%TP28%_inv",
+        "SENSEX 1158-1205 SL27%TP27%_inv",
+        "SENSEX 1338-1408 SL27%TP9%_inv",
+        "SENATM1DTE 1048-1205 SL7%TP2X7%_inv",
+        "SENSEX 926-1026 SL36%TP9%_inv",
+        "SENATM1DTE 1016-1117 SL2X7%TP7%_inv",
+        "SENSEX 956-1057 SL45%TP9%_inv",
+        "SENSEX 1306-1406 SL90%TP9%_inv",
+        "SHORTSTRADDLE ATM 1238-1408 SL7%",
+        "SENSEX 1316-1416 SL81%TP9%_inv",
+        "SENSEX 1157-1256 SL54%TP9%_inv"
+      ],
+      "strategy_indices": [
+        5993,
+        6994,
+        9545,
+        9563,
+        9565,
+        9567,
+        9571,
+        9578,
+        9580,
+        6340,
+        9576,
+        9830,
+        7189,
+        8905,
+        10672,
+        8723,
+        10362,
+        2141,
+        5708,
+        8153
+      ],
+      "strategy_weights": {
+        "SHORTSTRADDLE ATM 1158-1205 SL28%_inv": 0.05,
+        "SENATM1DTE 1158-1205 SL28%TP2X28%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP90%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP63%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP72%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP81%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP54%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP36%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP45%_inv": 0.05,
+        "SHORTSTRADDLE ATM 1158-1205 SL28%TP28%_inv": 0.05,
+        "SENSEX 1158-1205 SL27%TP27%_inv": 0.05,
+        "SENSEX 1338-1408 SL27%TP9%_inv": 0.05,
+        "SENATM1DTE 1048-1205 SL7%TP2X7%_inv": 0.05,
+        "SENSEX 926-1026 SL36%TP9%_inv": 0.05,
+        "SENATM1DTE 1016-1117 SL2X7%TP7%_inv": 0.05,
+        "SENSEX 956-1057 SL45%TP9%_inv": 0.05,
+        "SENSEX 1306-1406 SL90%TP9%_inv": 0.05,
+        "SHORTSTRADDLE ATM 1238-1408 SL7%": 0.05,
+        "SENSEX 1316-1416 SL81%TP9%_inv": 0.05,
+        "SENSEX 1157-1256 SL54%TP9%_inv": 0.05
+      }
+    },
+    "performance_metrics": {
+      "total_roi": 16323.6,
+      "max_drawdown": 450.84,
+      "win_percentage": 68.35,
+      "profit_factor": 6.47,
+      "sharpe_ratio": 0.5956,
+      "volatility": 346.91,
+      "total_trades": 79,
+      "winning_trades": 54,
+      "losing_trades": 25,
+      "ratio": 36.2068
+    },
+    "equity_curve": {
+      "data_points": 79,
+      "start_date": "2023-01-01",
+      "end_date": "2023-03-20",
+      "daily_data": [
+        {
+          "date": "2023-01-01",
+          "daily_return": 116.66,
+          "cumulative_return": 116.66
+        },
+        {
+          "date": "2023-01-02",
+          "daily_return": -8.95,
+          "cumulative_return": 107.71
+        },
+        {
+          "date": "2023-01-03",
+          "daily_return": 280.59,
+          "cumulative_return": 388.29
+        },
+        {
+          "date": "2023-01-04",
+          "daily_return": 802.4,
+          "cumulative_return": 1190.69
+        },
+        {
+          "date": "2023-01-05",
+          "daily_return": 386.18,
+          "cumulative_return": 1576.87
+        },
+        {
+          "date": "2023-01-06",
+          "daily_return": 157.28,
+          "cumulative_return": 1734.16
+        },
+        {
+          "date": "2023-01-07",
+          "daily_return": 475.63,
+          "cumulative_return": 2209.79
+        },
+        {
+          "date": "2023-01-08",
+          "daily_return": 213.88,
+          "cumulative_return": 2423.67
+        },
+        {
+          "date": "2023-01-09",
+          "daily_return": 59.99,
+          "cumulative_return": 2483.65
+        },
+        {
+          "date": "2023-01-10",
+          "daily_return": 101.51,
+          "cumulative_return": 2585.16
+        },
+        {
+          "date": "2023-01-11",
+          "daily_return": 243.83,
+          "cumulative_return": 2828.99
+        },
+        {
+          "date": "2023-01-12",
+          "daily_return": 339.32,
+          "cumulative_return": 3168.31
+        },
+        {
+          "date": "2023-01-13",
+          "daily_return": -62.59,
+          "cumulative_return": 3105.72
+        },
+        {
+          "date": "2023-01-14",
+          "daily_return": 527.71,
+          "cumulative_return": 3633.44
+        },
+        {
+          "date": "2023-01-15",
+          "daily_return": -111.58,
+          "cumulative_return": 3521.86
+        },
+        {
+          "date": "2023-01-16",
+          "daily_return": 789.72,
+          "cumulative_return": 4311.58
+        },
+        {
+          "date": "2023-01-17",
+          "daily_return": 109.8,
+          "cumulative_return": 4421.38
+        },
+        {
+          "date": "2023-01-18",
+          "daily_return": -238.02,
+          "cumulative_return": 4183.36
+        },
+        {
+          "date": "2023-01-19",
+          "daily_return": 109.2,
+          "cumulative_return": 4292.56
+        },
+        {
+          "date": "2023-01-20",
+          "daily_return": 118.32,
+          "cumulative_return": 4410.88
+        },
+        {
+          "date": "2023-01-21",
+          "daily_return": 271.42,
+          "cumulative_return": 4682.3
+        },
+        {
+          "date": "2023-01-22",
+          "daily_return": 34.92,
+          "cumulative_return": 4717.22
+        },
+        {
+          "date": "2023-01-23",
+          "daily_return": 830.38,
+          "cumulative_return": 5547.6
+        },
+        {
+          "date": "2023-01-24",
+          "daily_return": -127.75,
+          "cumulative_return": 5419.84
+        },
+        {
+          "date": "2023-01-25",
+          "daily_return": -21.76,
+          "cumulative_return": 5398.08
+        },
+        {
+          "date": "2023-01-26",
+          "daily_return": -39.14,
+          "cumulative_return": 5358.95
+        },
+        {
+          "date": "2023-01-27",
+          "daily_return": -152.15,
+          "cumulative_return": 5206.79
+        },
+        {
+          "date": "2023-01-28",
+          "daily_return": 90.65,
+          "cumulative_return": 5297.45
+        },
+        {
+          "date": "2023-01-29",
+          "daily_return": 663.06,
+          "cumulative_return": 5960.51
+        },
+        {
+          "date": "2023-01-30",
+          "daily_return": -182.08,
+          "cumulative_return": 5778.43
+        },
+        {
+          "date": "2023-01-31",
+          "daily_return": -183.43,
+          "cumulative_return": 5594.99
+        },
+        {
+          "date": "2023-02-01",
+          "daily_return": 535.56,
+          "cumulative_return": 6130.56
+        },
+        {
+          "date": "2023-02-02",
+          "daily_return": -226.9,
+          "cumulative_return": 5903.66
+        },
+        {
+          "date": "2023-02-03",
+          "daily_return": -84.91,
+          "cumulative_return": 5818.74
+        },
+        {
+          "date": "2023-02-04",
+          "daily_return": 377.77,
+          "cumulative_return": 6196.51
+        },
+        {
+          "date": "2023-02-05",
+          "daily_return": 142.42,
+          "cumulative_return": 6338.93
+        },
+        {
+          "date": "2023-02-06",
+          "daily_return": 65.89,
+          "cumulative_return": 6404.82
+        },
+        {
+          "date": "2023-02-07",
+          "daily_return": -219.66,
+          "cumulative_return": 6185.16
+        },
+        {
+          "date": "2023-02-08",
+          "daily_return": -18.68,
+          "cumulative_return": 6166.48
+        },
+        {
+          "date": "2023-02-09",
+          "daily_return": 788.38,
+          "cumulative_return": 6954.87
+        },
+        {
+          "date": "2023-02-10",
+          "daily_return": 217.18,
+          "cumulative_return": 7172.05
+        },
+        {
+          "date": "2023-02-11",
+          "daily_return": 76.73,
+          "cumulative_return": 7248.78
+        },
+        {
+          "date": "2023-02-12",
+          "daily_return": -39.76,
+          "cumulative_return": 7209.02
+        },
+        {
+          "date": "2023-02-13",
+          "daily_return": -17.43,
+          "cumulative_return": 7191.58
+        },
+        {
+          "date": "2023-02-14",
+          "daily_return": 128.85,
+          "cumulative_return": 7320.44
+        },
+        {
+          "date": "2023-02-15",
+          "daily_return": -200.56,
+          "cumulative_return": 7119.88
+        },
+        {
+          "date": "2023-02-16",
+          "daily_return": 64.03,
+          "cumulative_return": 7183.91
+        },
+        {
+          "date": "2023-02-17",
+          "daily_return": 146.03,
+          "cumulative_return": 7329.94
+        },
+        {
+          "date": "2023-02-18",
+          "daily_return": 1485.3,
+          "cumulative_return": 8815.24
+        },
+        {
+          "date": "2023-02-19",
+          "daily_return": 260.02,
+          "cumulative_return": 9075.26
+        },
+        {
+          "date": "2023-02-20",
+          "daily_return": -127.23,
+          "cumulative_return": 8948.03
+        },
+        {
+          "date": "2023-02-21",
+          "daily_return": 575.41,
+          "cumulative_return": 9523.44
+        },
+        {
+          "date": "2023-02-22",
+          "daily_return": 268.2,
+          "cumulative_return": 9791.63
+        },
+        {
+          "date": "2023-02-23",
+          "daily_return": 385.14,
+          "cumulative_return": 10176.77
+        },
+        {
+          "date": "2023-02-24",
+          "daily_return": -42.84,
+          "cumulative_return": 10133.93
+        },
+        {
+          "date": "2023-02-25",
+          "daily_return": -137.23,
+          "cumulative_return": 9996.7
+        },
+        {
+          "date": "2023-02-26",
+          "daily_return": 308.87,
+          "cumulative_return": 10305.57
+        },
+        {
+          "date": "2023-02-27",
+          "daily_return": 178.73,
+          "cumulative_return": 10484.3
+        },
+        {
+          "date": "2023-02-28",
+          "daily_return": 699.0,
+          "cumulative_return": 11183.3
+        },
+        {
+          "date": "2023-03-01",
+          "daily_return": 970.69,
+          "cumulative_return": 12153.99
+        },
+        {
+          "date": "2023-03-02",
+          "daily_return": -131.81,
+          "cumulative_return": 12022.18
+        },
+        {
+          "date": "2023-03-03",
+          "daily_return": -19.13,
+          "cumulative_return": 12003.05
+        },
+        {
+          "date": "2023-03-04",
+          "daily_return": 318.03,
+          "cumulative_return": 12321.08
+        },
+        {
+          "date": "2023-03-05",
+          "daily_return": 34.18,
+          "cumulative_return": 12355.27
+        },
+        {
+          "date": "2023-03-06",
+          "daily_return": -62.66,
+          "cumulative_return": 12292.61
+        },
+        {
+          "date": "2023-03-07",
+          "daily_return": 92.86,
+          "cumulative_return": 12385.47
+        },
+        {
+          "date": "2023-03-08",
+          "daily_return": 1026.26,
+          "cumulative_return": 13411.74
+        },
+        {
+          "date": "2023-03-09",
+          "daily_return": 942.22,
+          "cumulative_return": 14353.96
+        },
+        {
+          "date": "2023-03-10",
+          "daily_return": 40.51,
+          "cumulative_return": 14394.47
+        },
+        {
+          "date": "2023-03-11",
+          "daily_return": 250.34,
+          "cumulative_return": 14644.8
+        },
+        {
+          "date": "2023-03-12",
+          "daily_return": -450.84,
+          "cumulative_return": 14193.96
+        },
+        {
+          "date": "2023-03-13",
+          "daily_return": 575.83,
+          "cumulative_return": 14769.8
+        },
+        {
+          "date": "2023-03-14",
+          "daily_return": 435.27,
+          "cumulative_return": 15205.06
+        },
+        {
+          "date": "2023-03-15",
+          "daily_return": 93.16,
+          "cumulative_return": 15298.22
+        },
+        {
+          "date": "2023-03-16",
+          "daily_return": 306.58,
+          "cumulative_return": 15604.8
+        },
+        {
+          "date": "2023-03-17",
+          "daily_return": -77.09,
+          "cumulative_return": 15527.71
+        },
+        {
+          "date": "2023-03-18",
+          "daily_return": 74.77,
+          "cumulative_return": 15602.48
+        },
+        {
+          "date": "2023-03-19",
+          "daily_return": 676.4,
+          "cumulative_return": 16278.87
+        },
+        {
+          "date": "2023-03-20",
+          "daily_return": 44.72,
+          "cumulative_return": 16323.6
+        }
+      ]
+    },
+    "investment_recommendation": {
+      "recommendation": "STRONG BUY - Excellent risk-adjusted returns with good consistency",
+      "risk_level": "HIGH",
+      "suitability": "Conservative and Aggressive Investors"
+    },
+    "data_references": {
+      "ulta_detailed_analysis": "CORRECTED_ALGORITHM_VALIDATION_TEST_001_inversion_report.md",
+      "note": "Detailed ULTA inversion metadata available in separate report file"
+    }
+  },
+  "system_info": {
+    "processor_version": "corrected_v5.0",
+    "algorithms_fixed": true,
+    "threading_bug_resolved": true,
+    "ulta_enabled": true,
+    "streamlined_results": true,
+    "note": "Corrected processor with fixed algorithm execution"
+  }
+}

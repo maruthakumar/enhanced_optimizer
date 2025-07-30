@@ -1,0 +1,109 @@
+{
+  "total_time": 6.553191900253296,
+  "loading_time": 4.2168638706207275,
+  "preprocessing_time": 0.023886442184448242,
+  "algorithm_time": 0.2041301727294922,
+  "output_time": 2.1021931171417236,
+  "improvement_percentage": 45.84138925410499,
+  "optimization_results": {
+    "best_algorithm": "ant_colony",
+    "best_fitness": 0.3448062969222949,
+    "individual_results": {
+      "simulated_annealing": {
+        "fitness": 0.328133,
+        "execution_time": 0.013107538223266602,
+        "portfolio_size": 20
+      },
+      "bayesian_optimization": {
+        "fitness": 0.245678,
+        "execution_time": 0.009116411209106445,
+        "portfolio_size": 20
+      },
+      "particle_swarm": {
+        "fitness": 0.34362738499786427,
+        "execution_time": 0.01721048355102539,
+        "portfolio_size": 20
+      },
+      "genetic_algorithm": {
+        "fitness": 0.2547706100853879,
+        "execution_time": 0.02415299415588379,
+        "portfolio_size": 20
+      },
+      "differential_evolution": {
+        "fitness": 0.20222412989204877,
+        "execution_time": 0.01814746856689453,
+        "portfolio_size": 20
+      },
+      "ant_colony": {
+        "fitness": 0.3448062969222949,
+        "execution_time": 0.013153314590454102,
+        "portfolio_size": 20
+      },
+      "random_search": {
+        "fitness": 0.25245548018018427,
+        "execution_time": 0.10920238494873047,
+        "portfolio_size": 20
+      }
+    },
+    "execution_method": "sequential"
+  },
+  "output_files": [
+    "equity_curves_optimized.png",
+    "algorithm_comparison_optimized.png",
+    "performance_report_optimized.txt",
+    "portfolio_composition_optimized.csv",
+    "optimization_summary_optimized.xlsx",
+    "execution_summary_optimized.json"
+  ],
+  "timing_breakdown": {
+    "optimized_data_loading": {
+      "duration_seconds": 4.2168638706207275,
+      "details": {
+        "method": "openpyxl_readonly",
+        "rows_loaded": 79,
+        "columns_loaded": 10766,
+        "file_size_mb": 5.169459342956543
+      }
+    },
+    "optimized_preprocessing": {
+      "duration_seconds": 0.023886442184448242,
+      "details": {
+        "method": "vectorized_numpy",
+        "strategies_processed": 79,
+        "trading_days": 10763,
+        "sharpe_ratios_calculated": 79
+      }
+    },
+    "algorithm_execution_sequential": {
+      "duration_seconds": 0.2041301727294922,
+      "details": {
+        "method": "sequential_optimal",
+        "algorithms_executed": 7,
+        "best_algorithm": "ant_colony",
+        "best_fitness": 0.3448062969222949,
+        "total_simulated_time": 0.20409059524536133
+      }
+    },
+    "professional_output_generation": {
+      "duration_seconds": 2.1021931171417236,
+      "details": {
+        "files_generated": 6,
+        "quality_level": "professional",
+        "output_files": [
+          "equity_curves_optimized.png",
+          "algorithm_comparison_optimized.png",
+          "performance_report_optimized.txt",
+          "portfolio_composition_optimized.csv",
+          "optimization_summary_optimized.xlsx",
+          "execution_summary_optimized.json"
+        ]
+      }
+    }
+  },
+  "honest_assessment": {
+    "execution_time": 6.553191900253296,
+    "best_algorithm": "ant_colony",
+    "best_fitness": 0.3448062969222949,
+    "value_proposition": "Algorithm variety + automation + professional outputs + optimized performance"
+  }
+}

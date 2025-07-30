@@ -1,0 +1,16 @@
+2025-07-26 15:58:04,967 - INFO - ==================================================
+2025-07-26 15:58:04,967 - INFO - Strategy Consolidator Starting
+2025-07-26 15:58:04,968 - INFO - Log file: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\log\consolidator_log_20250726_155804.txt
+2025-07-26 15:58:04,969 - INFO - Input directory: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input
+2025-07-26 15:58:04,970 - INFO - Output directory: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Output
+2025-07-26 15:58:04,971 - INFO - ==================================================
+2025-07-26 15:58:04,975 - INFO - Running Backinzo Multi-File Processor...
+2025-07-26 15:58:04,978 - WARNING - No CSV files found in C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input\Backinzo_Multi_Files.
+2025-07-26 15:58:04,979 - INFO - Running TradingView Zone Processor...
+2025-07-26 15:58:04,982 - WARNING - No TradingView Zone files found in C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input\TV_Zone_Files.
+2025-07-26 15:58:04,983 - INFO - Running Python Multi-Zone Processor...
+2025-07-26 15:58:04,986 - WARNING - No Excel files found in C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input\Python_Multi_Zone_Files.
+solidated Excel Processor...
+2025-07-26 15:58:04,975 - WARNING - No Consolidated Excel files found in C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input\Consolidated_Files.
+2025-07-26 15:58:04,976 - INFO - Running Python Multi-File Processor...
+2025-07-26 16:19:25,893 - INFO - Python_Multi_Consolidated consolidated file saved at C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Output\Optimize\Python_Multi_Consolidated_20250726_161921.csv

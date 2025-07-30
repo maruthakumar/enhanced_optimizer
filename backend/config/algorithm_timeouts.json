@@ -1,0 +1,15 @@
+{
+  "algorithm_timeouts": {
+    "genetic_algorithm": 60,
+    "particle_swarm_optimization": 60,
+    "simulated_annealing": 120,
+    "differential_evolution": 60,
+    "ant_colony_optimization": 600,
+    "hill_climbing": 60,
+    "bayesian_optimization": 60
+  },
+  "parallel_execution_timeout": 900,
+  "aco_separate_processing": true,
+  "aco_background_queue": true,
+  "timeout_strategy": "skip_and_continue"
+}

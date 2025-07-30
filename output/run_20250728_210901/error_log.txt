@@ -1,0 +1,6 @@
+Heavy Optimizer Platform - CSV-Only Execution Log
+Timestamp: 20250728_210901
+Status: SUCCESS
+HeavyDB Acceleration: INACTIVE
+Input Format: CSV-only processing
+Execution Mode: Server-side with Samba I/O

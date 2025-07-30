@@ -1,0 +1,9 @@
+2025-07-26 15:44:07,876 - INFO - ==================================================
+2025-07-26 15:44:07,876 - INFO - Strategy Consolidator Starting
+2025-07-26 15:44:07,878 - INFO - Log file: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\log\consolidator_log_20250726_154407.txt
+2025-07-26 15:44:07,879 - INFO - Input directory: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input
+2025-07-26 15:44:07,881 - INFO - Output directory: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Output
+2025-07-26 15:44:07,882 - INFO - ==================================================
+2025-07-26 15:44:07,883 - INFO - Running all processors...
+2025-07-26 15:45:48,734 - INFO - Consolidation complete. Output files:
+2025-07-26 15:45:48,735 - INFO -  - C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Output\Optimize\Python_Multi_Consolidated_20250726_154548.xlsx

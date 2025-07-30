@@ -1,0 +1,80 @@
+{
+  "data_loading": {
+    "status": "SUCCESS",
+    "raw_shape": [
+      82,
+      25546
+    ],
+    "processed_shape": [
+      82,
+      25544
+    ],
+    "strategies_count": 25544,
+    "days_count": 82
+  },
+  "data_validation": {
+    "status": "SUCCESS",
+    "zero_variance": 0,
+    "negative_only": 0,
+    "positive_only": 0,
+    "mixed_strategies": 25544
+  },
+  "algorithm_execution": {
+    "status": "SUCCESS",
+    "algorithms_tested": 8,
+    "algorithm_results": {
+      "GA": {
+        "fitness": 1.7513899057459446,
+        "execution_time": 0.007779598236083984,
+        "iterations": 20
+      },
+      "PSO": {
+        "fitness": 0.7731850273307992,
+        "execution_time": 0.007405757904052734,
+        "iterations": 20
+      },
+      "SA": {
+        "fitness": 0.9932012017028351,
+        "execution_time": 0.007544994354248047,
+        "iterations": 20
+      },
+      "DE": {
+        "fitness": 0.51687318627963,
+        "execution_time": 0.007606983184814453,
+        "iterations": 20
+      },
+      "ACO": {
+        "fitness": 0.7648360023461153,
+        "execution_time": 0.007452487945556641,
+        "iterations": 20
+      },
+      "HC": {
+        "fitness": 0.33858687934600973,
+        "execution_time": 0.007447242736816406,
+        "iterations": 20
+      },
+      "BO": {
+        "fitness": 0.9621696985692857,
+        "execution_time": 0.007522106170654297,
+        "iterations": 20
+      },
+      "RS": {
+        "fitness": 1.051462202694477,
+        "execution_time": 0.007721900939941406,
+        "iterations": 20
+      }
+    }
+  },
+  "financial_metrics": {
+    "status": "SUCCESS",
+    "metrics_tested": 6,
+    "metric_results": {
+      "ratio": 0.27760280537145704,
+      "roi": 57325.983740003925,
+      "less_max_dd": -206503.61822999845,
+      "win_rate": 0.5609756097560976,
+      "profit_factor": 1.082620730158709,
+      "max_drawdown": 206503.61822999845
+    }
+  }
+}

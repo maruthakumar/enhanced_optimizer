@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "message": "[Errno 21] Is a directory: '/mnt/optimizer_share/input'",
+  "timestamp": "2025-07-24T16:22:18.145277",
+  "processor_version": "corrected_v5.0"
+}

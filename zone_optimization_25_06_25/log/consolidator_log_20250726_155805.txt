@@ -1,0 +1,6 @@
+2025-07-26 15:58:05,871 - INFO - ==================================================
+2025-07-26 15:58:05,878 - INFO - Strategy Consolidator Starting
+2025-07-26 15:58:05,885 - INFO - Log file: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\log\consolidator_log_20250726_155805.txt
+2025-07-26 15:58:05,889 - INFO - Input directory: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Input
+2025-07-26 15:58:05,894 - INFO - Output directory: C:\Users\Blitz\Desktop\Zone Optimization_16Jul25 - Copy\Zone Optimization new\Output
+2025-07-26 15:58:05,899 - INFO - ==================================================

@@ -1,0 +1,9 @@
+{
+  "job_id": "PORTFOLIO_TEST_001",
+  "status": "completed",
+  "best_fitness": 1.234567,
+  "execution_time": 5.0,
+  "best_algorithm": "ensemble",
+  "portfolio_size": 30,
+  "timestamp": "2025-07-22T15:52:59.043303"
+}

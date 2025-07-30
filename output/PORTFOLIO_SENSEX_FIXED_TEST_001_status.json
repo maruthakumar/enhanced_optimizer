@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "message": "Object of type int64 is not JSON serializable",
+  "timestamp": "2025-07-23T16:38:59.508965",
+  "processor_version": "enhanced_v3.0_with_portfolio"
+}

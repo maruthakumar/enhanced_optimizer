@@ -1,0 +1,11 @@
+Rank,Strategy_Index,Strategy_Name,Algorithm,Weight
+1,1,Strategy_1,simulated_annealing,0.1
+2,5,Strategy_5,simulated_annealing,0.1
+3,10,Strategy_10,simulated_annealing,0.1
+4,15,Strategy_15,simulated_annealing,0.1
+5,20,Strategy_20,simulated_annealing,0.1
+6,25,Strategy_25,simulated_annealing,0.1
+7,30,Strategy_30,simulated_annealing,0.1
+8,35,Strategy_35,simulated_annealing,0.1
+9,40,Strategy_40,simulated_annealing,0.1
+10,45,Strategy_45,simulated_annealing,0.1

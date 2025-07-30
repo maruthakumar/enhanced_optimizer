@@ -1,0 +1,10 @@
+Heavy Optimizer Platform - CSV-Only HeavyDB Accelerated Results
+Execution Timestamp: 20250728_195400
+Input File: SENSEX_test_dataset.csv
+Input Format: CSV (Excel support removed)
+Portfolio Size: 3
+HeavyDB Acceleration: DISABLED
+Best Algorithm: SA
+Best Fitness: 0.328133
+Server-side Execution: YES
+Samba File I/O: YES

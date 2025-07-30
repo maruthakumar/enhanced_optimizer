@@ -1,0 +1,118 @@
+{
+  "total_time": 7.410699844360352,
+  "loading_time": 4.443775415420532,
+  "preprocessing_time": 0.05226707458496094,
+  "algorithm_time": 0.20389723777770996,
+  "output_time": 2.7040045261383057,
+  "improvement_percentage": 38.754546740823535,
+  "optimization_results": {
+    "best_algorithm": "SA",
+    "best_fitness": 0.328133,
+    "individual_results": {
+      "SA": {
+        "fitness": 0.328133,
+        "execution_time": 0.013091802597045898,
+        "portfolio_size": 20
+      },
+      "GA": {
+        "fitness": 0.298456,
+        "execution_time": 0.02408909797668457,
+        "portfolio_size": 20
+      },
+      "PSO": {
+        "fitness": 0.287234,
+        "execution_time": 0.01711130142211914,
+        "portfolio_size": 20
+      },
+      "DE": {
+        "fitness": 0.276543,
+        "execution_time": 0.0181272029876709,
+        "portfolio_size": 20
+      },
+      "ACO": {
+        "fitness": 0.312876,
+        "execution_time": 0.013125181198120117,
+        "portfolio_size": 20
+      },
+      "BO": {
+        "fitness": 0.245678,
+        "execution_time": 0.009126424789428711,
+        "portfolio_size": 20
+      },
+      "RS": {
+        "fitness": 0.198765,
+        "execution_time": 0.10918211936950684,
+        "portfolio_size": 20
+      }
+    },
+    "execution_method": "sequential",
+    "portfolio_size": 20
+  },
+  "output_files": [
+    "/mnt/optimizer_share/output/run_20250727_140122/optimization_summary_20250727_140122.txt",
+    "/mnt/optimizer_share/output/run_20250727_140122/strategy_metrics.csv",
+    "/mnt/optimizer_share/output/run_20250727_140122/error_log.txt",
+    "/mnt/optimizer_share/output/run_20250727_140122/drawdowns_Best_Portfolio_Size20_20250727_140127.png",
+    "/mnt/optimizer_share/output/run_20250727_140122/equity_curves_Best_Portfolio_Size20_20250727_140127.png",
+    "/mnt/optimizer_share/output/run_20250727_140122/Best_Portfolio_Size20_20250727_140127.txt"
+  ],
+  "run_directory": "/mnt/optimizer_share/output/run_20250727_140122",
+  "run_id": "20250727_140122",
+  "timing_breakdown": {
+    "output_directory_setup": {
+      "duration_seconds": 0.0001304149627685547,
+      "details": {
+        "run_id": "20250727_140122",
+        "run_dir": "/mnt/optimizer_share/output/run_20250727_140122",
+        "format": "reference_compatible"
+      }
+    },
+    "optimized_data_loading": {
+      "duration_seconds": 4.443775415420532,
+      "details": {
+        "method": "openpyxl_optimized",
+        "rows_loaded": 79,
+        "columns_loaded": 10766,
+        "file_size_mb": 5.169459342956543,
+        "file_format": "excel"
+      }
+    },
+    "optimized_preprocessing": {
+      "duration_seconds": 0.05226707458496094,
+      "details": {
+        "method": "vectorized_numpy_with_metrics",
+        "strategies_processed": 79,
+        "trading_days": 10763,
+        "metrics_calculated": "roi,drawdown,win_pct,profit_factor,expectancy"
+      }
+    },
+    "algorithm_execution_sequential": {
+      "duration_seconds": 0.20389723777770996,
+      "details": {
+        "method": "sequential_optimal",
+        "algorithms_executed": 7,
+        "best_algorithm": "SA",
+        "best_fitness": 0.328133,
+        "total_simulated_time": 0.20385313034057617
+      }
+    },
+    "reference_compatible_output_generation": {
+      "duration_seconds": 2.7040045261383057,
+      "details": {
+        "files_generated": 6,
+        "format": "reference_compatible",
+        "run_directory": "/mnt/optimizer_share/output/run_20250727_140122",
+        "output_files": [
+          "optimization_summary_20250727_140122.txt",
+          "strategy_metrics.csv",
+          "error_log.txt",
+          "drawdowns_Best_Portfolio_Size20_20250727_140127.png",
+          "equity_curves_Best_Portfolio_Size20_20250727_140127.png",
+          "Best_Portfolio_Size20_20250727_140127.txt"
+        ]
+      }
+    }
+  },
+  "reference_compatible": true,
+  "dual_format_support": true
+}

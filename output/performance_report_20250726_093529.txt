@@ -1,0 +1,102 @@
+================================================================================
+HEAVY OPTIMIZER - COMPREHENSIVE PERFORMANCE REPORT
+================================================================================
+
+EXECUTION SUMMARY
+----------------------------------------
+Execution Time: 0.57 seconds
+Algorithms Executed: 7
+Success Rate: 100.0%
+Best Algorithm: simulated_annealing
+Best Fitness: 0.368256
+
+GPU UTILIZATION
+----------------------------------------
+GPU Model: NVIDIA A100-SXM4-40GB
+Initial Memory: 471 MB
+Final Memory: 471 MB
+Memory Increase: 0 MB
+Temperature: 39°C
+
+INDIVIDUAL ALGORITHM RESULTS
+----------------------------------------
+
+BAYESIAN_OPTIMIZATION
+  Status: SUCCESS
+  Execution Time: 0.067s
+  Best Fitness: 0.202288
+  Portfolio Size: 35
+  Total Return: 211861.869625
+  Volatility: 13257.302390
+  Sharpe Ratio: 0.202288
+
+ANT_COLONY_OPTIMIZATION
+  Status: SUCCESS
+  Execution Time: 0.201s
+  Best Fitness: 0.174670
+  Portfolio Size: 35
+  Total Return: 176087.609640
+  Volatility: 12760.954250
+  Sharpe Ratio: 0.174670
+
+PARTICLE_SWARM_OPTIMIZATION
+  Status: SUCCESS
+  Execution Time: 0.250s
+  Best Fitness: 0.212631
+  Portfolio Size: 35
+  Total Return: 261383.795990
+  Volatility: 15560.567462
+  Sharpe Ratio: 0.212631
+
+DIFFERENTIAL_EVOLUTION
+  Status: SUCCESS
+  Execution Time: 0.329s
+  Best Fitness: 0.180048
+  Portfolio Size: 35
+  Total Return: 203029.497430
+  Volatility: 14273.912679
+  Sharpe Ratio: 0.180048
+
+GENETIC_ALGORITHM
+  Status: SUCCESS
+  Execution Time: 0.307s
+  Best Fitness: 0.197641
+  Portfolio Size: 35
+  Total Return: 293015.686635
+  Volatility: 18766.651643
+  Sharpe Ratio: 0.197641
+
+SIMULATED_ANNEALING
+  Status: SUCCESS
+  Execution Time: 0.375s
+  Best Fitness: 0.368256
+  Portfolio Size: 35
+  Total Return: 324494.848790
+  Volatility: 11154.003290
+  Sharpe Ratio: 0.368256
+
+RANDOM_SEARCH
+  Status: SUCCESS
+  Execution Time: 0.501s
+  Best Fitness: 0.239077
+  Portfolio Size: 35
+  Total Return: 330111.338345
+  Volatility: 17478.175052
+  Sharpe Ratio: 0.239077
+
+BEST PORTFOLIO ANALYSIS
+----------------------------------------
+Algorithm: simulated_annealing
+Portfolio Size: 35
+Selected Strategies:
+   1. SENATM1DTE 1108-1205 SL63%TP2X63%
+   2. SENSEX 1238-1408 SL18%TP45%
+   3. SHORTSTRADDLE ATM 1356-1456 SL56%
+   4. SENSEX 1422-1527 SL54%TP81%
+   5. SENSEX 1008-1205 SL18%TP54%
+   6. SENSEX 1228-1408 SL36%TP18%
+   7. SENSEX 956-1057 SL18%TP72%
+   8. SENSEX 1228-1408 SL27%TP18%
+   9. SENSEX 1512-1527 SL90%TP27%
+  10. SENSEX 1308-1408 SL27%TP45%
+  ... and 25 more strategies
