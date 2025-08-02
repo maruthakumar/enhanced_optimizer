@@ -1,0 +1,40 @@
+{
+  "benchmark_info": {
+    "timestamp": "2025-07-31T00:39:51.725962",
+    "duration_minutes": 0.06514036666666666,
+    "test_cases": 1,
+    "legacy_baseline": {
+      "fitness": 30.458,
+      "portfolio_size": 37,
+      "algorithm": "SA",
+      "runtime_hours": 2.5,
+      "estimated_runtime_seconds": 9000
+    }
+  },
+  "results": [
+    {
+      "test_name": "micro",
+      "strategy_count": 500,
+      "legacy_time": 176.16661446915126,
+      "heavydb_time": 1.805142879486084,
+      "performance_improvement": 97.59150728240697,
+      "fitness_improvement_percent": -98.81289051966927,
+      "legacy_fitness": 29.02343934647122,
+      "heavydb_fitness": 0.34454,
+      "memory_usage_mb": 130.53125,
+      "validation_passed": false,
+      "validation_details": {
+        "fitness_accuracy": false,
+        "performance_improvement": true,
+        "memory_efficiency": true,
+        "portfolio_quality": false
+      }
+    }
+  ],
+  "summary": {
+    "overall_performance_improvement": 97.59150728240697,
+    "accuracy_validation_passed": 0,
+    "memory_efficiency_passed": 1,
+    "production_ready": false
+  }
+}

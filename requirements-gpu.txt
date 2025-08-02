@@ -1,0 +1,21 @@
+# Heavy Optimizer Platform - GPU Dependencies
+# Requires CUDA 11.8+ and Python 3.10+
+
+# Include all core dependencies
+-r requirements.txt
+
+# RAPIDS Suite for GPU acceleration
+cudf-cu11==23.08.00
+cupy-cuda11x==12.2.0
+dask-cudf==23.08.00
+
+# GPU Memory Management
+rmm-cu11==23.08.00
+
+# Additional GPU utilities
+pynvml==11.5.0  # NVIDIA Management Library
+gpustat==1.1.1  # GPU monitoring
+
+# Optional: Deep Learning frameworks (if needed for future enhancements)
+# torch==2.0.1+cu118
+# tensorflow==2.13.0

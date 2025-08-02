@@ -1,0 +1,7 @@
+Best Portfolio Configuration - CSV-Only Processing
+Portfolio Size: 3
+Best Algorithm: SA
+Best Fitness: 0.344540
+HeavyDB Acceleration: ENABLED
+Input Format: CSV (Excel dependencies removed)
+Execution: Server-side with Samba file access

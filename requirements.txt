@@ -1,0 +1,46 @@
+# Heavy Optimizer Platform - Core Dependencies
+# Python 3.10+ required
+
+# Core Data Processing
+numpy==1.24.3
+pandas==2.0.3
+pyarrow==12.0.1
+
+# Visualization
+matplotlib==3.7.2
+
+# Parquet Support
+fastparquet==2023.7.0
+
+# Configuration Management
+configparser==6.0.0
+
+# Logging and Monitoring
+structlog==23.1.0
+
+# Testing (for CI/CD)
+pytest==7.4.0
+pytest-cov==4.1.0
+pytest-xdist==3.3.1
+pytest-timeout==2.1.0
+pytest-benchmark==4.0.0
+pytest-html==3.2.0
+
+# Code Quality
+black==23.3.0
+flake8==6.0.0
+mypy==1.3.0
+isort==5.12.0
+
+# Type hints
+types-requests==2.31.0
+types-PyYAML==6.0.12
+
+# Optimization Algorithm Dependencies
+scipy==1.11.1
+scikit-learn==1.3.0
+scikit-optimize==0.9.0  # For Bayesian Optimization
+
+# Optional: Performance profiling
+memory-profiler==0.61.0
+line-profiler==4.0.3

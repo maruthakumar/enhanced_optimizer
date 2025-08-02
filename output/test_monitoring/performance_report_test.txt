@@ -1,0 +1,72 @@
+================================================================================
+HEAVY OPTIMIZER PLATFORM - PERFORMANCE REPORT
+================================================================================
+Generated: 2025-07-30 22:30:18
+
+EXECUTION SUMMARY
+----------------------------------------
+Total Execution Time: 1.42 seconds
+
+COMPONENT EXECUTION TIMES
+----------------------------------------
+Data Loading                  :    0.501 seconds
+Algorithm_GA                  :    0.200 seconds
+Algorithm_PSO                 :    0.200 seconds
+Algorithm_SA                  :    0.200 seconds
+
+RESOURCE USAGE SUMMARY
+----------------------------------------
+Peak Memory Usage: 132.9 MB
+Average Memory Usage: 132.9 MB
+Peak CPU Usage: 0.0%
+Average CPU Usage: 0.0%
+
+ALGORITHM PERFORMANCE
+----------------------------------------
+
+GA:
+  Total Runs: 3
+  Success Rate: 100.0%
+  Avg Execution Time: 0.996s (±0.322s)
+  Avg Iterations: 118
+  Avg Final Fitness: 0.724456
+
+PSO:
+  Total Runs: 3
+  Success Rate: 100.0%
+  Avg Execution Time: 1.444s (±0.202s)
+  Avg Iterations: 94
+  Avg Final Fitness: 0.880072
+
+SA:
+  Total Runs: 3
+  Success Rate: 100.0%
+  Avg Execution Time: 1.192s (±0.086s)
+  Avg Iterations: 140
+  Avg Final Fitness: 0.754091
+
+CONVERGENCE ANALYSIS
+----------------------------------------
+
+GA:
+  Convergence at generation: 10
+  Final fitness: 0.860000
+  Total improvement: 0.360000
+  Avg improvement rate: 6.22% per generation
+
+PSO:
+  Convergence at generation: 10
+  Final fitness: 0.860000
+  Total improvement: 0.360000
+  Avg improvement rate: 6.22% per generation
+
+SA:
+  Convergence at generation: 10
+  Final fitness: 0.860000
+  Total improvement: 0.360000
+  Avg improvement rate: 6.22% per generation
+
+
+================================================================================
+END OF REPORT
+================================================================================

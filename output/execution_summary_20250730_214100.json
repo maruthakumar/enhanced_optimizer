@@ -1,0 +1,59 @@
+{
+  "execution_metadata": {
+    "timestamp": "20250730_214100",
+    "execution_time": 15.5,
+    "algorithms_executed": 7,
+    "success_rate": 100.0,
+    "parallel_efficiency": 0.85
+  },
+  "best_result": {
+    "algorithm": "simulated_annealing",
+    "fitness": 0.596,
+    "portfolio": [
+      1,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45
+    ]
+  },
+  "gpu_utilization": {
+    "initial_state": {
+      "used_memory_mb": 471,
+      "gpu_name": "NVIDIA A100-SXM4-40GB"
+    },
+    "final_state": {
+      "used_memory_mb": 1200,
+      "gpu_name": "NVIDIA A100-SXM4-40GB",
+      "temperature_celsius": 39
+    }
+  },
+  "individual_results": {
+    "genetic_algorithm": {
+      "status": "success",
+      "execution_time": 4.054,
+      "best_fitness": 0.379,
+      "best_portfolio": [
+        1,
+        2,
+        3
+      ]
+    },
+    "simulated_annealing": {
+      "status": "success",
+      "execution_time": 0.082,
+      "best_fitness": 0.596,
+      "best_portfolio": [
+        1,
+        5,
+        10
+      ]
+    }
+  },
+  "failed_algorithms": []
+}

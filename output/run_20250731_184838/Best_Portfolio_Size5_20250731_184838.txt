@@ -1,0 +1,11 @@
+Best Portfolio Configuration - Real Algorithm Results
+Portfolio Size: 5
+Best Algorithm: PSO
+Best Fitness: 857583.529160
+
+Selected Strategies (indices):
+1. Strategy Index: 5
+2. Strategy Index: 10
+3. Strategy Index: 3
+4. Strategy Index: 7
+5. Strategy Index: 9

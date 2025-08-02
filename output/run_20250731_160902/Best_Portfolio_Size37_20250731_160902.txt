@@ -1,0 +1,27 @@
+Best Portfolio Configuration - Real Algorithm Results
+Portfolio Size: 37
+Best Algorithm: HC
+Best Fitness: 0.024661
+
+Selected Strategies (indices):
+1. Strategy Index: 13282
+2. Strategy Index: 21006
+3. Strategy Index: 6481
+4. Strategy Index: 8247
+5. Strategy Index: 15489
+6. Strategy Index: 5253
+7. Strategy Index: 2790
+8. Strategy Index: 9231
+9. Strategy Index: 8107
+10. Strategy Index: 20190
+11. Strategy Index: 17764
+12. Strategy Index: 20214
+13. Strategy Index: 25246
+14. Strategy Index: 10113
+15. Strategy Index: 22512
+16. Strategy Index: 11603
+17. Strategy Index: 22451
+18. Strategy Index: 8614
+19. Strategy Index: 17071
+20. Strategy Index: 22372
+... and 17 more

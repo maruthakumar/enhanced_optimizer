@@ -1,0 +1,10 @@
+Heavy Optimizer Platform - CSV-Only HeavyDB Accelerated Results
+Execution Timestamp: 20250731_003954
+Input File: test_data_micro_500.csv
+Input Format: CSV (Excel support removed)
+Portfolio Size: 35
+HeavyDB Acceleration: ENABLED
+Best Algorithm: SA
+Best Fitness: 0.344540
+Server-side Execution: YES
+Samba File I/O: YES

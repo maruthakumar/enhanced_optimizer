@@ -6,6 +6,10 @@
 **Status:** 100% Production Ready - Enterprise Deployment Approved  
 **Document Type:** User Guide and Workflow Instructions
 
+> **DEPRECATION NOTICE**: This workflow uses HeavyDB which is being replaced by 
+> Parquet/Arrow/cuDF as per the architecture migration. See [docs/architecture.md](./architecture.md) 
+> for the new data stack specification. This guide remains valid during the transition period.
+
 ---
 
 ## Quick Start Guide

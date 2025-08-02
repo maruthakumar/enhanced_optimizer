@@ -1,0 +1,27 @@
+# Heavy Optimizer Platform Brownfield Enhancement PRD
+
+## Table of Contents
+
+- [Heavy Optimizer Platform Brownfield Enhancement PRD](#table-of-contents)
+  - [1. Introduction and Enhancement Context](./1-introduction-and-enhancement-context.md)
+  - [2. Requirements and Scope Definition](./2-requirements-and-scope-definition.md)
+    - [Enhanced CSV Format Requirements](./2-requirements-and-scope-definition.md#enhanced-csv-format-requirements)
+    - [Scalability Requirements](./2-requirements-and-scope-definition.md#scalability-requirements)
+    - [Architecture Migration Requirements](./2-requirements-and-scope-definition.md#architecture-migration-requirements)
+  - [3. Technical Architecture & Integration Strategy](./3-technical-architecture-integration-strategy.md)
+    - [Migration Architecture](./3-technical-architecture-integration-strategy.md#migration-architecture)
+    - [Enhanced Integration Pipeline](./3-technical-architecture-integration-strategy.md#enhanced-integration-pipeline)
+    - [Enhanced CSV Format Integration](./3-technical-architecture-integration-strategy.md#enhanced-csv-format-integration)
+    - [Strategy Detection Logic](./3-technical-architecture-integration-strategy.md#strategy-detection-logic)
+  - [4. Enhanced Financial Optimization Requirements](./4-enhanced-financial-optimization-requirements.md)
+    - [Capital Utilization Optimization](./4-enhanced-financial-optimization-requirements.md#capital-utilization-optimization)
+    - [Risk-Reward Metrics](./4-enhanced-financial-optimization-requirements.md#risk-reward-metrics)
+    - [Market Regime Optimization](./4-enhanced-financial-optimization-requirements.md#market-regime-optimization)
+  - [5. Implementation Timeline & Dependencies](./5-implementation-timeline-dependencies.md)
+    - [Epic Structure](./5-implementation-timeline-dependencies.md#epic-structure)
+    - [Story Breakdown](./5-implementation-timeline-dependencies.md#story-breakdown)
+    - [Technical Dependencies](./5-implementation-timeline-dependencies.md#technical-dependencies)
+  - [6. Success Metrics & Validation](./6-success-metrics-validation.md)
+    - [Performance Metrics](./6-success-metrics-validation.md#performance-metrics)
+    - [Financial Optimization Validation](./6-success-metrics-validation.md#financial-optimization-validation)
+    - [Technical Success Criteria](./6-success-metrics-validation.md#technical-success-criteria)

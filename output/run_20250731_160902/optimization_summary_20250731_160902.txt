@@ -1,0 +1,18 @@
+Heavy Optimizer Platform - Real Algorithm Results
+============================================================
+Timestamp: 20250731_160902
+Input File: ../input/Python_Multi_Consolidated_20250726_161921.csv
+Portfolio Size: 37
+Best Algorithm: HC
+Best Fitness: 0.024661
+
+Algorithm Performance:
+------------------------------------------------------------
+GA: Fitness=0.008092, Time=2.699s
+SA: Fitness=0.018180, Time=3.599s
+PSO: Fitness=0.001688, Time=2.354s
+DE: Fitness=0.006167, Time=4.938s
+ACO: Fitness=0.002516, Time=56.933s
+HC: Fitness=0.024661, Time=18.758s
+BO: Fitness=0.001152, Time=0.283s
+RS: Fitness=0.002525, Time=1.893s

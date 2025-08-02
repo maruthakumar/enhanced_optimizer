@@ -1,0 +1,56 @@
+================================================================================
+HEAVY OPTIMIZER - COMPREHENSIVE PERFORMANCE REPORT
+================================================================================
+
+EXECUTION SUMMARY
+----------------------------------------
+Execution Time: 15.50 seconds
+Algorithms Executed: 7
+Success Rate: 100.0%
+Best Algorithm: simulated_annealing
+Best Fitness: 0.596000
+
+GPU UTILIZATION
+----------------------------------------
+GPU Model: NVIDIA A100-SXM4-40GB
+Initial Memory: 471 MB
+Final Memory: 1200 MB
+Memory Increase: 0 MB
+Temperature: 39°C
+
+INDIVIDUAL ALGORITHM RESULTS
+----------------------------------------
+
+GENETIC_ALGORITHM
+  Status: SUCCESS
+  Execution Time: 4.054s
+  Best Fitness: 0.379000
+  Portfolio Size: 3
+  Total Return: 5.168480
+  Volatility: 1.695417
+  Sharpe Ratio: 0.038589
+
+SIMULATED_ANNEALING
+  Status: SUCCESS
+  Execution Time: 0.082s
+  Best Fitness: 0.596000
+  Portfolio Size: 3
+  Total Return: 1.659508
+  Volatility: 1.671562
+  Sharpe Ratio: 0.012567
+
+BEST PORTFOLIO ANALYSIS
+----------------------------------------
+Algorithm: simulated_annealing
+Portfolio Size: 10
+Selected Strategies:
+   1. Strategy_1
+   2. Strategy_5
+   3. Strategy_10
+   4. Strategy_15
+   5. Strategy_20
+   6. Strategy_25
+   7. Strategy_30
+   8. Strategy_35
+   9. Strategy_40
+  10. Strategy_45

@@ -1,0 +1,36 @@
+{
+  "job_processor": {
+    "job_timeout": 300,
+    "max_retry_attempts": 3,
+    "scan_interval": 2,
+    "stuck_job_threshold": 600,
+    "enable_notifications": true,
+    "max_concurrent_jobs": 3,
+    "checkpoint_interval": 60,
+    "max_consecutive_failures": 5,
+    "resource_monitoring": {
+      "enabled": true,
+      "memory_threshold": 90,
+      "cpu_threshold": 95,
+      "disk_threshold": 95
+    },
+    "recovery": {
+      "enabled": true,
+      "stuck_job_check_interval": 60,
+      "auto_retry_stuck_jobs": true,
+      "max_job_age_minutes": 30
+    },
+    "logging": {
+      "log_rotation": true,
+      "max_log_size_mb": 100,
+      "backup_count": 5,
+      "debug_mode": false
+    },
+    "notifications": {
+      "consecutive_failure_threshold": 5,
+      "stuck_job_threshold_minutes": 15,
+      "daily_summary": true,
+      "summary_time": "09:00"
+    }
+  }
+}

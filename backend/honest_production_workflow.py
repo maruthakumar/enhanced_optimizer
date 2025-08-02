@@ -33,6 +33,8 @@ logger = logging.getLogger(__name__)
 class HonestProductionWorkflow:
     def __init__(self):
         self.output_engine = OutputGenerationEngine()
+        self.metrics_history = []  # Track intermediate metrics during optimization
+        self.track_intermediate_metrics = False  # Flag to enable/disable tracking
         self.workflow_results = {
             'workflow_start_time': datetime.now().isoformat(),
             'data_processing': {},
@@ -271,6 +273,26 @@ class HonestProductionWorkflow:
             if fitness > best_fitness:
                 best_fitness = fitness
                 best_portfolio = individual
+                
+                # Record intermediate metrics every 10 generations
+                if self.track_intermediate_metrics and generation % 10 == 0:
+                    self.record_intermediate_metrics(
+                        algorithm='genetic_algorithm',
+                        iteration=generation,
+                        portfolio=best_portfolio.tolist(),
+                        fitness=best_fitness,
+                        daily_matrix=daily_matrix
+                    )
+        
+        # Record final metrics
+        if self.track_intermediate_metrics and best_portfolio is not None:
+            self.record_intermediate_metrics(
+                algorithm='genetic_algorithm',
+                iteration=99,
+                portfolio=best_portfolio.tolist(),
+                fitness=best_fitness,
+                daily_matrix=daily_matrix
+            )
         
         return {
             'best_fitness': float(best_fitness),
@@ -472,13 +494,29 @@ class HonestProductionWorkflow:
         }
 
     def _calculate_fitness(self, daily_matrix: np.ndarray, portfolio: np.ndarray) -> float:
-        """Calculate portfolio fitness (Sharpe ratio)"""
+        """Calculate portfolio fitness (ROI/Drawdown Ratio as primary metric)"""
+        # Calculate Total ROI
+        portfolio_returns = np.sum(daily_matrix[:, portfolio], axis=1)
+        total_roi = np.sum(portfolio_returns)
+        
+        # Calculate Maximum Drawdown
+        max_drawdown = self._calculate_max_drawdown(daily_matrix, portfolio)
+        
+        # ROI/Drawdown Ratio as primary fitness metric
+        # Avoid division by zero and handle negative drawdowns
+        if max_drawdown <= 0:
+            max_drawdown = abs(max_drawdown) if max_drawdown < 0 else 1e-6
+        
+        return total_roi / max_drawdown
+
+    # ADDITIONAL FINANCIAL METRICS - NEWLY IMPLEMENTED FOR 100% PRODUCTION READINESS
+    
+    def _calculate_sharpe_ratio(self, daily_matrix: np.ndarray, portfolio: np.ndarray) -> float:
+        """Calculate Sharpe Ratio for metrics reporting"""
         portfolio_returns = np.sum(daily_matrix[:, portfolio], axis=1)
         mean_return = np.mean(portfolio_returns)
         std_return = np.std(portfolio_returns)
         return mean_return / (std_return + 1e-6)
-
-    # ADDITIONAL FINANCIAL METRICS - NEWLY IMPLEMENTED FOR 100% PRODUCTION READINESS
 
     def _calculate_win_rate(self, daily_matrix: np.ndarray, portfolio: np.ndarray) -> float:
         """Calculate Win Rate Analysis - NEWLY IMPLEMENTED"""
@@ -553,16 +591,34 @@ class HonestProductionWorkflow:
             logger.error(f"❌ Correlation analysis failed: {str(e)}")
             return 0.0
 
-    def calculate_comprehensive_metrics(self, daily_matrix: np.ndarray, portfolio: List[int]) -> Dict[str, float]:
+    def calculate_comprehensive_metrics(self, daily_matrix: np.ndarray, portfolio: List[int],
+                                      start_date: Optional[int] = None, end_date: Optional[int] = None) -> Dict[str, float]:
         """Calculate all 6 financial metrics for comprehensive analysis - NEWLY IMPLEMENTED"""
         portfolio_array = np.array(portfolio)
+        
+        # Handle date range if specified
+        if start_date is not None or end_date is not None:
+            start = start_date if start_date is not None else 0
+            end = end_date if end_date is not None else daily_matrix.shape[0]
+            daily_matrix = daily_matrix[start:end, :]
 
+        # Calculate Total ROI
+        portfolio_returns = np.sum(daily_matrix[:, portfolio_array], axis=1)
+        total_roi = np.sum(portfolio_returns)
+        
+        # Calculate Maximum Drawdown
+        max_drawdown = self._calculate_max_drawdown(daily_matrix, portfolio_array)
+        
+        # Calculate ROI/Drawdown Ratio (Primary Fitness Metric)
+        roi_drawdown_ratio = total_roi / abs(max_drawdown) if max_drawdown != 0 else total_roi / 1e-6
+        
         metrics = {
-            'sharpe_ratio': self._calculate_fitness(daily_matrix, portfolio_array),
+            'roi_drawdown_ratio': roi_drawdown_ratio,  # Primary fitness metric
+            'sharpe_ratio': self._calculate_sharpe_ratio(daily_matrix, portfolio_array),
             'win_rate': self._calculate_win_rate(daily_matrix, portfolio_array),
             'profit_factor': self._calculate_profit_factor(daily_matrix, portfolio_array),
-            'max_drawdown': self._calculate_max_drawdown(daily_matrix, portfolio_array),
-            'total_roi': np.sum(np.sum(daily_matrix[:, portfolio_array], axis=1)),
+            'max_drawdown': max_drawdown,
+            'total_roi': total_roi,
             'correlation_penalty': self._calculate_correlation_penalty(daily_matrix, portfolio_array)
         }
 
@@ -571,6 +627,128 @@ class HonestProductionWorkflow:
             logger.info(f"   {metric}: {value:.6f}")
 
         return metrics
+    
+    def calculate_strategy_metrics(self, daily_matrix: np.ndarray, strategy_idx: int, 
+                                 start_date: Optional[int] = None, end_date: Optional[int] = None) -> Dict[str, float]:
+        """Calculate financial metrics for an individual strategy"""
+        # Handle date range if specified
+        if start_date is not None or end_date is not None:
+            start = start_date if start_date is not None else 0
+            end = end_date if end_date is not None else daily_matrix.shape[0]
+            strategy_data = daily_matrix[start:end, strategy_idx:strategy_idx+1]
+        else:
+            strategy_data = daily_matrix[:, strategy_idx:strategy_idx+1]
+        
+        # Calculate metrics for single strategy
+        strategy_array = np.array([0])  # Single strategy at index 0 in sliced data
+        
+        # Calculate returns
+        returns = strategy_data[:, 0]  # Extract single column
+        total_roi = np.sum(returns)
+        
+        # Calculate max drawdown for single strategy
+        cumulative_returns = np.cumsum(returns)
+        running_max = np.maximum.accumulate(cumulative_returns)
+        drawdowns = running_max - cumulative_returns
+        max_drawdown = np.max(drawdowns) if len(drawdowns) > 0 else 0
+        
+        # Calculate ROI/Drawdown Ratio
+        roi_drawdown_ratio = total_roi / abs(max_drawdown) if max_drawdown != 0 else total_roi / 1e-6
+        
+        # Calculate other metrics
+        winning_days = np.sum(returns > 0)
+        total_days = len(returns)
+        win_rate = winning_days / total_days if total_days > 0 else 0.0
+        
+        positive_returns = returns[returns > 0]
+        negative_returns = returns[returns < 0]
+        gross_profit = np.sum(positive_returns) if len(positive_returns) > 0 else 0
+        gross_loss = abs(np.sum(negative_returns)) if len(negative_returns) > 0 else 1e-6
+        profit_factor = gross_profit / gross_loss
+        
+        # Sharpe ratio
+        mean_return = np.mean(returns)
+        std_return = np.std(returns)
+        sharpe_ratio = mean_return / (std_return + 1e-6)
+        
+        return {
+            'strategy_index': strategy_idx,
+            'roi_drawdown_ratio': roi_drawdown_ratio,
+            'total_roi': total_roi,
+            'max_drawdown': max_drawdown,
+            'win_rate': win_rate,
+            'profit_factor': profit_factor,
+            'sharpe_ratio': sharpe_ratio,
+            'mean_daily_return': mean_return,
+            'std_daily_return': std_return,
+            'total_days': total_days
+        }
+    
+    def enable_intermediate_tracking(self, enable: bool = True):
+        """Enable or disable intermediate metrics tracking during optimization"""
+        self.track_intermediate_metrics = enable
+        self.metrics_history = []  # Reset history
+        
+    def record_intermediate_metrics(self, algorithm: str, iteration: int, 
+                                  portfolio: List[int], fitness: float, 
+                                  daily_matrix: np.ndarray):
+        """Record intermediate metrics during optimization if tracking is enabled"""
+        if not self.track_intermediate_metrics:
+            return
+            
+        try:
+            # Calculate comprehensive metrics for this intermediate result
+            metrics = self.calculate_comprehensive_metrics(daily_matrix, portfolio)
+            
+            # Record the metrics with metadata
+            record = {
+                'algorithm': algorithm,
+                'iteration': iteration,
+                'timestamp': time.time(),
+                'portfolio': portfolio.copy(),
+                'fitness': fitness,
+                'metrics': metrics
+            }
+            
+            self.metrics_history.append(record)
+            
+        except Exception as e:
+            logger.warning(f"Failed to record intermediate metrics: {str(e)}")
+    
+    def get_metrics_history(self) -> List[Dict]:
+        """Get the history of intermediate metrics"""
+        return self.metrics_history
+    
+    def get_metrics_summary(self) -> Dict:
+        """Get summary statistics of intermediate metrics"""
+        if not self.metrics_history:
+            return {}
+            
+        # Extract fitness values over time
+        fitness_values = [record['fitness'] for record in self.metrics_history]
+        roi_values = [record['metrics']['total_roi'] for record in self.metrics_history]
+        drawdown_values = [record['metrics']['max_drawdown'] for record in self.metrics_history]
+        
+        return {
+            'total_iterations': len(self.metrics_history),
+            'fitness_improvement': {
+                'initial': fitness_values[0] if fitness_values else 0,
+                'final': fitness_values[-1] if fitness_values else 0,
+                'best': max(fitness_values) if fitness_values else 0,
+                'improvement_pct': ((fitness_values[-1] - fitness_values[0]) / abs(fitness_values[0]) * 100) 
+                                 if fitness_values and fitness_values[0] != 0 else 0
+            },
+            'roi_progression': {
+                'initial': roi_values[0] if roi_values else 0,
+                'final': roi_values[-1] if roi_values else 0,
+                'best': max(roi_values) if roi_values else 0
+            },
+            'drawdown_progression': {
+                'initial': drawdown_values[0] if drawdown_values else 0,
+                'final': drawdown_values[-1] if drawdown_values else 0,
+                'best': min(drawdown_values) if drawdown_values else 0
+            }
+        }
 
 
 def main():
@@ -622,13 +800,13 @@ def main():
 
         try:
             comprehensive_metrics = workflow.calculate_comprehensive_metrics(test_matrix, test_portfolio.tolist())
-            logger.info(f"   ✅ Financial Metrics: {len(comprehensive_metrics)}/6 implemented")
+            logger.info(f"   ✅ Financial Metrics: {len(comprehensive_metrics)} implemented (6 required + ROI/Drawdown ratio)")
         except Exception as e:
             logger.error(f"   ❌ Financial Metrics failed: {str(e)}")
 
-        # Production readiness assessment
-        production_ready = algorithm_count == 8 and len(comprehensive_metrics) == 6
-        readiness_score = (algorithm_count / 8 * 50) + (len(comprehensive_metrics) / 6 * 50)
+        # Production readiness assessment (7 metrics: 6 required + correlation_penalty)
+        production_ready = algorithm_count == 8 and len(comprehensive_metrics) >= 6
+        readiness_score = (algorithm_count / 8 * 50) + (min(len(comprehensive_metrics), 6) / 6 * 50)
 
         logger.info("🏆 PRODUCTION READINESS ASSESSMENT:")
         logger.info(f"   Algorithm Completeness: {algorithm_count}/8 ({algorithm_count/8*100:.1f}%)")

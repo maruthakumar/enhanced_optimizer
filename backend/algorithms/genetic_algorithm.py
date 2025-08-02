@@ -1,365 +1,290 @@
 #!/usr/bin/env python3
 """
-Test Genetic Algorithm with HeavyDB
-Implements GA optimization using HeavyDB for fitness evaluation
-Tests with real SENSEX data (subset)
+Genetic Algorithm Implementation for Heavy Optimizer Platform
+
+Implements genetic algorithm with configuration support.
 """
 
 import numpy as np
-import pymapd
 import random
+from typing import Dict, List, Tuple, Optional, Union, Callable
 import time
-import logging
-from typing import List, Dict, Tuple, Optional
-from datetime import datetime
-import json
+import sys
+import os
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Add parent directory to path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from algorithms.base_algorithm import BaseOptimizationAlgorithm
+from config.config_manager import get_config_manager
 
 
-class GeneticAlgorithmHeavyDB:
-    """GA implementation using HeavyDB for fitness evaluation"""
+class GeneticAlgorithm(BaseOptimizationAlgorithm):
+    """Genetic Algorithm implementation with configuration support"""
     
-    def __init__(self, connection, table_name: str, total_strategies: int):
-        self.con = connection
-        self.table_name = table_name
-        self.total_strategies = total_strategies
-        self.logger = logging.getLogger(self.__class__.__name__)
-        
-        # Pre-calculate correlation matrix
-        self.logger.info("Pre-calculating correlation matrix...")
-        self.corr_matrix = self._calculate_correlation_matrix()
-        
-    def _calculate_correlation_matrix(self) -> np.ndarray:
-        """Pre-calculate correlation matrix from HeavyDB data"""
-        # Get all strategy data
-        strategy_cols = [f"strategy_{i:04d}" for i in range(self.total_strategies)]
-        
-        query = f"""
-        SELECT {', '.join(strategy_cols)}
-        FROM {self.table_name}
-        ORDER BY row_id
+    def __init__(self, config_path: Optional[str] = None):
         """
+        Initialize Genetic Algorithm with configuration
         
-        result = self.con.execute(query)
-        data_matrix = np.array(list(result))
+        Args:
+            config_path: Path to configuration file
+        """
+        super().__init__(config_path)
         
-        # Calculate correlation matrix
-        corr_matrix = np.corrcoef(data_matrix.T)
+        # Get configuration manager
+        self.config_manager = get_config_manager()
         
-        self.logger.info(f"Correlation matrix calculated: {corr_matrix.shape}")
-        return corr_matrix
+        # Load algorithm-specific parameters
+        self.population_size = self.config_manager.getint('ALGORITHM_PARAMETERS', 'ga_population_size', 30)
+        self.mutation_rate = self.config_manager.getfloat('ALGORITHM_PARAMETERS', 'ga_mutation_rate', 0.1)
+        self.crossover_rate = self.config_manager.getfloat('ALGORITHM_PARAMETERS', 'ga_crossover_rate', 0.8)
+        self.generations = self.config_manager.getint('ALGORITHM_PARAMETERS', 'ga_generations', 100)
+        self.selection_method = self.config_manager.get('ALGORITHM_PARAMETERS', 'ga_selection_method', 'tournament')
+        self.elitism_rate = self.config_manager.getfloat('ALGORITHM_PARAMETERS', 'ga_elitism_rate', 0.1)
+        self.tournament_size = self.config_manager.getint('ALGORITHM_PARAMETERS', 'ga_tournament_size', 3)
+        
+        self.logger.info(f"Initialized GA with population_size={self.population_size}, "
+                        f"generations={self.generations}, mutation_rate={self.mutation_rate}")
     
-    def evaluate_fitness(self, individual: List[int], metric: str = "ratio") -> float:
-        """Evaluate fitness using HeavyDB queries"""
-        # Build portfolio query
-        portfolio_parts = []
-        n = len(individual)
-        
-        for idx in individual:
-            col_name = f"strategy_{idx:04d}"
-            portfolio_parts.append(f"{col_name} / {n}.0")
-        
-        portfolio_calc = " + ".join(portfolio_parts)
-        
-        # Calculate ROI and Max Drawdown in one query
-        query = f"""
-        WITH portfolio_returns AS (
-            SELECT 
-                row_id,
-                {portfolio_calc} as return_value
-            FROM {self.table_name}
-            ORDER BY row_id
-        ),
-        cumulative AS (
-            SELECT 
-                row_id,
-                return_value,
-                SUM(return_value) OVER (ORDER BY row_id) as cum_return
-            FROM portfolio_returns
-        ),
-        peaks AS (
-            SELECT 
-                cum_return,
-                MAX(cum_return) OVER (ORDER BY row_id ROWS UNBOUNDED PRECEDING) as peak
-            FROM cumulative
-        )
-        SELECT 
-            (SELECT SUM(return_value) FROM portfolio_returns) as total_roi,
-            MAX(peak - cum_return) as max_dd
-        FROM peaks
+    def optimize(self, daily_matrix: np.ndarray, portfolio_size: Union[int, Tuple[int, int]], 
+                fitness_function: Callable, zone_data: Optional[Dict] = None) -> Dict:
         """
+        Run genetic algorithm optimization
         
-        result = self.con.execute(query)
-        roi, max_dd = list(result)[0]
+        Args:
+            daily_matrix: Daily returns matrix (days x strategies)
+            portfolio_size: Target portfolio size or (min, max) range
+            fitness_function: Function to evaluate portfolio fitness
+            zone_data: Optional zone constraint data
+            
+        Returns:
+            Dictionary with optimization results
+        """
+        start_time = time.time()
         
-        # Calculate base fitness (ratio)
-        if max_dd > 1e-6:
-            base_fitness = roi / max_dd
-        elif roi > 0:
-            base_fitness = roi * 100
-        elif roi < 0:
-            base_fitness = roi * 10
+        # Handle portfolio size
+        if isinstance(portfolio_size, tuple):
+            min_size, max_size = portfolio_size
+            actual_size = random.randint(min_size, max_size)
         else:
-            base_fitness = 0
+            actual_size = portfolio_size
         
-        # Add correlation penalty
-        avg_corr = self._compute_avg_correlation(individual)
-        penalty = 10 * avg_corr  # Fixed penalty weight from original
-        
-        return base_fitness - penalty
-    
-    def _compute_avg_correlation(self, individual: List[int]) -> float:
-        """Compute average pairwise correlation"""
-        if len(individual) < 2:
-            return 0
-        
-        correlations = []
-        n = len(individual)
-        for i in range(n):
-            for j in range(i + 1, n):
-                correlations.append(self.corr_matrix[individual[i], individual[j]])
-        
-        return np.mean(correlations) if correlations else 0
-    
-    def crossover(self, parent1: List[int], parent2: List[int]) -> List[int]:
-        """Uniform crossover"""
-        child = []
-        used = set()
-        
-        # Take from parents randomly
-        for i in range(len(parent1)):
-            if random.random() < 0.5:
-                if parent1[i] not in used:
-                    child.append(parent1[i])
-                    used.add(parent1[i])
-                elif parent2[i] not in used:
-                    child.append(parent2[i])
-                    used.add(parent2[i])
-            else:
-                if parent2[i] not in used:
-                    child.append(parent2[i])
-                    used.add(parent2[i])
-                elif parent1[i] not in used:
-                    child.append(parent1[i])
-                    used.add(parent1[i])
-        
-        # Fill remaining slots
-        while len(child) < len(parent1):
-            strategy = random.randint(0, self.total_strategies - 1)
-            if strategy not in used:
-                child.append(strategy)
-                used.add(strategy)
-        
-        return child
-    
-    def mutate(self, individual: List[int], mutation_rate: float = 0.1) -> List[int]:
-        """Mutation operator"""
-        mutated = individual.copy()
-        
-        for i in range(len(mutated)):
-            if random.random() < mutation_rate:
-                # Replace with a random strategy not in portfolio
-                available = [s for s in range(self.total_strategies) if s not in mutated]
-                if available:
-                    mutated[i] = random.choice(available)
-        
-        return mutated
-    
-    def run_ga(self, portfolio_size: int, generations: int = 50, 
-               population_size: int = 30, mutation_rate: float = 0.1) -> Tuple[List[int], float]:
-        """Run genetic algorithm optimization"""
-        self.logger.info(f"Starting GA: size={portfolio_size}, gens={generations}, pop={population_size}")
+        num_strategies = daily_matrix.shape[1]
         
         # Initialize population
-        population = []
-        for _ in range(population_size):
-            individual = random.sample(range(self.total_strategies), portfolio_size)
-            population.append(individual)
+        population = self._initialize_population(num_strategies, actual_size, zone_data)
         
+        # Evolution tracking
         best_individual = None
-        best_fitness = -np.inf
+        best_fitness = -float('inf')
         fitness_history = []
         
-        for gen in range(generations):
+        # Evolution loop
+        for generation in range(self.generations):
             # Evaluate fitness for all individuals
             fitness_scores = []
-            start_time = time.time()
-            
             for individual in population:
-                fitness = self.evaluate_fitness(individual)
+                fitness = fitness_function(daily_matrix, individual)
                 fitness_scores.append(fitness)
                 
+                # Track best
                 if fitness > best_fitness:
                     best_fitness = fitness
                     best_individual = individual.copy()
             
-            eval_time = time.time() - start_time
+            fitness_history.append(best_fitness)
             
-            # Record stats
-            avg_fitness = np.mean(fitness_scores)
-            fitness_history.append({
-                'generation': gen,
-                'best': best_fitness,
-                'average': avg_fitness,
-                'eval_time': eval_time
-            })
+            # Create new generation
+            new_population = []
             
-            if gen % 10 == 0:
-                self.logger.info(
-                    f"Gen {gen}: Best={best_fitness:.4f}, "
-                    f"Avg={avg_fitness:.4f}, Time={eval_time:.2f}s"
-                )
+            # Elitism - keep best individuals
+            elite_count = int(self.population_size * self.elitism_rate)
+            if elite_count > 0:
+                elite_indices = np.argsort(fitness_scores)[-elite_count:]
+                for idx in elite_indices:
+                    new_population.append(population[idx].copy())
             
-            # Selection and reproduction
-            if gen < generations - 1:  # Don't evolve on last generation
-                # Tournament selection
-                new_population = []
+            # Generate rest of population
+            while len(new_population) < self.population_size:
+                # Selection
+                parent1 = self._select_parent(population, fitness_scores)
+                parent2 = self._select_parent(population, fitness_scores)
                 
-                # Keep best individual (elitism)
-                new_population.append(best_individual)
+                # Crossover
+                if random.random() < self.crossover_rate:
+                    child1, child2 = self._crossover(parent1, parent2, zone_data)
+                else:
+                    child1, child2 = parent1.copy(), parent2.copy()
                 
-                while len(new_population) < population_size:
-                    # Tournament selection
-                    tournament_size = 3
-                    tournament_indices = random.sample(range(population_size), tournament_size)
-                    tournament_fitness = [fitness_scores[i] for i in tournament_indices]
-                    winner_idx = tournament_indices[np.argmax(tournament_fitness)]
-                    parent1 = population[winner_idx]
-                    
-                    # Select second parent
-                    tournament_indices = random.sample(range(population_size), tournament_size)
-                    tournament_fitness = [fitness_scores[i] for i in tournament_indices]
-                    winner_idx = tournament_indices[np.argmax(tournament_fitness)]
-                    parent2 = population[winner_idx]
-                    
-                    # Crossover and mutation
-                    child = self.crossover(parent1, parent2)
-                    child = self.mutate(child, mutation_rate)
-                    
-                    new_population.append(child)
+                # Mutation
+                if random.random() < self.mutation_rate:
+                    child1 = self._mutate(child1, num_strategies, zone_data)
+                if random.random() < self.mutation_rate:
+                    child2 = self._mutate(child2, num_strategies, zone_data)
                 
-                population = new_population
+                # Add to new population
+                new_population.extend([child1, child2])
+            
+            # Trim to exact population size
+            population = new_population[:self.population_size]
+            
+            # Log progress periodically
+            if generation % 20 == 0:
+                self.logger.debug(f"Generation {generation}: Best fitness = {best_fitness:.6f}")
         
-        return best_individual, best_fitness, fitness_history
-
-
-def test_ga_with_sensex():
-    """Test GA with SENSEX subset data"""
-    print("="*60)
-    print("Testing Genetic Algorithm with HeavyDB")
-    print("="*60)
-    
-    # Connect to HeavyDB
-    try:
-        con = pymapd.connect(
-            host='localhost',
-            port=6274,
-            user='portfolio_user',
-            password='portfolio123',
-            dbname='portfolio_optimizer'
-        )
-        print("✓ Connected to HeavyDB")
-    except Exception as e:
-        print(f"✗ Failed to connect: {e}")
-        return False
-    
-    # Use subset table with 100 strategies
-    table_name = "sensex_subset_20250719_211121"
-    total_strategies = 100
-    
-    ga = GeneticAlgorithmHeavyDB(con, table_name, total_strategies)
-    
-    # Test different portfolio sizes
-    portfolio_sizes = [10, 30, 50]
-    results = {}
-    
-    for size in portfolio_sizes:
-        print(f"\n--- Optimizing portfolio size {size} ---")
+        execution_time = time.time() - start_time
         
-        start_time = time.time()
-        best_portfolio, best_fitness, history = ga.run_ga(
-            portfolio_size=size,
-            generations=30,  # Reduced for testing
-            population_size=20,
-            mutation_rate=0.1
-        )
-        total_time = time.time() - start_time
-        
-        print(f"\nOptimization completed in {total_time:.2f}s")
-        print(f"Best fitness: {best_fitness:.4f}")
-        print(f"Best portfolio (first 10): {best_portfolio[:10]}")
-        
-        # Calculate detailed metrics for best portfolio
-        portfolio_parts = []
-        for idx in best_portfolio:
-            col_name = f"strategy_{idx:04d}"
-            portfolio_parts.append(f"{col_name} / {len(best_portfolio)}.0")
-        
-        portfolio_calc = " + ".join(portfolio_parts)
-        
-        # Get performance metrics
-        query = f"""
-        WITH portfolio_returns AS (
-            SELECT {portfolio_calc} as return_value
-            FROM {table_name}
-        )
-        SELECT 
-            SUM(return_value) as total_roi,
-            COUNT(*) as days,
-            SUM(CASE WHEN return_value > 0 THEN 1 ELSE 0 END) as win_days,
-            AVG(return_value) as avg_return
-        FROM portfolio_returns
-        """
-        
-        result = con.execute(query)
-        roi, days, win_days, avg_return = list(result)[0]
-        
-        print(f"\nPerformance metrics:")
-        print(f"  Total ROI: {roi:.2f}")
-        print(f"  Win rate: {win_days/days*100:.1f}%")
-        print(f"  Avg daily return: {avg_return:.4f}")
-        print(f"  Avg correlation: {ga._compute_avg_correlation(best_portfolio):.4f}")
-        
-        results[size] = {
-            'best_fitness': best_fitness,
-            'total_roi': roi,
-            'win_rate': win_days/days,
-            'optimization_time': total_time,
-            'best_portfolio': best_portfolio,
-            'fitness_history': history
+        return {
+            'best_fitness': float(best_fitness),
+            'best_portfolio': best_individual.tolist() if best_individual is not None else [],
+            'execution_time': execution_time,
+            'generations': self.generations,
+            'population_size': self.population_size,
+            'fitness_history': fitness_history,
+            'algorithm': 'genetic_algorithm',
+            'parameters': {
+                'mutation_rate': self.mutation_rate,
+                'crossover_rate': self.crossover_rate,
+                'elitism_rate': self.elitism_rate,
+                'selection_method': self.selection_method
+            }
         }
     
-    # Save results
-    summary = {
-        'timestamp': datetime.now().isoformat(),
-        'table': table_name,
-        'total_strategies': total_strategies,
-        'results': results
-    }
+    def _initialize_population(self, num_strategies: int, portfolio_size: int,
+                              zone_data: Optional[Dict] = None) -> List[np.ndarray]:
+        """Initialize population with valid portfolios"""
+        population = []
+        
+        for _ in range(self.population_size):
+            if zone_data and zone_data.get('enabled'):
+                # Create portfolio respecting zone constraints
+                individual = self._create_zone_constrained_portfolio(
+                    num_strategies, portfolio_size, zone_data
+                )
+            else:
+                # Random portfolio
+                individual = np.random.choice(num_strategies, portfolio_size, replace=False)
+            
+            population.append(individual)
+        
+        return population
     
-    with open('ga_heavydb_results.json', 'w') as f:
-        json.dump(summary, f, indent=2)
+    def _create_zone_constrained_portfolio(self, num_strategies: int, portfolio_size: int,
+                                         zone_data: Dict) -> np.ndarray:
+        """Create portfolio respecting zone constraints"""
+        zone_count = zone_data.get('zone_count', 4)
+        zone_weights = zone_data.get('zone_weights', [0.25] * zone_count)
+        min_per_zone = zone_data.get('min_per_zone', 1)
+        
+        strategies_per_zone = num_strategies // zone_count
+        portfolio = []
+        
+        for zone in range(zone_count):
+            zone_size = max(min_per_zone, int(portfolio_size * zone_weights[zone]))
+            zone_start = zone * strategies_per_zone
+            zone_end = min((zone + 1) * strategies_per_zone, num_strategies)
+            
+            zone_strategies = np.arange(zone_start, zone_end)
+            selected = np.random.choice(zone_strategies, 
+                                      min(zone_size, len(zone_strategies)), 
+                                      replace=False)
+            portfolio.extend(selected)
+        
+        # Ensure we have exactly portfolio_size strategies
+        portfolio = np.array(portfolio)
+        if len(portfolio) > portfolio_size:
+            portfolio = np.random.choice(portfolio, portfolio_size, replace=False)
+        elif len(portfolio) < portfolio_size:
+            # Add more strategies randomly
+            remaining = portfolio_size - len(portfolio)
+            available = np.setdiff1d(np.arange(num_strategies), portfolio)
+            if len(available) > 0:
+                additional = np.random.choice(available, 
+                                            min(remaining, len(available)), 
+                                            replace=False)
+                portfolio = np.concatenate([portfolio, additional])
+        
+        return portfolio
     
-    print("\n" + "="*60)
-    print("Summary")
-    print("="*60)
+    def _select_parent(self, population: List[np.ndarray], 
+                      fitness_scores: List[float]) -> np.ndarray:
+        """Select parent using configured selection method"""
+        if self.selection_method == 'tournament':
+            # Tournament selection
+            tournament_indices = np.random.choice(len(population), 
+                                                self.tournament_size, 
+                                                replace=False)
+            tournament_fitness = [fitness_scores[i] for i in tournament_indices]
+            winner_idx = tournament_indices[np.argmax(tournament_fitness)]
+            return population[winner_idx].copy()
+        
+        elif self.selection_method == 'roulette':
+            # Roulette wheel selection
+            # Shift fitness to be positive
+            min_fitness = min(fitness_scores)
+            shifted_fitness = [f - min_fitness + 1 for f in fitness_scores]
+            total_fitness = sum(shifted_fitness)
+            
+            if total_fitness == 0:
+                # All equal fitness, random selection
+                return population[random.randint(0, len(population) - 1)].copy()
+            
+            probabilities = [f / total_fitness for f in shifted_fitness]
+            selected_idx = np.random.choice(len(population), p=probabilities)
+            return population[selected_idx].copy()
+        
+        else:
+            # Default to random selection
+            return population[random.randint(0, len(population) - 1)].copy()
     
-    for size, result in results.items():
-        print(f"\nPortfolio size {size}:")
-        print(f"  Best fitness: {result['best_fitness']:.4f}")
-        print(f"  Total ROI: {result['total_roi']:.2f}")
-        print(f"  Win rate: {result['win_rate']*100:.1f}%")
-        print(f"  Time: {result['optimization_time']:.2f}s")
+    def _crossover(self, parent1: np.ndarray, parent2: np.ndarray,
+                   zone_data: Optional[Dict] = None) -> Tuple[np.ndarray, np.ndarray]:
+        """Perform crossover between two parents"""
+        size = len(parent1)
+        
+        # Order crossover (OX) - preserves no duplicates
+        # Select crossover points
+        point1 = random.randint(0, size - 1)
+        point2 = random.randint(point1 + 1, size)
+        
+        # Create children
+        child1 = np.full(size, -1, dtype=int)
+        child2 = np.full(size, -1, dtype=int)
+        
+        # Copy segment from parents
+        child1[point1:point2] = parent1[point1:point2]
+        child2[point1:point2] = parent2[point1:point2]
+        
+        # Fill remaining positions
+        self._fill_child(child1, parent2)
+        self._fill_child(child2, parent1)
+        
+        return child1, child2
     
-    con.close()
-    print("\n✅ GA test completed successfully!")
-    print("Results saved to: ga_heavydb_results.json")
+    def _fill_child(self, child: np.ndarray, parent: np.ndarray) -> None:
+        """Fill remaining positions in child from parent"""
+        pos = 0
+        for gene in parent:
+            if gene not in child:
+                while pos < len(child) and child[pos] != -1:
+                    pos += 1
+                if pos < len(child):
+                    child[pos] = gene
     
-    return True
-
-
-if __name__ == "__main__":
-    import sys
-    success = test_ga_with_sensex()
-    sys.exit(0 if success else 1)
+    def _mutate(self, individual: np.ndarray, num_strategies: int,
+                zone_data: Optional[Dict] = None) -> np.ndarray:
+        """Mutate individual by swapping with random strategy"""
+        mutated = individual.copy()
+        
+        # Select position to mutate
+        pos = random.randint(0, len(mutated) - 1)
+        
+        # Find strategies not in portfolio
+        available = np.setdiff1d(np.arange(num_strategies), mutated)
+        
+        if len(available) > 0:
+            # Swap with random available strategy
+            new_strategy = np.random.choice(available)
+            mutated[pos] = new_strategy
+        
+        return mutated

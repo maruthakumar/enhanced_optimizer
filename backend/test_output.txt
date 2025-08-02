@@ -1,0 +1,51 @@
+🧪 Running in TEST mode with /mnt/optimizer_share/input/Python_Multi_Consolidated_20250726_161921.csv
+🚀 CSV-Only HeavyDB Accelerated Optimizer Initialized (Real Algorithms)
+📊 HeavyDB Acceleration: ✅ ENABLED
+📁 Input Format: CSV-only (Excel support removed)
+🖥️ Execution: Server-side with Samba file I/O
+🧬 Algorithms: Real implementations (no simulation)
+================================================================================
+🚀 HEAVY OPTIMIZER PLATFORM - REAL ALGORITHM INTEGRATION
+================================================================================
+📥 Loading CSV data from: /mnt/optimizer_share/input/Python_Multi_Consolidated_20250726_161921.csv
+✅ CSV Data Loaded Successfully
+📊 Dataset Shape: (82, 25546)
+⏱️ Load Time: 0.708s
+🔄 Preprocessing CSV data for optimization...
+⚡ Using HeavyDB acceleration for preprocessing
+✅ Preprocessing completed in 0.101s
+📊 Numeric columns: 25544
+🧬 Executing 8 real optimization algorithms...
+🔄 GA: Starting real execution...
+✅ GA: Fitness=0.012294, Time=2.712s
+🔄 SA: Starting real execution...
+✅ SA: Fitness=0.024449, Time=3.455s
+🔄 PSO: Starting real execution...
+✅ PSO: Fitness=0.005990, Time=2.367s
+🔄 DE: Starting real execution...
+✅ DE: Fitness=0.004432, Time=4.689s
+🔄 ACO: Starting real execution...
+✅ ACO: Fitness=0.001833, Time=15.978s
+🔄 HC: Starting real execution...
+✅ HC: Fitness=0.007707, Time=1.209s
+🔄 BO: Starting real execution...
+✅ BO: Fitness=0.001872, Time=0.295s
+🔄 RS: Starting real execution...
+✅ RS: Fitness=0.003540, Time=1.863s
+🏆 Best Algorithm: SA (Fitness: 0.024449)
+⏱️ Total Algorithm Time: 32.568s
+📊 Successful Algorithms: 8/8
+📄 Generating reference-compatible output files...
+✅ Output generation completed in 0.240s
+📁 Output directory: /mnt/optimizer_share/output/run_20250731_151932
+
+================================================================================
+✅ OPTIMIZATION COMPLETED SUCCESSFULLY
+================================================================================
+📊 Total Execution Time: 33.631s
+   - Data Loading: 0.708s
+   - Preprocessing: 0.101s
+   - Algorithm Execution: 32.568s
+   - Output Generation: 0.240s
+📁 Results saved to: /mnt/optimizer_share/output/run_20250731_151932
+🚀 Real algorithms executed - No simulation delays!

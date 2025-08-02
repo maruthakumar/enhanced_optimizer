@@ -4,6 +4,11 @@
 **Date:** July 29, 2025  
 **Status:** 100% Production Ready - Enterprise Deployment Approved
 
+> **DEPRECATION NOTICE**: This system uses HeavyDB which is being replaced by 
+> Parquet/Arrow/cuDF as per the architecture migration. See docs/architecture.md 
+> for the new data stack specification. This documentation remains for reference
+> during the transition period.
+
 ---
 
 ## Executive Summary

@@ -1,274 +1,199 @@
 #!/usr/bin/env python3
 """
-Hill Climbing Algorithm Implementation
-CRITICAL MISSING ALGORITHM - Now implemented for genuine 100% production readiness
+Hill Climbing Implementation for Heavy Optimizer Platform
+
+Implements HC algorithm with configuration support.
 """
 
 import numpy as np
+import random
+from typing import Dict, List, Tuple, Optional, Union, Callable
 import time
-import logging
-from typing import Dict, List, Any, Tuple
+import sys
+import os
 
-class HillClimbing:
-    """
-    Hill Climbing Algorithm - CRITICAL MISSING COMPONENT NOW IMPLEMENTED
-    Local search optimization algorithm that iteratively improves solutions
-    """
+# Add parent directory to path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from algorithms.base_algorithm import BaseOptimizationAlgorithm
+from config.config_manager import get_config_manager
+
+
+class HillClimbing(BaseOptimizationAlgorithm):
+    """Hill Climbing implementation with configuration support"""
     
-    def __init__(self):
-        """Initialize Hill Climbing algorithm"""
-        self.logger = logging.getLogger(__name__)
-        self.algorithm_name = "HC"
-        self.algorithm_description = "Hill Climbing"
-        
-        # Performance tracking
-        self.execution_count = 0
-        self.total_execution_time = 0.0
-        self.success_count = 0
-        self.error_count = 0
-        
-        self.logger.info("✅ Hill Climbing Algorithm initialized - CRITICAL MISSING COMPONENT")
-    
-    def optimize(self, daily_matrix: np.ndarray, portfolio_size: int, 
-                fitness_function, **kwargs) -> Dict[str, Any]:
+    def __init__(self, config_path: Optional[str] = None):
         """
-        Run Hill Climbing optimization
+        Initialize HC with configuration
         
         Args:
-            daily_matrix: Strategy returns matrix (days × strategies)
-            portfolio_size: Number of strategies to select
-            fitness_function: Function to calculate portfolio fitness
-            **kwargs: Additional parameters
+            config_path: Path to configuration file
+        """
+        super().__init__(config_path)
+        
+        # Get configuration manager
+        self.config_manager = get_config_manager()
+        
+        # Load algorithm-specific parameters
+        self.max_iterations = self.config_manager.getint('ALGORITHM_PARAMETERS', 'hc_max_iterations', 100)
+        self.neighborhood_size = self.config_manager.getint('ALGORITHM_PARAMETERS', 'hc_neighborhood_size', 10)
+        self.restart_threshold = self.config_manager.getint('ALGORITHM_PARAMETERS', 'hc_restart_threshold', 10)
+        self.step_size = self.config_manager.getint('ALGORITHM_PARAMETERS', 'hc_step_size', 1)
+        
+        self.logger.info(f"Initialized HC with max_iterations={self.max_iterations}, "
+                        f"neighborhood_size={self.neighborhood_size}")
+    
+    def optimize(self, daily_matrix: np.ndarray, portfolio_size: Union[int, Tuple[int, int]], 
+                fitness_function: Callable, zone_data: Optional[Dict] = None) -> Dict:
+        """
+        Run hill climbing optimization
+        
+        Args:
+            daily_matrix: Daily returns matrix (days x strategies)
+            portfolio_size: Target portfolio size or (min, max) range
+            fitness_function: Function to evaluate portfolio fitness
+            zone_data: Optional zone constraint data
             
         Returns:
             Dictionary with optimization results
         """
         start_time = time.time()
-        self.execution_count += 1
         
-        try:
-            self.logger.info(f"🏔️ Starting Hill Climbing optimization")
-            self.logger.info(f"   Dataset: {daily_matrix.shape} (days × strategies)")
-            self.logger.info(f"   Portfolio Size: {portfolio_size}")
+        # Handle portfolio size
+        if isinstance(portfolio_size, tuple):
+            min_size, max_size = portfolio_size
+            actual_size = random.randint(min_size, max_size)
+        else:
+            actual_size = portfolio_size
+        
+        num_strategies = daily_matrix.shape[1]
+        
+        # Initialize solution
+        if zone_data and zone_data.get('enabled'):
+            current_solution = self._create_zone_constrained_portfolio(
+                num_strategies, actual_size, zone_data
+            )
+        else:
+            current_solution = np.random.choice(num_strategies, actual_size, replace=False)
+        
+        current_fitness = fitness_function(daily_matrix, current_solution)
+        
+        # Track best
+        best_solution = current_solution.copy()
+        best_fitness = current_fitness
+        fitness_history = [best_fitness]
+        
+        # Hill climbing loop
+        no_improvement_count = 0
+        
+        for iteration in range(self.max_iterations):
+            # Generate neighborhood
+            neighbors = self._generate_neighbors(
+                current_solution, num_strategies, zone_data
+            )
             
-            num_strategies = daily_matrix.shape[1]
-            max_iterations = kwargs.get('max_iterations', 150)
-            restart_threshold = kwargs.get('restart_threshold', 50)
-            
-            # Validate inputs
-            if portfolio_size > num_strategies:
-                raise ValueError(f"Portfolio size ({portfolio_size}) cannot exceed number of strategies ({num_strategies})")
-            
-            if daily_matrix.size == 0:
-                raise ValueError("Daily matrix cannot be empty")
-            
-            # Initialize with random solution
-            current_solution = np.random.choice(num_strategies, portfolio_size, replace=False)
-            current_fitness = fitness_function(daily_matrix, current_solution)
-            
-            best_solution = current_solution.copy()
-            best_fitness = current_fitness
-            
-            iterations_without_improvement = 0
-            total_iterations = 0
-            restarts = 0
-            
-            self.logger.info(f"   Max Iterations: {max_iterations}")
-            self.logger.info(f"   Restart Threshold: {restart_threshold}")
-            
-            # Main Hill Climbing loop
-            for iteration in range(max_iterations):
-                total_iterations += 1
-                
-                # Generate neighbor solution
-                neighbor = self._generate_neighbor(current_solution, num_strategies, portfolio_size)
+            # Evaluate neighbors
+            improved = False
+            for neighbor in neighbors:
                 neighbor_fitness = fitness_function(daily_matrix, neighbor)
                 
-                # Hill climbing: accept if better
                 if neighbor_fitness > current_fitness:
                     current_solution = neighbor
                     current_fitness = neighbor_fitness
-                    iterations_without_improvement = 0
+                    improved = True
                     
-                    # Update global best
                     if current_fitness > best_fitness:
-                        best_solution = current_solution.copy()
                         best_fitness = current_fitness
-                        
-                        self.logger.debug(f"   New best at iteration {iteration + 1}: {best_fitness:.6f}")
-                else:
-                    iterations_without_improvement += 1
-                
-                # Random restart if stuck in local optimum
-                if iterations_without_improvement >= restart_threshold:
-                    current_solution = np.random.choice(num_strategies, portfolio_size, replace=False)
-                    current_fitness = fitness_function(daily_matrix, current_solution)
-                    iterations_without_improvement = 0
-                    restarts += 1
+                        best_solution = current_solution.copy()
                     
-                    self.logger.debug(f"   Random restart #{restarts} at iteration {iteration + 1}")
-                
-                # Progress logging every 30 iterations
-                if (iteration + 1) % 30 == 0:
-                    self.logger.info(f"   Progress: {iteration + 1}/{max_iterations}, Best: {best_fitness:.6f}, Restarts: {restarts}")
+                    break  # Take first improvement
             
-            execution_time = time.time() - start_time
+            fitness_history.append(best_fitness)
             
-            # Calculate performance statistics
-            performance_stats = {
-                'total_iterations': total_iterations,
-                'restarts': restarts,
-                'final_fitness': float(best_fitness),
-                'improvement_rate': (best_fitness - fitness_function(daily_matrix, np.random.choice(num_strategies, portfolio_size, replace=False))) / abs(fitness_function(daily_matrix, np.random.choice(num_strategies, portfolio_size, replace=False))) if fitness_function(daily_matrix, np.random.choice(num_strategies, portfolio_size, replace=False)) != 0 else 0
-            }
-            
-            # Update success tracking
-            self.success_count += 1
-            self.total_execution_time += execution_time
-            
-            # Prepare result
-            result = {
-                'best_fitness': float(best_fitness),
-                'best_portfolio': best_solution.tolist(),
-                'iterations': total_iterations,
-                'restarts': restarts,
-                'execution_time': execution_time,
-                'algorithm': self.algorithm_name,
-                'performance_stats': performance_stats,
-                'portfolio_size': portfolio_size,
-                'num_strategies': num_strategies
-            }
-            
-            self.logger.info(f"✅ Hill Climbing completed successfully")
-            self.logger.info(f"   Best Fitness: {best_fitness:.6f}")
-            self.logger.info(f"   Execution Time: {execution_time:.3f}s")
-            self.logger.info(f"   Total Iterations: {total_iterations}")
-            self.logger.info(f"   Restarts: {restarts}")
-            
-            return result
-            
-        except Exception as e:
-            self.error_count += 1
-            execution_time = time.time() - start_time
-            
-            self.logger.error(f"❌ Hill Climbing failed: {str(e)}")
-            
-            return {
-                'best_fitness': 0.0,
-                'best_portfolio': [],
-                'iterations': 0,
-                'execution_time': execution_time,
-                'algorithm': self.algorithm_name,
-                'error': str(e),
-                'status': 'FAILED'
-            }
-    
-    def _generate_neighbor(self, current_solution: np.ndarray, num_strategies: int, 
-                          portfolio_size: int) -> np.ndarray:
-        """
-        Generate neighbor solution by swapping one strategy
-        
-        Args:
-            current_solution: Current portfolio
-            num_strategies: Total number of strategies available
-            portfolio_size: Size of portfolio
-            
-        Returns:
-            Neighbor solution
-        """
-        try:
-            neighbor = current_solution.copy()
-            
-            # Choose random position to modify
-            position = np.random.randint(portfolio_size)
-            
-            # Find strategies not in current portfolio
-            available_strategies = list(set(range(num_strategies)) - set(current_solution))
-            
-            if available_strategies:
-                # Replace with random available strategy
-                neighbor[position] = np.random.choice(available_strategies)
+            if not improved:
+                no_improvement_count += 1
             else:
-                # Fallback: swap two positions within portfolio
-                if portfolio_size > 1:
-                    pos1, pos2 = np.random.choice(portfolio_size, 2, replace=False)
-                    neighbor[pos1], neighbor[pos2] = neighbor[pos2], neighbor[pos1]
+                no_improvement_count = 0
             
-            return neighbor
+            # Random restart if stuck
+            if no_improvement_count >= self.restart_threshold:
+                if zone_data and zone_data.get('enabled'):
+                    current_solution = self._create_zone_constrained_portfolio(
+                        num_strategies, actual_size, zone_data
+                    )
+                else:
+                    current_solution = np.random.choice(num_strategies, actual_size, replace=False)
+                
+                current_fitness = fitness_function(daily_matrix, current_solution)
+                no_improvement_count = 0
+                
+                self.logger.debug(f"Random restart at iteration {iteration}")
             
-        except Exception as e:
-            self.logger.error(f"Neighbor generation failed: {str(e)}")
-            return current_solution.copy()
-    
-    def get_algorithm_info(self) -> Dict[str, Any]:
-        """Get algorithm information and performance metrics"""
-        avg_execution_time = (self.total_execution_time / self.execution_count) if self.execution_count > 0 else 0.0
-        success_rate = (self.success_count / self.execution_count * 100) if self.execution_count > 0 else 0.0
+            # Log progress
+            if iteration % 20 == 0:
+                self.logger.debug(f"Iteration {iteration}: Best fitness = {best_fitness:.6f}")
+        
+        execution_time = time.time() - start_time
         
         return {
-            'algorithm_name': self.algorithm_name,
-            'algorithm_description': self.algorithm_description,
-            'execution_count': self.execution_count,
-            'success_count': self.success_count,
-            'error_count': self.error_count,
-            'success_rate': success_rate,
-            'total_execution_time': self.total_execution_time,
-            'average_execution_time': avg_execution_time,
-            'status': 'PRODUCTION_READY',
-            'critical_component': True,  # This was the missing algorithm
-            'implementation_date': '2025-07-29'
+            'best_fitness': float(best_fitness),
+            'best_portfolio': best_solution.tolist() if best_solution is not None else [],
+            'execution_time': execution_time,
+            'iterations': iteration + 1,
+            'fitness_history': fitness_history,
+            'algorithm': 'hill_climbing',
+            'parameters': {
+                'neighborhood_size': self.neighborhood_size,
+                'restart_threshold': self.restart_threshold,
+                'step_size': self.step_size
+            }
         }
-
-
-def main():
-    """Test Hill Climbing algorithm"""
-    print("🏔️ Hill Climbing Algorithm - CRITICAL MISSING COMPONENT")
-    print("=" * 60)
     
-    # Configure logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
+    def _generate_neighbors(self, solution: np.ndarray, num_strategies: int,
+                           zone_data: Optional[Dict] = None) -> List[np.ndarray]:
+        """Generate neighborhood of solutions"""
+        neighbors = []
+        
+        for _ in range(self.neighborhood_size):
+            neighbor = solution.copy()
+            
+            # Apply step_size mutations
+            for _ in range(self.step_size):
+                # Random mutation type
+                if random.random() < 0.5 and len(neighbor) > 1:
+                    # Swap
+                    i, j = random.sample(range(len(neighbor)), 2)
+                    neighbor[i], neighbor[j] = neighbor[j], neighbor[i]
+                else:
+                    # Replace
+                    pos = random.randint(0, len(neighbor) - 1)
+                    available = np.setdiff1d(np.arange(num_strategies), neighbor)
+                    if len(available) > 0:
+                        neighbor[pos] = np.random.choice(available)
+            
+            neighbors.append(neighbor)
+        
+        return neighbors
     
-    # Initialize algorithm
-    hc = HillClimbing()
-    
-    # Test with sample data
-    np.random.seed(42)
-    daily_matrix = np.random.normal(0, 1, (50, 100))
-    portfolio_size = 20
-    
-    def sample_fitness(matrix, portfolio):
-        portfolio_returns = np.sum(matrix[:, portfolio], axis=1)
-        return np.mean(portfolio_returns) / (np.std(portfolio_returns) + 1e-6)
-    
-    print(f"📊 Test Dataset: {daily_matrix.shape}")
-    print(f"🎯 Portfolio Size: {portfolio_size}")
-    
-    # Run optimization
-    result = hc.optimize(daily_matrix, portfolio_size, sample_fitness)
-    
-    if 'error' not in result:
-        print(f"\n✅ Hill Climbing Test Results:")
-        print(f"   Best Fitness: {result['best_fitness']:.6f}")
-        print(f"   Execution Time: {result['execution_time']:.3f}s")
-        print(f"   Iterations: {result['iterations']}")
-        print(f"   Restarts: {result['restarts']}")
-        print(f"   Portfolio Size: {len(result['best_portfolio'])}")
-    else:
-        print(f"\n❌ Test Failed: {result['error']}")
-    
-    # Get algorithm info
-    info = hc.get_algorithm_info()
-    print(f"\n📊 Algorithm Info:")
-    print(f"   Status: {info['status']}")
-    print(f"   Success Rate: {info['success_rate']:.1f}%")
-    print(f"   Critical Component: {info['critical_component']}")
-    
-    print("\n✅ Hill Climbing Algorithm test complete!")
-    print("🚀 CRITICAL MISSING COMPONENT NOW IMPLEMENTED!")
-
-
-if __name__ == "__main__":
-    main()
+    def _create_zone_constrained_portfolio(self, num_strategies: int, portfolio_size: int,
+                                         zone_data: Dict) -> np.ndarray:
+        """Create portfolio respecting zone constraints"""
+        zone_count = zone_data.get('zone_count', 4)
+        zone_weights = zone_data.get('zone_weights', [0.25] * zone_count)
+        min_per_zone = zone_data.get('min_per_zone', 1)
+        
+        strategies_per_zone = num_strategies // zone_count
+        portfolio = []
+        
+        for zone in range(zone_count):
+            zone_size = max(min_per_zone, int(portfolio_size * zone_weights[zone]))
+            zone_start = zone * strategies_per_zone
+            zone_end = min((zone + 1) * strategies_per_zone, num_strategies)
+            
+            zone_strategies = np.arange(zone_start, zone_end)
+            selected = np.random.choice(zone_strategies, 
+                                      min(zone_size, len(zone_strategies)), 
+                                      replace=False)
+            portfolio.extend(selected)
+        
+        return np.array(portfolio[:portfolio_size])

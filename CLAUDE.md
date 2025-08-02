@@ -8,6 +8,9 @@ The Heavy Optimizer Platform is a high-performance portfolio optimization system
 
 ## Core Architecture
 
+> **Note**: The system is migrating from HeavyDB to Parquet/Arrow/cuDF. See docs/architecture.md
+> for the new data stack. Current workflows still use HeavyDB during the transition period.
+
 ### Job Processing Flow
 1. Windows clients submit CSV files via `\\204.12.223.93\optimizer_share`
 2. Job queue processor (`/backend/samba_job_queue_processor.py`) monitors `/jobs/queue/`
@@ -19,7 +22,7 @@ The Heavy Optimizer Platform is a high-performance portfolio optimization system
 - **8 Optimization Algorithms** in `/backend/algorithms/`: GA, PSO, SA, DE, ACO, HC, BO, RS
 - **ULTA Strategy Inversion**: Automatically optimizes poor-performing strategies
 - **Correlation-Based Diversification**: Portfolio risk management through correlation analysis
-- **GPU Acceleration**: Optional HeavyDB/CuPy for 2-5x performance improvement
+- **GPU Acceleration**: Optional HeavyDB/CuPy for 2-5x performance improvement (transitioning to RAPIDS)
 
 ## Common Commands
 

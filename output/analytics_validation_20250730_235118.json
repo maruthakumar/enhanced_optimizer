@@ -1,0 +1,69 @@
+{
+  "validation_timestamp": "2025-07-30T23:49:22.730504",
+  "tests_passed": 3,
+  "tests_failed": 3,
+  "component_results": {
+    "performance_attribution": {
+      "component": "performance_attribution",
+      "passed": true,
+      "errors": [],
+      "performance": {
+        "strategies_analyzed": 25544,
+        "portfolio_size": 50,
+        "trading_days": 82,
+        "attribution_categories": 38
+      }
+    },
+    "sensitivity_analysis": {
+      "component": "sensitivity_analysis",
+      "passed": true,
+      "errors": [],
+      "performance": {
+        "penalty_tests": 11,
+        "size_tests": 10
+      }
+    },
+    "risk_metrics": {
+      "component": "risk_metrics",
+      "passed": false,
+      "errors": [
+        "Missing VaR metric: var_95",
+        "Missing VaR metric: var_99",
+        "Missing VaR metric: cvar_95",
+        "Missing VaR metric: cvar_99",
+        "Missing max_drawdown"
+      ]
+    },
+    "diversification_analysis": {
+      "component": "diversification_analysis",
+      "passed": false,
+      "errors": [
+        "Exception: index 1002 is out of bounds for axis 0 with size 1000"
+      ]
+    },
+    "scenario_modeling": {
+      "component": "scenario_modeling",
+      "passed": false,
+      "errors": [
+        "Missing required key: regime_analysis"
+      ]
+    },
+    "analytics_engine": {
+      "component": "analytics_engine",
+      "passed": true,
+      "errors": [],
+      "performance": {
+        "components_initialized": 7,
+        "analysis_components": 4,
+        "summary_length": 825
+      }
+    }
+  },
+  "performance_metrics": {
+    "data_processing_speed": "8027 data points/second",
+    "memory_usage": "Not tested",
+    "analysis_completion_time": "5.11 seconds",
+    "scalability_assessment": "Suitable for production scale"
+  },
+  "acceptance_criteria_met": false
+}

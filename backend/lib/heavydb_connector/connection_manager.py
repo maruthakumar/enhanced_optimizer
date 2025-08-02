@@ -208,7 +208,8 @@ class HeavyDBConnectionManager:
                     if pd.isna(val):
                         values.append('NULL')
                     elif isinstance(val, str):
-                        values.append(f"'{val.replace(\"'\", \"''\")}'")
+                        escaped_val = val.replace("'", "''")
+                        values.append(f"'{escaped_val}'")
                     else:
                         values.append(str(val))
                 values_list.append(f"({', '.join(values)})")

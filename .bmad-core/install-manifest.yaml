@@ -1,10 +1,11 @@
 version: 4.33.1
-installed_at: '2025-07-30T11:41:03.842Z'
+installed_at: '2025-07-31T14:03:33.079Z'
 install_type: full
 agent: null
 ides_setup:
   - cursor
   - claude-code
+  - gemini
 expansion_packs: []
 files:
   - path: .bmad-core/working-in-the-brownfield.md
@@ -79,18 +80,6 @@ files:
   - path: .bmad-core/templates/architecture-tmpl.yaml
     hash: df1b0cec27c7e861
     modified: false
-  - path: .bmad-core/data/technical-preferences.md
-    hash: 6530bed845540b0d
-    modified: false
-  - path: .bmad-core/data/elicitation-methods.md
-    hash: 82d24b664e1a58ff
-    modified: false
-  - path: .bmad-core/data/brainstorming-techniques.md
-    hash: 2dae43f4464f1ad2
-    modified: false
-  - path: .bmad-core/data/bmad-kb.md
-    hash: 8900cde5b6a560e9
-    modified: false
   - path: .bmad-core/tasks/validate-next-story.md
     hash: e38e62f4fc2c1da2
     modified: false
@@ -141,6 +130,18 @@ files:
     modified: false
   - path: .bmad-core/tasks/advanced-elicitation.md
     hash: 28e3b538dc6fe104
+    modified: false
+  - path: .bmad-core/data/technical-preferences.md
+    hash: 6530bed845540b0d
+    modified: false
+  - path: .bmad-core/data/elicitation-methods.md
+    hash: 82d24b664e1a58ff
+    modified: false
+  - path: .bmad-core/data/brainstorming-techniques.md
+    hash: 2dae43f4464f1ad2
+    modified: false
+  - path: .bmad-core/data/bmad-kb.md
+    hash: 8900cde5b6a560e9
     modified: false
   - path: .bmad-core/checklists/story-draft-checklist.md
     hash: 59d7aeacedd9d447

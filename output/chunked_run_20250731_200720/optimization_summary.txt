@@ -1,0 +1,12 @@
+================================================================================
+CHUNKED OPTIMIZATION SUMMARY
+================================================================================
+
+Timestamp: 20250731_200720
+Dataset Size: (82, 25544)
+Chunked Processing: True
+GPU Processed: False
+
+Best Portfolio Size: 35
+Best Fitness: 12.561143
+Algorithm Used: genetic_algorithm

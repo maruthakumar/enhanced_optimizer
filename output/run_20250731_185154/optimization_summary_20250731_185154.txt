@@ -1,0 +1,18 @@
+Heavy Optimizer Platform - Real Algorithm Results
+============================================================
+Timestamp: 20250731_185154
+Input File: /tmp/gpu_config_test.csv
+Portfolio Size: 3
+Best Algorithm: GA
+Best Fitness: 0.118878
+
+Algorithm Performance:
+------------------------------------------------------------
+GA: Fitness=0.118878, Time=2.536s
+SA: Fitness=0.118878, Time=1.556s
+PSO: Fitness=0.118878, Time=2.322s
+DE: Fitness=0.118878, Time=4.599s
+ACO: Fitness=0.118878, Time=0.989s
+HC: Fitness=0.118878, Time=0.062s
+BO: Fitness=0.118878, Time=0.153s
+RS: Fitness=0.118878, Time=1.515s

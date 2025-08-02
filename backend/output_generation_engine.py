@@ -27,8 +27,9 @@ class OutputGenerationEngine:
         
     def generate_comprehensive_output(self, optimization_results: Dict[str, Any], 
                                     daily_matrix: np.ndarray, 
-                                    strategy_columns: List[str]) -> Dict[str, str]:
-        """Generate comprehensive output package"""
+                                    strategy_columns: List[str],
+                                    ulta_metrics: Optional[Dict[str, Any]] = None) -> Dict[str, str]:
+        """Generate comprehensive output package with ULTA statistics"""
         logger.info("📊 Generating comprehensive optimization output...")
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -39,15 +40,20 @@ class OutputGenerationEngine:
             equity_file = self.generate_equity_curves(optimization_results, daily_matrix, strategy_columns, timestamp)
             output_files['equity_curves'] = equity_file
             
-            # 2. Generate performance report
-            report_file = self.generate_performance_report(optimization_results, daily_matrix, strategy_columns, timestamp)
+            # 2. Generate performance report (enhanced with ULTA stats)
+            report_file = self.generate_performance_report(optimization_results, daily_matrix, strategy_columns, timestamp, ulta_metrics)
             output_files['performance_report'] = report_file
             
-            # 3. Generate portfolio composition
-            portfolio_file = self.generate_portfolio_composition(optimization_results, strategy_columns, timestamp)
+            # 3. Generate portfolio composition (enhanced with ULTA info)
+            portfolio_file = self.generate_portfolio_composition(optimization_results, strategy_columns, timestamp, ulta_metrics)
             output_files['portfolio_composition'] = portfolio_file
             
-            # 4. Generate algorithm comparison
+            # 4. Generate ULTA inversion report if metrics available
+            if ulta_metrics:
+                ulta_file = self.generate_ulta_inversion_report(ulta_metrics, timestamp)
+                output_files['ulta_inversion_report'] = ulta_file
+            
+            # 5. Generate algorithm comparison
             comparison_file = self.generate_algorithm_comparison(optimization_results, timestamp)
             output_files['algorithm_comparison'] = comparison_file
             
@@ -58,6 +64,16 @@ class OutputGenerationEngine:
             # 6. Generate execution summary
             summary_file = self.generate_execution_summary(optimization_results, timestamp)
             output_files['execution_summary'] = summary_file
+            
+            # 7. Generate ULTA inversion report
+            ulta_file = self.generate_ulta_report(optimization_results, timestamp)
+            if ulta_file:
+                output_files['ulta_inversion_report'] = ulta_file
+            
+            # 8. Generate zone analysis report
+            zone_file = self.generate_zone_analysis_report(optimization_results, daily_matrix, strategy_columns, timestamp)
+            if zone_file:
+                output_files['zone_analysis_report'] = zone_file
             
             logger.info(f"✅ Comprehensive output generated: {len(output_files)} files")
             return output_files
@@ -437,6 +453,193 @@ class OutputGenerationEngine:
         except Exception as e:
             logger.error(f"❌ Execution summary generation failed: {e}")
             return ""
+    
+    def generate_ulta_report(self, optimization_results: Dict[str, Any], timestamp: str) -> str:
+        """Generate ULTA inversion report"""
+        logger.info("📄 Generating ULTA inversion report...")
+        
+        try:
+            ulta_file = self.output_directory / f"ulta_inversion_report_{timestamp}.md"
+            
+            # Get ULTA results from optimization results
+            ulta_results = optimization_results.get('ulta_results', {})
+            inverted_strategies = ulta_results.get('inverted_strategies', {})
+            
+            with open(ulta_file, 'w') as f:
+                f.write("# ULTA (Ultra Low Trading Algorithm) Inversion Report\n\n")
+                f.write(f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"**Run ID:** {timestamp}\n\n")
+                
+                if not inverted_strategies:
+                    f.write("## Summary\n\n")
+                    f.write("No strategies were inverted during this optimization run.\n\n")
+                    f.write("ULTA inversion is applied to strategies with poor performance ")
+                    f.write("(negative ROI/Drawdown ratio) to potentially improve their results.\n")
+                else:
+                    f.write("## Summary\n\n")
+                    f.write(f"**Total Strategies Inverted:** {len(inverted_strategies)}\n\n")
+                    f.write("The following strategies had their returns inverted based on ULTA logic:\n\n")
+                    
+                    # Create table header
+                    f.write("| Strategy Name | Original ROI | Inverted ROI | Original Drawdown | Inverted Drawdown | Improvement % |\n")
+                    f.write("|---------------|--------------|--------------|-------------------|-------------------|---------------|\n")
+                    
+                    # Write each inverted strategy
+                    total_improvement = 0
+                    for strategy_name, metrics in inverted_strategies.items():
+                        original_roi = metrics.get('original_roi', 0)
+                        inverted_roi = metrics.get('inverted_roi', 0)
+                        original_dd = metrics.get('original_drawdown', 0)
+                        inverted_dd = metrics.get('inverted_drawdown', 0)
+                        improvement = metrics.get('improvement_percentage', 0)
+                        total_improvement += improvement
+                        
+                        f.write(f"| {strategy_name} | {original_roi:.4f} | {inverted_roi:.4f} | ")
+                        f.write(f"{original_dd:.4f} | {inverted_dd:.4f} | {improvement:.2f}% |\n")
+                    
+                    # Write summary statistics
+                    f.write(f"\n## Overall Impact\n\n")
+                    f.write(f"**Average Improvement:** {total_improvement / len(inverted_strategies):.2f}%\n")
+                    f.write(f"**Strategies Improved:** {sum(1 for m in inverted_strategies.values() if m.get('improvement_percentage', 0) > 0)}\n")
+                    f.write(f"**Strategies Worsened:** {sum(1 for m in inverted_strategies.values() if m.get('improvement_percentage', 0) < 0)}\n")
+                    
+                    # Add detailed analysis
+                    f.write("\n## Detailed Analysis\n\n")
+                    f.write("### ULTA Logic Applied\n\n")
+                    f.write("Strategies were inverted based on the following criteria:\n")
+                    f.write("- ROI/Drawdown ratio below threshold (typically 0.0)\n")
+                    f.write("- Negative returns on majority of trading days\n")
+                    f.write("- Consistent underperformance across multiple metrics\n\n")
+                    
+                    f.write("### Methodology\n\n")
+                    f.write("The ULTA inversion process:\n")
+                    f.write("1. Identifies poorly performing strategies\n")
+                    f.write("2. Inverts their daily returns (profit becomes loss, loss becomes profit)\n")
+                    f.write("3. Recalculates all performance metrics\n")
+                    f.write("4. Includes inverted strategies in optimization if improved\n\n")
+                
+                # Add configuration section
+                ulta_config = ulta_results.get('config', {})
+                if ulta_config:
+                    f.write("## Configuration\n\n")
+                    f.write(f"- **Enabled:** {ulta_config.get('enabled', True)}\n")
+                    f.write(f"- **ROI Threshold:** {ulta_config.get('roi_threshold', 0.0)}\n")
+                    f.write(f"- **Inversion Method:** {ulta_config.get('inversion_method', 'negative_daily_returns')}\n")
+                    f.write(f"- **Min Negative Days:** {ulta_config.get('min_negative_days', 10)}\n")
+                    f.write(f"- **Negative Day Percentage:** {ulta_config.get('negative_day_percentage', 0.6)}\n")
+            
+            logger.info(f"✅ ULTA inversion report saved: {ulta_file}")
+            return str(ulta_file)
+            
+        except Exception as e:
+            logger.error(f"❌ ULTA report generation failed: {e}")
+            return ""
+    
+    def generate_zone_analysis_report(self, optimization_results: Dict[str, Any], 
+                                    daily_matrix: np.ndarray, 
+                                    strategy_columns: List[str], 
+                                    timestamp: str) -> str:
+        """Generate zone analysis report"""
+        logger.info("📊 Generating zone analysis report...")
+        
+        try:
+            zone_file = self.output_directory / f"zone_analysis_report_{timestamp}.md"
+            
+            # Get zone data from optimization results
+            zone_data = optimization_results.get('zone_analysis', {})
+            
+            with open(zone_file, 'w') as f:
+                f.write("# Zone Analysis Report\n\n")
+                f.write(f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"**Run ID:** {timestamp}\n\n")
+                
+                if not zone_data:
+                    # Generate zone analysis from best portfolio if not provided
+                    f.write("## Zone Performance Analysis\n\n")
+                    f.write("*Note: Zone-specific optimization data not available. ")
+                    f.write("Showing aggregate performance analysis instead.*\n\n")
+                    
+                    best_portfolio = optimization_results.get('best_portfolio', [])
+                    if best_portfolio and len(best_portfolio) > 0:
+                        # Calculate zone-based metrics from portfolio
+                        portfolio_returns = np.sum(daily_matrix[:, best_portfolio], axis=1)
+                        
+                        # Divide into zones (4 zones by default)
+                        days_per_zone = len(portfolio_returns) // 4
+                        zones = {
+                            'Zone 1': portfolio_returns[:days_per_zone],
+                            'Zone 2': portfolio_returns[days_per_zone:2*days_per_zone],
+                            'Zone 3': portfolio_returns[2*days_per_zone:3*days_per_zone],
+                            'Zone 4': portfolio_returns[3*days_per_zone:]
+                        }
+                        
+                        f.write("### Zone Performance Summary\n\n")
+                        f.write("| Zone | Days | Total Return | Avg Daily Return | Max Drawdown | Win Rate |\n")
+                        f.write("|------|------|--------------|------------------|--------------|----------|\n")
+                        
+                        for zone_name, zone_returns in zones.items():
+                            total_return = np.sum(zone_returns)
+                            avg_return = np.mean(zone_returns)
+                            max_dd = np.min(zone_returns)
+                            win_rate = np.sum(zone_returns > 0) / len(zone_returns) * 100
+                            
+                            f.write(f"| {zone_name} | {len(zone_returns)} | {total_return:.4f} | ")
+                            f.write(f"{avg_return:.6f} | {max_dd:.4f} | {win_rate:.1f}% |\n")
+                else:
+                    # Use provided zone data
+                    f.write("## Zone Optimization Results\n\n")
+                    
+                    # Summary statistics
+                    num_zones = len(zone_data.get('zones', {}))
+                    f.write(f"**Total Zones Analyzed:** {num_zones}\n")
+                    f.write(f"**Optimization Method:** {zone_data.get('method', 'Standard')}\n\n")
+                    
+                    # Zone performance table
+                    f.write("### Zone Performance Summary\n\n")
+                    f.write("| Zone | Strategies | Best Algorithm | ROI | Drawdown | ROI/DD Ratio | Win Rate |\n")
+                    f.write("|------|------------|----------------|-----|----------|--------------|----------|\n")
+                    
+                    zones = zone_data.get('zones', {})
+                    for zone_name, zone_info in zones.items():
+                        strategies = zone_info.get('strategies', 0)
+                        best_algo = zone_info.get('best_algorithm', 'N/A')
+                        roi = zone_info.get('roi', 0)
+                        drawdown = zone_info.get('drawdown', 0)
+                        ratio = zone_info.get('roi_dd_ratio', 0)
+                        win_rate = zone_info.get('win_rate', 0)
+                        
+                        f.write(f"| {zone_name} | {strategies} | {best_algo} | ")
+                        f.write(f"{roi:.4f} | {drawdown:.4f} | {ratio:.4f} | {win_rate:.1f}% |\n")
+                
+                # Add analysis insights
+                f.write("\n## Analysis Insights\n\n")
+                f.write("### Zone Characteristics\n\n")
+                f.write("- **Zone 1**: Early trading period, typically showing initial volatility\n")
+                f.write("- **Zone 2**: Mid-early period, strategies often stabilize\n")
+                f.write("- **Zone 3**: Mid-late period, mature strategy performance\n")
+                f.write("- **Zone 4**: Late trading period, final performance outcomes\n\n")
+                
+                f.write("### Optimization Approach\n\n")
+                f.write("Zone-based optimization allows for:\n")
+                f.write("1. Temporal analysis of strategy performance\n")
+                f.write("2. Identification of time-dependent patterns\n")
+                f.write("3. Risk management across different market periods\n")
+                f.write("4. Targeted strategy selection for specific time windows\n\n")
+                
+                # Add recommendations
+                f.write("## Recommendations\n\n")
+                f.write("Based on zone analysis:\n")
+                f.write("- Focus on strategies performing well across all zones\n")
+                f.write("- Consider zone-specific position sizing\n")
+                f.write("- Monitor zone transitions for regime changes\n")
+                f.write("- Implement zone-aware risk management\n")
+            
+            logger.info(f"✅ Zone analysis report saved: {zone_file}")
+            return str(zone_file)
+            
+        except Exception as e:
+            logger.error(f"❌ Zone analysis report generation failed: {e}")
+            return ""
 
 
 def main():
@@ -457,6 +660,50 @@ def main():
         'gpu_utilization': {
             'initial_state': {'used_memory_mb': 471, 'gpu_name': 'NVIDIA A100-SXM4-40GB'},
             'final_state': {'used_memory_mb': 1200, 'gpu_name': 'NVIDIA A100-SXM4-40GB', 'temperature_celsius': 39}
+        },
+        'ulta_results': {
+            'inverted_strategies': {
+                'Strategy_15': {
+                    'original_roi': -0.025,
+                    'inverted_roi': 0.025,
+                    'original_drawdown': -0.15,
+                    'inverted_drawdown': -0.10,
+                    'improvement_percentage': 150.0
+                },
+                'Strategy_42': {
+                    'original_roi': -0.018,
+                    'inverted_roi': 0.018,
+                    'original_drawdown': -0.08,
+                    'inverted_drawdown': -0.06,
+                    'improvement_percentage': 125.0
+                }
+            },
+            'config': {
+                'enabled': True,
+                'roi_threshold': 0.0,
+                'inversion_method': 'negative_daily_returns'
+            }
+        },
+        'zone_analysis': {
+            'method': 'Temporal Zone Optimization',
+            'zones': {
+                'Zone 1': {
+                    'strategies': 25,
+                    'best_algorithm': 'genetic_algorithm',
+                    'roi': 0.125,
+                    'drawdown': -0.082,
+                    'roi_dd_ratio': 1.524,
+                    'win_rate': 62.5
+                },
+                'Zone 2': {
+                    'strategies': 25,
+                    'best_algorithm': 'simulated_annealing',
+                    'roi': 0.215,
+                    'drawdown': -0.095,
+                    'roi_dd_ratio': 2.263,
+                    'win_rate': 68.2
+                }
+            }
         }
     }
     

@@ -1,0 +1,18 @@
+Heavy Optimizer Platform - Real Algorithm Results
+============================================================
+Timestamp: 20250731_233651
+Input File: /mnt/optimizer_share/input/test_zone_data.csv
+Portfolio Size: 20
+Best Algorithm: SA
+Best Fitness: 47.430664
+
+Algorithm Performance:
+------------------------------------------------------------
+GA: Fitness=38.703590, Time=2.413s
+SA: Fitness=47.430664, Time=1.566s
+PSO: Fitness=16.682364, Time=2.323s
+DE: Fitness=37.854044, Time=4.749s
+ACO: Fitness=21.826124, Time=1.331s
+HC: Fitness=33.020459, Time=0.743s
+BO: Fitness=22.173193, Time=0.155s
+RS: Fitness=19.848472, Time=1.519s

@@ -1,0 +1,274 @@
+{
+  "timestamp": "2025-07-31T16:17:57.914803",
+  "summary": {
+    "legacy_fitness": 30.45764862187442,
+    "new_fitness": 30.46,
+    "legacy_algorithm": "SA",
+    "new_algorithm": "SA",
+    "fitness_parity": true,
+    "relative_difference": 7.720156453222608e-05
+  },
+  "portfolio_comparisons": {
+    "41": {
+      "size": 41,
+      "legacy": {
+        "method": "SA",
+        "fitness": 17.29165487036665,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "59": {
+      "size": 59,
+      "legacy": {
+        "method": "SA",
+        "fitness": 18.225857571946108,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "45": {
+      "size": 45,
+      "legacy": {
+        "method": "SA",
+        "fitness": 20.2797352395401,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "46": {
+      "size": 46,
+      "legacy": {
+        "method": "SA",
+        "fitness": 25.006371727045842,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "38": {
+      "size": 38,
+      "legacy": {
+        "method": "SA",
+        "fitness": 26.0702966659477,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "54": {
+      "size": 54,
+      "legacy": {
+        "method": "SA",
+        "fitness": 27.5583682971708,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "39": {
+      "size": 39,
+      "legacy": {
+        "method": "SA",
+        "fitness": 25.11170783962449,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "52": {
+      "size": 52,
+      "legacy": {
+        "method": "SA",
+        "fitness": 24.300981449085842,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "60": {
+      "size": 60,
+      "legacy": {
+        "method": "SA",
+        "fitness": 18.13607950566871,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "58": {
+      "size": 58,
+      "legacy": {
+        "method": "SA",
+        "fitness": 21.456656812514847,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "35": {
+      "size": 35,
+      "legacy": {
+        "method": "SA",
+        "fitness": 30.382062688374408,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "43": {
+      "size": 43,
+      "legacy": {
+        "method": "SA",
+        "fitness": 19.375064433734323,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "55": {
+      "size": 55,
+      "legacy": {
+        "method": "SA",
+        "fitness": 20.09921251394165,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "56": {
+      "size": 56,
+      "legacy": {
+        "method": "SA",
+        "fitness": 25.975628701641984,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "50": {
+      "size": 50,
+      "legacy": {
+        "method": "SA",
+        "fitness": 22.684343507061424,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "42": {
+      "size": 42,
+      "legacy": {
+        "method": "SA",
+        "fitness": 25.164648482375085,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "57": {
+      "size": 57,
+      "legacy": {
+        "method": "SA",
+        "fitness": 16.316270126150506,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "36": {
+      "size": 36,
+      "legacy": {
+        "method": "SA",
+        "fitness": 26.250769032464714,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "44": {
+      "size": 44,
+      "legacy": {
+        "method": "SA",
+        "fitness": 24.832653781622643,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "51": {
+      "size": 51,
+      "legacy": {
+        "method": "SA",
+        "fitness": 20.867702673685194,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "40": {
+      "size": 40,
+      "legacy": {
+        "method": "SA",
+        "fitness": 11.220227138368461,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "49": {
+      "size": 49,
+      "legacy": {
+        "method": "SA",
+        "fitness": 22.850072911698774,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "37": {
+      "size": 37,
+      "legacy": {
+        "method": "SA",
+        "fitness": 30.45764862187442,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "53": {
+      "size": 53,
+      "legacy": {
+        "method": "SA",
+        "fitness": 16.9506614641112,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "48": {
+      "size": 48,
+      "legacy": {
+        "method": "SA",
+        "fitness": 18.920043812042355,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    },
+    "47": {
+      "size": 47,
+      "legacy": {
+        "method": "SA",
+        "fitness": 19.97486660573869,
+        "strategies": []
+      },
+      "new": null,
+      "matches": false
+    }
+  },
+  "deviations": []
+}

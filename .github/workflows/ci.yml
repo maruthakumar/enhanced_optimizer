@@ -1,0 +1,266 @@
+name: Heavy Optimizer CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.10'
+  CUDA_VERSION: '11.8'
+
+jobs:
+  lint:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install linting tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install black==23.3.0 flake8==6.0.0 mypy==1.3.0 isort==5.12.0
+      
+      - name: Run Black formatter check
+        run: black --check backend/
+      
+      - name: Run isort import checker
+        run: isort --check-only backend/
+      
+      - name: Run flake8 linter
+        run: flake8 backend/ --max-line-length=100 --extend-ignore=E203,W503
+      
+      - name: Run mypy type checker
+        run: mypy backend/ --ignore-missing-imports
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      matrix:
+        algorithm: [genetic_algorithm, particle_swarm_optimization, simulated_annealing, 
+                   differential_evolution, ant_colony_optimization, hill_climbing, 
+                   bayesian_optimization, random_search]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-xdist
+      
+      - name: Run algorithm unit tests
+        run: |
+          pytest backend/tests/test_${{ matrix.algorithm }}.py -v --cov=backend/algorithms \
+            --cov-report=xml --cov-report=term
+      
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-${{ matrix.algorithm }}
+          path: coverage.xml
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-timeout
+      
+      - name: Run CSV to Parquet integration tests
+        run: |
+          pytest backend/tests/test_csv_to_parquet_integration.py -v --timeout=300
+      
+      - name: Run Parquet to Arrow integration tests
+        run: |
+          pytest backend/tests/test_parquet_to_arrow_integration.py -v --timeout=300
+      
+      - name: Run Arrow to cuDF integration tests (CPU mode)
+        run: |
+          pytest backend/tests/test_arrow_to_cudf_integration.py -v --timeout=300 -m "not gpu"
+
+  gpu-tests:
+    name: GPU Integration Tests
+    runs-on: [self-hosted, gpu]
+    needs: integration-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python with CUDA
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install CUDA toolkit
+        run: |
+          wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb
+          sudo dpkg -i cuda-keyring_1.0-1_all.deb
+          sudo apt-get update
+          sudo apt-get -y install cuda-toolkit-11-8
+      
+      - name: Install dependencies with GPU support
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-gpu.txt
+          pip install pytest pytest-timeout
+      
+      - name: Run GPU integration tests
+        run: |
+          export CUDA_HOME=/usr/local/cuda-11.8
+          export PATH=$CUDA_HOME/bin:$PATH
+          export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+          pytest backend/tests/test_gpu_integration.py -v --timeout=600
+      
+      - name: Run cuDF performance benchmarks
+        run: |
+          python backend/tests/benchmark_cudf_performance.py
+      
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v3
+        with:
+          name: gpu-benchmark-results
+          path: output/benchmarks/
+
+  regression-tests:
+    name: Parquet Pipeline Validation Tests
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-html
+      
+      - name: Run regression tests
+        run: |
+          pytest backend/tests/test_parquet_pipeline_validation.py -v \
+            --html=validation_report.html --self-contained-html
+      
+      - name: Upload validation report
+        uses: actions/upload-artifact@v3
+        with:
+          name: validation-report
+          path: validation_report.html
+        if: always()
+
+  performance-tests:
+    name: Performance Validation
+    runs-on: ubuntu-latest
+    needs: regression-tests
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest-benchmark
+      
+      - name: Run performance benchmarks
+        run: |
+          pytest backend/tests/test_performance_benchmarks.py \
+            --benchmark-only --benchmark-autosave
+      
+      - name: Check performance regression
+        run: |
+          python scripts/check_performance_regression.py
+      
+      - name: Upload performance results
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-results
+          path: .benchmarks/
+
+  build-artifacts:
+    name: Build and Store Artifacts
+    runs-on: ubuntu-latest
+    needs: [regression-tests, performance-tests]
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Create deployment package
+        run: |
+          mkdir -p dist
+          cp -r backend dist/
+          cp -r config dist/
+          cp requirements*.txt dist/
+          cp CLAUDE.md dist/
+          tar -czf heavy-optimizer-${{ github.sha }}.tar.gz dist/
+      
+      - name: Upload deployment package
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-package
+          path: heavy-optimizer-${{ github.sha }}.tar.gz
+          retention-days: 30
+
+  notify-status:
+    name: Notify Build Status
+    runs-on: ubuntu-latest
+    needs: [lint, unit-tests, integration-tests, regression-tests, performance-tests]
+    if: always()
+    steps:
+      - name: Check build status
+        run: |
+          if [[ "${{ needs.lint.result }}" == "failure" || \
+                "${{ needs.unit-tests.result }}" == "failure" || \
+                "${{ needs.integration-tests.result }}" == "failure" || \
+                "${{ needs.regression-tests.result }}" == "failure" || \
+                "${{ needs.performance-tests.result }}" == "failure" ]]; then
+            echo "Build failed!"
+            exit 1
+          else
+            echo "Build succeeded!"
+          fi

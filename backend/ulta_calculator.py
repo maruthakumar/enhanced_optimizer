@@ -38,10 +38,33 @@ class ULTACalculator:
     Implements the core ULTA logic for strategy inversion based on ROI/Drawdown ratio.
     """
     
-    def __init__(self, logger: Optional[logging.Logger] = None):
-        """Initialize ULTA Calculator with optional logger."""
+    def __init__(self, logger: Optional[logging.Logger] = None, config_path: Optional[str] = None):
+        """
+        Initialize ULTA Calculator with optional logger and configuration.
+        
+        Args:
+            logger: Optional logger instance
+            config_path: Optional path to configuration file
+        """
         self.logger = logger or logging.getLogger(__name__)
         self.inverted_strategies: Dict[str, ULTAStrategyMetrics] = {}
+        
+        # Load configuration
+        if config_path:
+            from config.config_manager import get_config_manager
+            self.config_manager = get_config_manager(config_path)
+            self.ulta_config = self.config_manager.get_ulta_config()
+        else:
+            # Default configuration
+            self.ulta_config = {
+                'enabled': True,
+                'roi_threshold': 0.0,
+                'inversion_method': 'negative_daily_returns',
+                'min_negative_days': 10,
+                'negative_day_percentage': 0.6
+            }
+        
+        self.logger.info(f"Initialized ULTA Calculator with config: {self.ulta_config}")
         
     def calculate_roi(self, returns: np.ndarray) -> float:
         """
@@ -105,13 +128,29 @@ class ULTACalculator:
         Returns:
             Tuple of (should_invert, metrics)
         """
+        # Check if ULTA is enabled
+        if not self.ulta_config['enabled']:
+            return False, None
+        
         # Calculate original metrics
         original_roi = self.calculate_roi(returns)
         original_drawdown = self.calculate_drawdown(returns)
         original_ratio = self.calculate_ratio(original_roi, original_drawdown)
         
-        # Only consider inversion if ratio is negative
-        if original_ratio >= 0:
+        # Only consider inversion if ratio is below threshold
+        roi_threshold = self.ulta_config['roi_threshold']
+        if original_roi >= roi_threshold:
+            return False, None
+        
+        # Check minimum negative days requirement
+        negative_days = np.sum(returns < 0)
+        min_negative_days = self.ulta_config['min_negative_days']
+        negative_percentage = self.ulta_config['negative_day_percentage']
+        
+        if negative_days < min_negative_days:
+            return False, None
+        
+        if len(returns) > 0 and (negative_days / len(returns)) < negative_percentage:
             return False, None
         
         # Calculate inverted metrics
@@ -206,18 +245,23 @@ class ULTACalculator:
         
         return updated_data, self.inverted_strategies
     
-    def generate_inversion_report(self, output_format: str = "markdown") -> str:
+    def generate_inversion_report(self, output_format: str = "markdown", output_path: Optional[str] = None) -> str:
         """
         Generate a report of inverted strategies.
         
         Args:
-            output_format: Output format ('markdown' or 'json')
+            output_format: Output format ('markdown', 'json', or 'excel')
+            output_path: Path to save the report (required for excel format)
             
         Returns:
-            Formatted report string
+            Formatted report string or file path for excel
         """
         if output_format == "json":
             return self._generate_json_report()
+        elif output_format == "excel":
+            if not output_path:
+                raise ValueError("output_path is required for Excel format")
+            return self._generate_excel_report(output_path)
         else:
             return self._generate_markdown_report()
     
@@ -267,6 +311,85 @@ class ULTACalculator:
             }
         }
         return json.dumps(report_data, indent=2)
+    
+    def _generate_excel_report(self, output_path: str) -> str:
+        """Generate Excel-formatted comprehensive inversion report."""
+        try:
+            import pandas as pd
+            
+            # Create summary data
+            total_analyzed = len(self.inverted_strategies)
+            total_inverted = sum(1 for m in self.inverted_strategies.values() if m.was_inverted)
+            avg_improvement = self._calculate_average_improvement()
+            
+            summary_data = {
+                'Metric': [
+                    'Total Strategies Analyzed',
+                    'Strategies Inverted', 
+                    'Inversion Rate (%)',
+                    'Average Improvement (%)'
+                ],
+                'Value': [
+                    total_analyzed,
+                    total_inverted,
+                    (total_inverted / max(1, total_analyzed)) * 100,
+                    avg_improvement
+                ]
+            }
+            summary_df = pd.DataFrame(summary_data)
+            
+            # Create detailed inversion data
+            inverted_data = []
+            for name, metrics in self.inverted_strategies.items():
+                if metrics.was_inverted:
+                    inverted_data.append({
+                        'Strategy Name': name,
+                        'Original ROI': metrics.original_roi,
+                        'Inverted ROI': metrics.inverted_roi,
+                        'ROI Improvement': abs(metrics.inverted_roi - metrics.original_roi),
+                        'Original Drawdown': metrics.original_drawdown,
+                        'Inverted Drawdown': metrics.inverted_drawdown,
+                        'Original Ratio': metrics.original_ratio,
+                        'Inverted Ratio': metrics.inverted_ratio,
+                        'Improvement %': metrics.improvement_percentage
+                    })
+            
+            if inverted_data:
+                detailed_df = pd.DataFrame(inverted_data)
+                # Sort by improvement percentage descending
+                detailed_df = detailed_df.sort_values('Improvement %', ascending=False)
+            else:
+                detailed_df = pd.DataFrame({'Message': ['No strategies were inverted']})
+            
+            # Write to Excel with multiple sheets
+            with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+                summary_df.to_excel(writer, sheet_name='Summary', index=False)
+                detailed_df.to_excel(writer, sheet_name='Inverted Strategies', index=False)
+                
+                # Auto-adjust column widths
+                for sheet_name in ['Summary', 'Inverted Strategies']:
+                    worksheet = writer.sheets[sheet_name]
+                    for column in worksheet.columns:
+                        max_length = 0
+                        column_letter = column[0].column_letter
+                        for cell in column:
+                            try:
+                                if len(str(cell.value)) > max_length:
+                                    max_length = len(str(cell.value))
+                            except:
+                                pass
+                        adjusted_width = min(max_length + 2, 50)
+                        worksheet.column_dimensions[column_letter].width = adjusted_width
+            
+            self.logger.info(f"Excel ULTA report saved to: {output_path}")
+            return output_path
+            
+        except ImportError:
+            self.logger.error("openpyxl not available for Excel export")
+            raise ValueError("openpyxl package required for Excel export")
+        except Exception as e:
+            self.logger.error(f"Failed to generate Excel report: {e}")
+            raise
     
     def _calculate_average_improvement(self) -> float:
         """Calculate average improvement percentage for inverted strategies."""

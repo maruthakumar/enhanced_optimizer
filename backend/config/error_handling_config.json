@@ -1,0 +1,103 @@
+{
+  "error_handling": {
+    "enabled": true,
+    "checkpoint": {
+      "enabled": true,
+      "base_directory": "/mnt/optimizer_share/checkpoints",
+      "max_checkpoints_per_job": 20,
+      "cleanup_after_days": 7,
+      "save_on_stages": [
+        "data_loaded",
+        "preprocessing_complete",
+        "optimization_start",
+        "algorithm_complete",
+        "metrics_calculated",
+        "output_generated"
+      ]
+    },
+    "retry": {
+      "enabled": true,
+      "default_max_attempts": 3,
+      "default_delay": 1.0,
+      "default_backoff": "exponential",
+      "max_delay": 60.0,
+      "network_errors": {
+        "max_attempts": 5,
+        "initial_delay": 2.0
+      },
+      "database_errors": {
+        "max_attempts": 3,
+        "initial_delay": 1.0
+      },
+      "resource_errors": {
+        "max_attempts": 4,
+        "initial_delay": 0.5
+      }
+    },
+    "notifications": {
+      "enabled": true,
+      "rate_limit_per_hour": 10,
+      "email": {
+        "enabled": false,
+        "smtp_server": "smtp.gmail.com",
+        "smtp_port": 587,
+        "use_tls": true,
+        "from_address": "heavy-optimizer@example.com",
+        "recipients": [
+          "admin@example.com",
+          "ops-team@example.com"
+        ],
+        "username": "",
+        "password": ""
+      },
+      "slack": {
+        "enabled": false,
+        "webhook_url": "",
+        "include_stack_trace": true,
+        "channels": {
+          "critical": "#critical-alerts",
+          "error": "#error-logs",
+          "warning": "#warnings"
+        }
+      }
+    },
+    "logging": {
+      "enabled": true,
+      "log_directory": "/mnt/optimizer_share/logs",
+      "include_context": true,
+      "include_locals": true,
+      "max_log_size_mb": 100,
+      "backup_count": 5,
+      "error_detail_files": true,
+      "console_log_level": "INFO",
+      "file_log_level": "DEBUG"
+    },
+    "recovery": {
+      "enabled": true,
+      "max_recovery_attempts": 3,
+      "recovery_timeout_seconds": 300,
+      "save_emergency_checkpoints": true,
+      "strategies": {
+        "data_processing": {
+          "use_checkpoints": true,
+          "relax_validation": true
+        },
+        "algorithm": {
+          "adjust_parameters": true,
+          "use_fallback": true
+        },
+        "network": {
+          "wait_time": 10
+        },
+        "database": {
+          "reconnect": true,
+          "use_fallback": false
+        },
+        "resource": {
+          "free_memory": true,
+          "reduce_batch_size": true
+        }
+      }
+    }
+  }
+}
