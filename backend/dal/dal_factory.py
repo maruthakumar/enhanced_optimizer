@@ -1,8 +1,8 @@
 """
 DAL Factory for creating appropriate Data Access Layer instances
 
-This factory handles the creation of DAL instances based on configuration
-and availability of HeavyDB.
+This factory handles the creation of DAL instances for CSV data processing
+with GPU acceleration via Parquet/Arrow/cuDF pipeline.
 """
 
 import os
@@ -11,7 +11,6 @@ import configparser
 from typing import Optional, Dict, Any
 
 from .base_dal import BaseDAL
-from .heavydb_dal import HeavyDBDAL
 from .csv_dal import CSVDAL
 
 
@@ -43,33 +42,14 @@ class DALFactory:
         
         # Determine DAL type
         if dal_type is None:
-            dal_type = config.get('system', {}).get('dal_type', 'auto')
-        
-        if dal_type == 'auto':
-            # Try HeavyDB first, fall back to CSV
-            try:
-                logger.info("Attempting to create HeavyDB DAL...")
-                dal = HeavyDBDAL(config)
-                if dal.connect():
-                    logger.info("Successfully created HeavyDB DAL")
-                    return dal
-                else:
-                    logger.warning("HeavyDB connection failed, falling back to CSV DAL")
-            except Exception as e:
-                logger.warning(f"HeavyDB DAL creation failed: {str(e)}, falling back to CSV DAL")
-            
-            # Fall back to CSV
-            dal_type = 'csv'
+            dal_type = config.get('system', {}).get('dal_type', 'csv')
         
         # Create requested DAL type
-        if dal_type == 'heavydb':
-            logger.info("Creating HeavyDB DAL")
-            return HeavyDBDAL(config)
-        elif dal_type == 'csv':
+        if dal_type == 'csv' or dal_type == 'auto':
             logger.info("Creating CSV DAL")
             return CSVDAL(config)
         else:
-            raise ValueError(f"Unknown DAL type: {dal_type}")
+            raise ValueError(f"Unknown DAL type: {dal_type}. Only 'csv' is supported.")
     
     @staticmethod
     def _load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
@@ -125,7 +105,7 @@ def get_dal(dal_type: Optional[str] = None) -> BaseDAL:
     Convenience function to get a DAL instance
     
     Args:
-        dal_type: Type of DAL ('heavydb', 'csv', or None for auto)
+        dal_type: Type of DAL ('csv' or None for default)
         
     Returns:
         BaseDAL: DAL instance

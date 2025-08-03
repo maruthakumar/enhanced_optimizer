@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# Test data mappings - NEVER commit these
+/backend/tests/data/*_mapping.json
+/backend/tests/data/strategy_mapping.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Output directories
+/output/
+/jobs/processing/
+/jobs/failed/
+
+# Large data files
+*.parquet
+*.arrow
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# pytest
+.pytest_cache/

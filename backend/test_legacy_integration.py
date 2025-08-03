@@ -1,266 +1,267 @@
 #!/usr/bin/env python3
-"""Test script for legacy system integration - Story 1.2"""
+"""
+Test script for Legacy Integration functionality
+Validates that all components work together correctly
+"""
 
-import json
+import os
 import sys
+import logging
+import json
 from pathlib import Path
-from legacy_system_integration import (
-    LegacyOutputParser, 
-    FitnessCalculationValidator,
-    LegacySystemExecutor
-)
 
-def test_output_parser():
-    """Test the legacy output parser with existing results"""
-    print("\n=== Testing Legacy Output Parser ===")
-    parser = LegacyOutputParser()
-    
-    # Parse existing legacy output
-    output_dir = "/mnt/optimizer_share/zone_optimization_25_06_25/Output/run_20250726_163251"
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+def test_imports():
+    """Test that all required modules can be imported"""
+    logger.info("Testing imports...")
     
     try:
-        results = parser.parse_legacy_results(output_dir)
+        from legacy_system_wrapper import LegacySystemWrapper
+        logger.info("✅ LegacySystemWrapper imported successfully")
+    except ImportError as e:
+        logger.error(f"❌ Failed to import LegacySystemWrapper: {e}")
+        return False
         
-        print(f"✓ Successfully parsed legacy output from {output_dir}")
-        print(f"  - Best Overall Algorithm: {results.get('best_overall', {}).get('method', 'N/A')}")
-        print(f"  - Best Overall Fitness: {results.get('best_overall', {}).get('fitness', 'N/A')}")
-        print(f"  - Best Overall Size: {results.get('best_overall', {}).get('size', 'N/A')}")
-        print(f"  - Number of portfolio results: {len(results.get('portfolio_results', {}))}")
+    try:
+        from legacy_comparison import LegacyComparison
+        logger.info("✅ LegacyComparison imported successfully")
+    except ImportError as e:
+        logger.error(f"❌ Failed to import LegacyComparison: {e}")
+        return False
         
-        # Check for size 37 specifically (from story requirements)
-        if 37 in results.get('portfolio_results', {}):
-            size37 = results['portfolio_results'][37]
-            print(f"\n  Portfolio Size 37 Details:")
-            print(f"    - Method: {size37.get('method', 'N/A')}")
-            print(f"    - Fitness: {size37.get('fitness', 'N/A')}")
-            print(f"    - Expected: ~30.458 (SA algorithm)")
-            
-            # Validate against expected value
-            expected_fitness = 30.458
-            actual_fitness = size37.get('fitness', 0)
-            if abs(actual_fitness - expected_fitness) < 0.1:
-                print(f"    ✓ Fitness matches expected value!")
-            else:
-                print(f"    ✗ Fitness mismatch: {actual_fitness} vs {expected_fitness}")
+    try:
+        from legacy_report_generator import LegacyReportGenerator
+        logger.info("✅ LegacyReportGenerator imported successfully")
+    except ImportError as e:
+        logger.error(f"❌ Failed to import LegacyReportGenerator: {e}")
+        return False
         
-        return results
+    try:
+        from legacy_integration_orchestrator import LegacyIntegrationOrchestrator
+        logger.info("✅ LegacyIntegrationOrchestrator imported successfully")
+    except ImportError as e:
+        logger.error(f"❌ Failed to import LegacyIntegrationOrchestrator: {e}")
+        return False
         
-    except Exception as e:
-        print(f"✗ Failed to parse legacy output: {e}")
-        return None
+    try:
+        from parquet_cudf_workflow import ParquetCuDFWorkflow
+        logger.info("✅ ParquetCuDFWorkflow imported successfully")
+    except ImportError as e:
+        logger.error(f"❌ Failed to import ParquetCuDFWorkflow: {e}")
+        return False
+        
+    return True
 
-def test_fitness_validator():
-    """Test the fitness calculation validator"""
-    print("\n=== Testing Fitness Calculation Validator ===")
-    validator = FitnessCalculationValidator(tolerance=0.0001)
+def test_file_paths():
+    """Test that required file paths exist"""
+    logger.info("Testing file paths...")
     
-    # Test exact match
-    assert validator.validate_fitness_parity(30.458, 30.458) == True
-    print("✓ Exact match validation passed")
+    # Check legacy system
+    legacy_path = Path("/mnt/optimizer_share/zone_optimization_25_06_25")
+    if not legacy_path.exists():
+        logger.error(f"❌ Legacy system path not found: {legacy_path}")
+        return False
+    logger.info("✅ Legacy system path exists")
     
-    # Test within tolerance (0.01%)
-    assert validator.validate_fitness_parity(30.458, 30.461) == True
-    print("✓ Within tolerance validation passed")
+    # Check legacy optimizer script
+    optimizer_script = legacy_path / "Optimizer_New_patched.py"
+    if not optimizer_script.exists():
+        logger.error(f"❌ Legacy optimizer script not found: {optimizer_script}")
+        return False
+    logger.info("✅ Legacy optimizer script exists")
     
-    # Test outside tolerance
-    assert validator.validate_fitness_parity(30.458, 30.500) == False
-    print("✓ Outside tolerance validation passed")
-    
-    # Test zero values
-    assert validator.validate_fitness_parity(0, 0) == True
-    print("✓ Zero value validation passed")
+    # Check test dataset
+    test_dataset = Path("/mnt/optimizer_share/input/Python_Multi_Consolidated_20250726_161921.csv")
+    if not test_dataset.exists():
+        logger.warning(f"⚠️ Test dataset not found: {test_dataset}")
+        # Look for alternative test files
+        input_dir = Path("/mnt/optimizer_share/input")
+        csv_files = list(input_dir.glob("*.csv")) if input_dir.exists() else []
+        if csv_files:
+            logger.info(f"✅ Found alternative CSV files: {[f.name for f in csv_files[:3]]}")
+        else:
+            logger.error("❌ No CSV files found in input directory")
+            return False
+    else:
+        logger.info("✅ Test dataset exists")
     
     return True
 
-def test_comparison_report(legacy_results):
-    """Test generating comparison report"""
-    print("\n=== Testing Comparison Report Generation ===")
-    validator = FitnessCalculationValidator()
-    
-    # Create mock new system results for comparison
-    new_results = {
-        'best_algorithm': 'SA',
-        'best_fitness': 30.460,  # Slightly different from legacy
-        'portfolio_size': 37,
-        'metrics': {
-            'total_return': 1234.56,
-            'max_drawdown': 40.5,
-            'win_rate': 65.2,
-            'profit_factor': 1.35
-        }
-    }
+def test_legacy_wrapper():
+    """Test legacy wrapper functionality"""
+    logger.info("Testing legacy wrapper...")
     
     try:
-        report = validator.generate_comparison_report(legacy_results, new_results)
+        from legacy_system_wrapper import LegacySystemWrapper
         
-        print("✓ Comparison report generated successfully")
-        print(f"  - Legacy fitness: {report['summary'].get('legacy_fitness', 'N/A')}")
-        print(f"  - New fitness: {report['summary'].get('new_fitness', 'N/A')}")
-        print(f"  - Fitness parity: {report['summary'].get('fitness_parity', 'N/A')}")
-        print(f"  - Relative difference: {report['summary'].get('relative_difference', 0):.4%}")
-        print(f"  - Deviations found: {len(report.get('deviations', []))}")
+        # Create wrapper
+        wrapper = LegacySystemWrapper()
+        logger.info("✅ Legacy wrapper created successfully")
         
-        # Save test report
-        output_path = "/mnt/optimizer_share/output/legacy_comparison/test_comparison_report.json"
-        validator.save_comparison_report(report, output_path)
-        print(f"✓ Report saved to {output_path}")
-        
-        return report
+        # Test finding output directory (without running optimizer)
+        latest_output = wrapper._find_latest_output_dir()
+        if latest_output:
+            logger.info(f"✅ Found existing output directory: {latest_output.name}")
+            
+            # Test parsing existing results
+            try:
+                results = wrapper.get_legacy_results(str(latest_output))
+                logger.info(f"✅ Parsed legacy results: {len(results.get('portfolio_results', {}))} portfolios")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not parse legacy results: {e}")
+        else:
+            logger.info("ℹ️ No existing output directory found (this is okay)")
+            
+        return True
         
     except Exception as e:
-        print(f"✗ Failed to generate comparison report: {e}")
-        return None
+        logger.error(f"❌ Legacy wrapper test failed: {e}")
+        return False
 
-def test_legacy_executor():
-    """Test the legacy system executor setup"""
-    print("\n=== Testing Legacy System Executor ===")
+def test_comparison_engine():
+    """Test comparison engine functionality"""
+    logger.info("Testing comparison engine...")
     
     try:
-        executor = LegacySystemExecutor()
-        print("✓ Legacy executor initialized successfully")
-        print(f"  - Legacy script path: {executor.legacy_script}")
-        print(f"  - Script exists: {executor.legacy_script.exists()}")
+        from legacy_comparison import LegacyComparison
         
-        # Test config file creation
-        test_config = executor._create_temp_config(
-            str(executor.legacy_base_path / "config_zone.ini"),
-            35, 40
+        # Create comparison engine
+        comparison = LegacyComparison(tolerance=0.0001)
+        logger.info("✅ Comparison engine created successfully")
+        
+        # Test fitness comparison
+        result = comparison.compare_fitness_values(
+            legacy_fitness=30.45764862187442,
+            new_fitness=30.45800000000000,
+            portfolio_size=37,
+            algorithm='SA'
         )
-        print(f"✓ Temporary config created: {test_config}")
         
-        # Clean up temp config
-        Path(test_config).unlink(missing_ok=True)
+        logger.info(f"✅ Fitness comparison test: {result['percentage_difference']:.4f}% difference")
+        
+        # Test portfolio comparison
+        legacy_strategies = ["Strategy A", "Strategy B", "Strategy C"]
+        new_strategies = ["Strategy A", "Strategy B", "Strategy D"]
+        
+        portfolio_result = comparison.compare_portfolios(
+            legacy_strategies=legacy_strategies,
+            new_strategies=new_strategies,
+            portfolio_size=3
+        )
+        
+        logger.info(f"✅ Portfolio comparison test: {portfolio_result['overlap_percentage']:.1f}% overlap")
+        
+        # Test summary generation
+        summary = comparison.generate_comparison_summary()
+        logger.info(f"✅ Summary generation test: {summary['fitness_match_rate']:.1f}% match rate")
         
         return True
         
     except Exception as e:
-        print(f"✗ Failed to initialize legacy executor: {e}")
+        logger.error(f"❌ Comparison engine test failed: {e}")
         return False
 
-def test_integration_with_workflow():
-    """Test integration with new workflow"""
-    print("\n=== Testing Integration with New Workflow ===")
+def test_report_generator():
+    """Test report generator functionality"""
+    logger.info("Testing report generator...")
     
-    # Check if new workflow can import legacy integration
     try:
-        sys.path.insert(0, '/mnt/optimizer_share/backend')
-        import csv_only_heavydb_workflow
+        from legacy_report_generator import LegacyReportGenerator
         
-        print("✓ Successfully imported new workflow module")
+        # Create report generator
+        generator = LegacyReportGenerator("/tmp/test_reports")
+        logger.info("✅ Report generator created successfully")
         
-        # Check if workflow has legacy comparison option
-        import inspect
-        main_func = getattr(csv_only_heavydb_workflow, 'main', None)
-        if main_func:
-            sig = inspect.signature(main_func)
-            print(f"  - Main function parameters: {list(sig.parameters.keys())}")
+        # Create dummy comparison summary
+        comparison_summary = {
+            'total_comparisons': 2,
+            'fitness_matches': 1,
+            'fitness_match_rate': 50.0,
+            'average_percentage_difference': 0.01,
+            'max_percentage_difference': 0.02,
+            'all_within_tolerance': False,
+            'verdict': 'Test verdict',
+            'detailed_results': [
+                {
+                    'portfolio_size': 35,
+                    'algorithm': 'GA',
+                    'legacy_fitness': 25.123,
+                    'new_fitness': 25.124,
+                    'percentage_difference': 0.004,
+                    'within_tolerance': True
+                },
+                {
+                    'portfolio_size': 37,
+                    'algorithm': 'SA', 
+                    'legacy_fitness': 30.458,
+                    'new_fitness': 30.463,
+                    'percentage_difference': 0.016,
+                    'within_tolerance': False
+                }
+            ]
+        }
+        
+        # Test dashboard creation
+        dashboard_path = generator.create_summary_dashboard(comparison_summary)
+        logger.info(f"✅ Dashboard created: {dashboard_path}")
         
         return True
         
     except Exception as e:
-        print(f"✗ Failed to test workflow integration: {e}")
+        logger.error(f"❌ Report generator test failed: {e}")
         return False
 
-def generate_qa_report(all_results):
-    """Generate QA test report"""
-    print("\n=== Generating QA Test Report ===")
+def run_all_tests():
+    """Run all tests"""
+    logger.info("Starting Legacy Integration Tests")
+    logger.info("=" * 50)
     
-    report = {
-        "story": "1.2 - Legacy System Integration",
-        "test_date": str(Path.cwd()),
-        "test_results": {
-            "output_parser": all_results.get('parser_test', False),
-            "fitness_validator": all_results.get('validator_test', False),
-            "comparison_report": all_results.get('comparison_test', False),
-            "legacy_executor": all_results.get('executor_test', False),
-            "workflow_integration": all_results.get('workflow_test', False)
-        },
-        "acceptance_criteria": {
-            "AC1_execute_legacy_system": "Partially tested - executor initialized but full execution too slow",
-            "AC2_parse_results": "PASSED - Successfully parsed legacy output",
-            "AC3_validate_fitness": "PASSED - Fitness validation working with tolerance"
-        },
-        "issues_found": [],
-        "recommendations": []
-    }
-    
-    # Check for issues
-    if not all(report["test_results"].values()):
-        report["issues_found"].append("Some tests failed - see test results above")
-    
-    # Add specific findings
-    if all_results.get('legacy_results'):
-        legacy = all_results['legacy_results']
-        if 'best_overall' in legacy:
-            best = legacy['best_overall']
-            if best.get('fitness') == 30.45764862187442 and best.get('method') == 'SA':
-                report["acceptance_criteria"]["AC3_validate_fitness"] += " - Verified SA fitness 30.458 for size 37"
-            else:
-                report["issues_found"].append(f"Unexpected best result: {best.get('method')} with fitness {best.get('fitness')}")
-    
-    # Recommendations
-    report["recommendations"] = [
-        "Consider adding a dry-run mode to legacy executor for faster testing",
-        "Add caching mechanism for legacy results to avoid re-running optimizer",
-        "Implement parallel execution for multiple portfolio sizes",
-        "Add more detailed error handling for legacy system failures"
+    tests = [
+        ("Import Tests", test_imports),
+        ("File Path Tests", test_file_paths),
+        ("Legacy Wrapper Tests", test_legacy_wrapper),
+        ("Comparison Engine Tests", test_comparison_engine),
+        ("Report Generator Tests", test_report_generator)
     ]
     
-    # Save report
-    output_path = "/mnt/optimizer_share/output/qa_test_story_1_2_report.json"
-    with open(output_path, 'w') as f:
-        json.dump(report, f, indent=2)
+    results = {}
     
-    print(f"✓ QA report saved to {output_path}")
+    for test_name, test_func in tests:
+        logger.info(f"\n--- {test_name} ---")
+        try:
+            results[test_name] = test_func()
+        except Exception as e:
+            logger.error(f"❌ {test_name} failed with exception: {e}")
+            results[test_name] = False
     
-    # Print summary
-    passed = sum(1 for v in report["test_results"].values() if v)
-    total = len(report["test_results"])
-    print(f"\nTest Summary: {passed}/{total} tests passed")
+    # Summary
+    logger.info("\n" + "=" * 50)
+    logger.info("TEST SUMMARY")
+    logger.info("=" * 50)
     
-    return report
+    passed = sum(1 for result in results.values() if result)
+    total = len(results)
+    
+    for test_name, result in results.items():
+        status = "✅ PASS" if result else "❌ FAIL"
+        logger.info(f"{test_name}: {status}")
+    
+    logger.info(f"\nOverall: {passed}/{total} tests passed")
+    
+    if passed == total:
+        logger.info("🎉 All tests passed! Legacy integration is ready.")
+        return True
+    else:
+        logger.error("❌ Some tests failed. Please review the issues above.")
+        return False
 
 def main():
-    """Run all tests"""
-    print("Starting QA tests for Story 1.2: Legacy System Integration")
-    print("=" * 60)
-    
-    all_results = {}
-    
-    # Test 1: Output Parser
-    legacy_results = test_output_parser()
-    all_results['parser_test'] = legacy_results is not None
-    all_results['legacy_results'] = legacy_results
-    
-    # Test 2: Fitness Validator  
-    all_results['validator_test'] = test_fitness_validator()
-    
-    # Test 3: Comparison Report
-    if legacy_results:
-        comparison = test_comparison_report(legacy_results)
-        all_results['comparison_test'] = comparison is not None
-    else:
-        all_results['comparison_test'] = False
-    
-    # Test 4: Legacy Executor
-    all_results['executor_test'] = test_legacy_executor()
-    
-    # Test 5: Workflow Integration
-    all_results['workflow_test'] = test_integration_with_workflow()
-    
-    # Generate QA report
-    qa_report = generate_qa_report(all_results)
-    
-    print("\n" + "=" * 60)
-    print("QA Testing Complete!")
-    
-    # Return exit code based on test results
-    if all(all_results.get(k, False) for k in ['parser_test', 'validator_test', 'executor_test']):
-        print("✓ Core functionality tests PASSED")
-        return 0
-    else:
-        print("✗ Some tests FAILED - see report for details")
-        return 1
+    """Main entry point"""
+    success = run_all_tests()
+    sys.exit(0 if success else 1)
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

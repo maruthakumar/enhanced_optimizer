@@ -2,7 +2,7 @@
 """
 Heavy Optimizer Platform - Samba Job Queue Processor
 Server-side daemon that processes optimization jobs submitted via Samba share
-Maintains HeavyDB acceleration while eliminating SSH complexity
+Uses modern Parquet/Arrow/cuDF pipeline for GPU acceleration
 """
 
 import os
@@ -116,7 +116,7 @@ class SambaJobQueueProcessor:
             return None
     
     def execute_optimization_job(self, job_data, job_file):
-        """Execute optimization job with HeavyDB acceleration"""
+        """Execute optimization job with GPU acceleration"""
         job_id = job_data['job_id']
         
         try:
@@ -128,21 +128,21 @@ class SambaJobQueueProcessor:
                 return False
             
             # Prepare execution environment
-            backend_script = self.backend_path / "optimized_reference_compatible_workflow.py"
+            backend_script = self.backend_path / "parquet_cudf_workflow.py"
             input_file = self.samba_share_path / "input" / job_data['input_file']
             portfolio_size = job_data['portfolio_size']
             
-            # Set up environment for HeavyDB acceleration
+            # Set up environment for GPU acceleration
             env = os.environ.copy()
             env['PYTHONPATH'] = str(self.backend_path / "lib")
-            env['HEAVYDB_OPTIMIZER_HOME'] = str(self.backend_path)
+            env['OPTIMIZER_HOME'] = str(self.backend_path)
             
-            # Execute optimization with server-side HeavyDB acceleration
+            # Execute optimization with server-side GPU acceleration
             cmd = [
                 sys.executable,
                 str(backend_script),
-                str(input_file),
-                str(portfolio_size)
+                '--input', str(input_file),
+                '--portfolio-size', str(portfolio_size)
             ]
             
             self.logger.info(f"Executing: {' '.join(cmd)}")
@@ -239,7 +239,7 @@ class SambaJobQueueProcessor:
                         self.move_job_file(job_file, self.failed_path)
                         continue
                     
-                    # Execute job with HeavyDB acceleration
+                    # Execute job with GPU acceleration
                     success = self.execute_optimization_job(job_data, job_file)
                     
                     if success:
@@ -255,7 +255,7 @@ class SambaJobQueueProcessor:
     
     def start(self):
         """Start the job queue processor"""
-        self.logger.info("Starting Samba Job Queue Processor for HeavyDB acceleration")
+        self.logger.info("Starting Samba Job Queue Processor for GPU acceleration")
         self.logger.info(f"Backend path: {self.backend_path}")
         self.logger.info(f"Jobs path: {self.jobs_path}")
         

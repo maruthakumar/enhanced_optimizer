@@ -116,3 +116,16 @@ The complete data processing pipeline implements the following stages:
    - Risk-adjusted portfolio allocations
 
 This pipeline ensures seamless migration from HeavyDB while adding advanced capabilities.
+
+## 8. Testing Data Strategy
+
+The Heavy Optimizer Platform follows a production-data-first testing philosophy:
+
+1. **Unit Tests**: Use anonymized subsets of real production data
+2. **Integration Tests**: Full production datasets with sensitive data masked
+3. **Performance Tests**: Actual production workloads (25,544 strategies)
+4. **Edge Case Testing**: Curated real data exhibiting edge conditions
+
+**Rationale**: Financial optimization algorithms must be validated against real market conditions to ensure accuracy. Synthetic data cannot replicate the complex correlations and market regimes present in actual trading data.
+
+**Data Security**: All test data is anonymized using strategy ID mapping and date shifting to protect proprietary information while maintaining mathematical relationships.

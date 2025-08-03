@@ -9,6 +9,10 @@ on:
 env:
   PYTHON_VERSION: '3.10'
   CUDA_VERSION: '11.8'
+  TEST_DATA_DIR: 'backend/tests/data'
+  ANONYMIZED_SMALL_DATA: 'backend/tests/data/test_data_small.csv'
+  ANONYMIZED_MEDIUM_DATA: 'backend/tests/data/test_data_medium.csv'
+  ANONYMIZED_LARGE_DATA: 'backend/tests/data/test_data_large.csv'
 
 jobs:
   lint:
@@ -70,8 +74,18 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov pytest-xdist
       
+      - name: Prepare anonymized test data
+        run: |
+          # Check if test data exists, if not, create it
+          if [ ! -f "${{ env.ANONYMIZED_SMALL_DATA }}" ]; then
+            echo "Test data not found. Please run anonymization scripts locally and commit test data."
+            echo "Note: Do not commit mapping files (*_mapping.json)"
+            exit 1
+          fi
+      
       - name: Run algorithm unit tests
         run: |
+          export TEST_DATA_PATH="${{ env.ANONYMIZED_SMALL_DATA }}"
           pytest backend/tests/test_${{ matrix.algorithm }}.py -v --cov=backend/algorithms \
             --cov-report=xml --cov-report=term
       
@@ -99,8 +113,18 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-timeout
       
+      - name: Verify anonymized test data
+        run: |
+          # Ensure anonymized test data is available
+          if [ ! -f "${{ env.ANONYMIZED_SMALL_DATA }}" ]; then
+            echo "ERROR: Anonymized test data not found!"
+            exit 1
+          fi
+          echo "Using anonymized test data for integration tests"
+      
       - name: Run CSV to Parquet integration tests
         run: |
+          export TEST_DATA_PATH="${{ env.ANONYMIZED_SMALL_DATA }}"
           pytest backend/tests/test_csv_to_parquet_integration.py -v --timeout=300
       
       - name: Run Parquet to Arrow integration tests

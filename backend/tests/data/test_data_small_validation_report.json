@@ -1,0 +1,78 @@
+{
+  "original_file": "tests/data/original_small.csv",
+  "anonymized_file": "tests/data/test_data_small.csv",
+  "validation_results": {
+    "basic_properties": {
+      "row_count_match": true,
+      "original_rows": 82,
+      "anon_rows": 82,
+      "strategy_count_match": true,
+      "original_strategies": 25544,
+      "anon_strategies": 25544
+    },
+    "summary_statistics": {
+      "all_stats_match": true,
+      "sample_size": 10,
+      "detailed_stats": [
+        {
+          "original_strategy": "SENSEX 1000-1100 SL7%",
+          "anon_strategy": "STRATEGY_0001",
+          "stats_match": true,
+          "mean_diff": 0.0,
+          "std_diff": 0.0
+        },
+        {
+          "original_strategy": "SENSEX 1032-1232 SL39%",
+          "anon_strategy": "STRATEGY_2839",
+          "stats_match": true,
+          "mean_diff": 0.0,
+          "std_diff": 0.0
+        },
+        {
+          "original_strategy": "SENSEX 1312-1512 SL55%",
+          "anon_strategy": "STRATEGY_5677",
+          "stats_match": true,
+          "mean_diff": 0.0,
+          "std_diff": 0.0
+        },
+        {
+          "original_strategy": "SENSEX 1036-1106 SL17%",
+          "anon_strategy": "STRATEGY_8515",
+          "stats_match": true,
+          "mean_diff": 0.0,
+          "std_diff": 0.0
+        },
+        {
+          "original_strategy": "SENSEX 1300-1400 SL143%",
+          "anon_strategy": "STRATEGY_11353",
+          "stats_match": true,
+          "mean_diff": 0.0,
+          "std_diff": 0.0
+        }
+      ]
+    },
+    "correlations": {
+      "correlations_preserved": true,
+      "max_correlation_diff": 1.1102230246251565e-16,
+      "avg_correlation_diff": 2.9961927036636917e-18,
+      "sample_size": 20
+    },
+    "portfolio_metrics": {
+      "total_return_match": true,
+      "total_return_diff": 1.6763806343078613e-08,
+      "max_drawdown_match": true,
+      "max_drawdown_diff": 0.0,
+      "win_rate_match": true,
+      "win_rate_diff": 0.0
+    },
+    "date_shift": {
+      "date_shift_valid": true,
+      "shift_days": 180,
+      "consistent": true
+    }
+  },
+  "overall_validation": {
+    "passed": true,
+    "timestamp": "2025-08-03T21:32:42.437659"
+  }
+}

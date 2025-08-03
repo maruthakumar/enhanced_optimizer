@@ -133,3 +133,12 @@ regime_specific_portfolios = true
 - ULTA logic preserved through migration
 - Market regime optimization functional
 - Configuration-driven column selection
+
+### Testing Philosophy
+
+This platform explicitly uses real production data for all testing phases:
+
+- **No Mock Data**: All algorithms tested with actual strategy performance data
+- **Data Security**: Test datasets anonymized to protect proprietary strategies
+- **Edge Cases**: Identified from historical data rather than synthetically generated
+- **Validation**: Results compared against known production outcomes

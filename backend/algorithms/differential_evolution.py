@@ -3,6 +3,9 @@
 Differential Evolution Implementation for Heavy Optimizer Platform
 
 Implements DE algorithm with configuration support.
+
+RETROFITTED FOR PARQUET/ARROW/CUDF SUPPORT (Story 1.1R)
+Now supports both legacy numpy arrays and GPU-accelerated cuDF DataFrames.
 """
 
 import numpy as np
@@ -16,20 +19,29 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from algorithms.base_algorithm import BaseOptimizationAlgorithm
+from algorithms.fitness_functions import FitnessCalculator
 from config.config_manager import get_config_manager
+
+# Try to import cuDF for GPU support
+try:
+    import cudf
+    CUDF_AVAILABLE = True
+except (ImportError, RuntimeError):
+    CUDF_AVAILABLE = False
 
 
 class DifferentialEvolution(BaseOptimizationAlgorithm):
     """Differential Evolution implementation with configuration support"""
     
-    def __init__(self, config_path: Optional[str] = None):
+    def __init__(self, config_path: Optional[str] = None, use_gpu: bool = True):
         """
         Initialize DE with configuration
         
         Args:
             config_path: Path to configuration file
+            use_gpu: Whether to use GPU acceleration with cuDF
         """
-        super().__init__(config_path)
+        super().__init__(config_path, use_gpu)
         
         # Get configuration manager
         self.config_manager = get_config_manager()
@@ -41,24 +53,42 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
         self.strategy = self.config_manager.get('ALGORITHM_PARAMETERS', 'de_strategy', 'best_1_bin')
         self.generations = self.config_manager.getint('ALGORITHM_PARAMETERS', 'de_generations', 100)
         
+        # Initialize fitness calculator
+        self.fitness_calculator = FitnessCalculator(use_gpu=self.use_gpu)
+        
         self.logger.info(f"Initialized DE with population_size={self.population_size}, "
-                        f"mutation_factor={self.mutation_factor}, strategy={self.strategy}")
+                        f"mutation_factor={self.mutation_factor}, strategy={self.strategy}, "
+                        f"GPU mode={self.use_gpu}")
     
-    def optimize(self, daily_matrix: np.ndarray, portfolio_size: Union[int, Tuple[int, int]], 
-                fitness_function: Callable, zone_data: Optional[Dict] = None) -> Dict:
+    def optimize(self, data: Union[np.ndarray, 'cudf.DataFrame'], 
+                portfolio_size: Union[int, Tuple[int, int]], 
+                fitness_function: Optional[Callable] = None, 
+                zone_data: Optional[Dict] = None) -> Dict:
         """
-        Run differential evolution optimization
+        Run differential evolution optimization (updated for cuDF support)
         
         Args:
-            daily_matrix: Daily returns matrix (days x strategies)
+            data: Strategy data - numpy array (legacy) or cuDF DataFrame (new GPU pipeline)
             portfolio_size: Target portfolio size or (min, max) range
-            fitness_function: Function to evaluate portfolio fitness
+            fitness_function: Optional external fitness function (legacy compatibility)
             zone_data: Optional zone constraint data
             
         Returns:
             Dictionary with optimization results
         """
         start_time = time.time()
+        
+        # Validate inputs using base class method
+        self.validate_inputs(data, portfolio_size)
+        
+        # Detect data type and get strategy information
+        data_type = self._detect_data_type(data)
+        strategy_list = self._get_strategy_list(data)
+        num_strategies = len(strategy_list)
+        
+        # Create fitness function if not provided
+        if fitness_function is None:
+            fitness_function = self.fitness_calculator.create_fitness_function(data, data_type)
         
         # Handle portfolio size
         if isinstance(portfolio_size, tuple):
@@ -67,11 +97,9 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
         else:
             actual_size = portfolio_size
         
-        num_strategies = daily_matrix.shape[1]
-        
         # Initialize population
-        population = self._initialize_population(num_strategies, actual_size, zone_data)
-        fitness_scores = [fitness_function(daily_matrix, ind) for ind in population]
+        population = self._initialize_population(strategy_list, actual_size, zone_data)
+        fitness_scores = [fitness_function(ind) for ind in population]
         
         # Track best
         best_idx = np.argmax(fitness_scores)
@@ -97,7 +125,7 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
                 trial = self._crossover(target, mutant, num_strategies)
                 
                 # Selection
-                trial_fitness = fitness_function(daily_matrix, trial)
+                trial_fitness = fitness_function(trial)
                 
                 if trial_fitness > fitness_scores[i]:
                     new_population.append(trial)
@@ -124,40 +152,55 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
         
         execution_time = time.time() - start_time
         
+        # Calculate detailed metrics for the best solution
+        detailed_metrics = {}
+        if best_individual is not None:
+            try:
+                detailed_metrics = self.fitness_calculator.calculate_detailed_metrics(data, best_individual)
+            except Exception as e:
+                self.logger.warning(f"Could not calculate detailed metrics: {e}")
+        
         return {
             'best_fitness': float(best_fitness),
-            'best_portfolio': best_individual.tolist() if best_individual is not None else [],
+            'best_portfolio': best_individual if best_individual is not None else [],
             'execution_time': execution_time,
             'generations': self.generations,
             'population_size': self.population_size,
             'fitness_history': fitness_history,
-            'algorithm': 'differential_evolution',
+            'algorithm_name': 'differential_evolution',
+            'data_type': data_type,
+            'gpu_accelerated': self.use_gpu,
+            'detailed_metrics': detailed_metrics,
             'parameters': {
                 'mutation_factor': self.mutation_factor,
                 'crossover_probability': self.crossover_prob,
-                'strategy': self.strategy
+                'strategy': self.strategy,
+                'num_strategies': num_strategies,
+                'portfolio_size': actual_size
             }
         }
     
-    def _initialize_population(self, num_strategies: int, portfolio_size: int,
-                              zone_data: Optional[Dict] = None) -> List[np.ndarray]:
+    def _initialize_population(self, strategy_list: List[Union[int, str]], portfolio_size: int,
+                              zone_data: Optional[Dict] = None) -> List[List[Union[int, str]]]:
         """Initialize population with valid portfolios"""
         population = []
+        num_strategies = len(strategy_list)
         
         for _ in range(self.population_size):
             if zone_data and zone_data.get('enabled'):
                 individual = self._create_zone_constrained_portfolio(
-                    num_strategies, portfolio_size, zone_data
+                    strategy_list, portfolio_size, zone_data
                 )
             else:
-                individual = np.random.choice(num_strategies, portfolio_size, replace=False)
+                individual = list(np.random.choice(strategy_list, portfolio_size, replace=False))
             
             population.append(individual)
         
         return population
     
-    def _mutate_best_1(self, population: List[np.ndarray], best: np.ndarray, 
-                       current_idx: int) -> np.ndarray:
+    def _mutate_best_1(self, population: List[List[Union[int, str]]], 
+                       best: List[Union[int, str]], 
+                       current_idx: int) -> List[Union[int, str]]:
         """DE/best/1 mutation strategy"""
         # Select two random individuals different from current
         indices = list(range(len(population)))
@@ -181,7 +224,8 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
         
         return mutant
     
-    def _mutate_rand_1(self, population: List[np.ndarray], current_idx: int) -> np.ndarray:
+    def _mutate_rand_1(self, population: List[List[Union[int, str]]], 
+                       current_idx: int) -> List[Union[int, str]]:
         """DE/rand/1 mutation strategy"""
         # Select three random individuals different from current
         indices = list(range(len(population)))
@@ -203,8 +247,8 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
         
         return mutant
     
-    def _crossover(self, target: np.ndarray, mutant: np.ndarray, 
-                   num_strategies: int) -> np.ndarray:
+    def _crossover(self, target: List[Union[int, str]], mutant: List[Union[int, str]], 
+                   num_strategies: int) -> List[Union[int, str]]:
         """Perform crossover between target and mutant"""
         trial = target.copy()
         
@@ -218,19 +262,20 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
                     trial[i] = mutant[i]
                 else:
                     # Find suitable replacement
-                    available = np.setdiff1d(mutant, trial)
+                    available = [s for s in mutant if s not in trial]
                     if len(available) > 0:
-                        trial[i] = np.random.choice(available)
+                        trial[i] = random.choice(available)
         
         return trial
     
-    def _create_zone_constrained_portfolio(self, num_strategies: int, portfolio_size: int,
-                                         zone_data: Dict) -> np.ndarray:
+    def _create_zone_constrained_portfolio(self, strategy_list: List[Union[int, str]], 
+                                         portfolio_size: int, zone_data: Dict) -> List[Union[int, str]]:
         """Create portfolio respecting zone constraints"""
         zone_count = zone_data.get('zone_count', 4)
         zone_weights = zone_data.get('zone_weights', [0.25] * zone_count)
         min_per_zone = zone_data.get('min_per_zone', 1)
         
+        num_strategies = len(strategy_list)
         strategies_per_zone = num_strategies // zone_count
         portfolio = []
         
@@ -239,23 +284,22 @@ class DifferentialEvolution(BaseOptimizationAlgorithm):
             zone_start = zone * strategies_per_zone
             zone_end = min((zone + 1) * strategies_per_zone, num_strategies)
             
-            zone_strategies = np.arange(zone_start, zone_end)
-            selected = np.random.choice(zone_strategies, 
-                                      min(zone_size, len(zone_strategies)), 
-                                      replace=False)
+            zone_strategies = strategy_list[zone_start:zone_end]
+            selected = list(np.random.choice(zone_strategies, 
+                                           min(zone_size, len(zone_strategies)), 
+                                           replace=False))
             portfolio.extend(selected)
         
         # Ensure exact size
-        portfolio = np.array(portfolio)
         if len(portfolio) > portfolio_size:
-            portfolio = np.random.choice(portfolio, portfolio_size, replace=False)
+            portfolio = list(np.random.choice(portfolio, portfolio_size, replace=False))
         elif len(portfolio) < portfolio_size:
             remaining = portfolio_size - len(portfolio)
-            available = np.setdiff1d(np.arange(num_strategies), portfolio)
+            available = [s for s in strategy_list if s not in portfolio]
             if len(available) > 0:
-                additional = np.random.choice(available, 
-                                            min(remaining, len(available)), 
-                                            replace=False)
-                portfolio = np.concatenate([portfolio, additional])
+                additional = list(np.random.choice(available, 
+                                                 min(remaining, len(available)), 
+                                                 replace=False))
+                portfolio.extend(additional)
         
         return portfolio

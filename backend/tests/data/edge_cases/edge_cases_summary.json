@@ -1,0 +1,28 @@
+{
+  "max_drawdown": {
+    "total_days": 5,
+    "worst_drawdown": -196864595.65154797,
+    "avg_drawdown": -186643212.42830792,
+    "threshold_used": -177092725.7648154
+  },
+  "high_volatility": {
+    "total_days": 9,
+    "max_volatility": 28700363.360920474,
+    "avg_volatility": 26352320.009686913,
+    "threshold_used": 24006002.93640764
+  },
+  "winning_streaks": {
+    "total_streaks": 1,
+    "total_days": 5,
+    "longest_streak": 5,
+    "best_streak_return": 90006336.12288278,
+    "streaks": [
+      {
+        "start_idx": 4,
+        "end_idx": 8,
+        "length": 5,
+        "total_return": 90006336.12288278
+      }
+    ]
+  }
+}

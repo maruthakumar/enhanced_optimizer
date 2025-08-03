@@ -3,6 +3,9 @@
 Genetic Algorithm Implementation for Heavy Optimizer Platform
 
 Implements genetic algorithm with configuration support.
+
+RETROFITTED FOR PARQUET/ARROW/CUDF SUPPORT (Story 1.1R)
+Now supports both legacy numpy arrays and GPU-accelerated cuDF DataFrames.
 """
 
 import numpy as np
@@ -16,20 +19,29 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from algorithms.base_algorithm import BaseOptimizationAlgorithm
+from algorithms.fitness_functions import FitnessCalculator
 from config.config_manager import get_config_manager
+
+# Try to import cuDF for GPU support  
+try:
+    import cudf
+    CUDF_AVAILABLE = True
+except (ImportError, RuntimeError):
+    CUDF_AVAILABLE = False
 
 
 class GeneticAlgorithm(BaseOptimizationAlgorithm):
     """Genetic Algorithm implementation with configuration support"""
     
-    def __init__(self, config_path: Optional[str] = None):
+    def __init__(self, config_path: Optional[str] = None, use_gpu: bool = True):
         """
         Initialize Genetic Algorithm with configuration
         
         Args:
             config_path: Path to configuration file
+            use_gpu: Whether to use GPU acceleration with cuDF
         """
-        super().__init__(config_path)
+        super().__init__(config_path, use_gpu)
         
         # Get configuration manager
         self.config_manager = get_config_manager()
@@ -43,24 +55,42 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
         self.elitism_rate = self.config_manager.getfloat('ALGORITHM_PARAMETERS', 'ga_elitism_rate', 0.1)
         self.tournament_size = self.config_manager.getint('ALGORITHM_PARAMETERS', 'ga_tournament_size', 3)
         
+        # Initialize fitness calculator
+        self.fitness_calculator = FitnessCalculator(use_gpu=self.use_gpu)
+        
         self.logger.info(f"Initialized GA with population_size={self.population_size}, "
-                        f"generations={self.generations}, mutation_rate={self.mutation_rate}")
+                        f"generations={self.generations}, mutation_rate={self.mutation_rate}, "
+                        f"GPU mode={self.use_gpu}")
     
-    def optimize(self, daily_matrix: np.ndarray, portfolio_size: Union[int, Tuple[int, int]], 
-                fitness_function: Callable, zone_data: Optional[Dict] = None) -> Dict:
+    def optimize(self, data: Union[np.ndarray, 'cudf.DataFrame'], 
+                portfolio_size: Union[int, Tuple[int, int]], 
+                fitness_function: Optional[Callable] = None, 
+                zone_data: Optional[Dict] = None) -> Dict:
         """
-        Run genetic algorithm optimization
+        Run genetic algorithm optimization (updated for cuDF support)
         
         Args:
-            daily_matrix: Daily returns matrix (days x strategies)
+            data: Strategy data - numpy array (legacy) or cuDF DataFrame (new GPU pipeline)
             portfolio_size: Target portfolio size or (min, max) range
-            fitness_function: Function to evaluate portfolio fitness
+            fitness_function: Optional external fitness function (legacy compatibility)
             zone_data: Optional zone constraint data
             
         Returns:
             Dictionary with optimization results
         """
         start_time = time.time()
+        
+        # Validate inputs using base class method
+        self.validate_inputs(data, portfolio_size)
+        
+        # Detect data type and get strategy information
+        data_type = self._detect_data_type(data)
+        strategy_list = self._get_strategy_list(data)
+        num_strategies = len(strategy_list)
+        
+        # Create fitness function if not provided
+        if fitness_function is None:
+            fitness_function = self.fitness_calculator.create_fitness_function(data, data_type)
         
         # Handle portfolio size
         if isinstance(portfolio_size, tuple):
@@ -69,10 +99,8 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
         else:
             actual_size = portfolio_size
         
-        num_strategies = daily_matrix.shape[1]
-        
         # Initialize population
-        population = self._initialize_population(num_strategies, actual_size, zone_data)
+        population = self._initialize_population(strategy_list, actual_size, zone_data)
         
         # Evolution tracking
         best_individual = None
@@ -84,7 +112,7 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
             # Evaluate fitness for all individuals
             fitness_scores = []
             for individual in population:
-                fitness = fitness_function(daily_matrix, individual)
+                fitness = fitness_function(individual)
                 fitness_scores.append(fitness)
                 
                 # Track best
@@ -118,9 +146,9 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
                 
                 # Mutation
                 if random.random() < self.mutation_rate:
-                    child1 = self._mutate(child1, num_strategies, zone_data)
+                    child1 = self._mutate(child1, strategy_list, zone_data)
                 if random.random() < self.mutation_rate:
-                    child2 = self._mutate(child2, num_strategies, zone_data)
+                    child2 = self._mutate(child2, strategy_list, zone_data)
                 
                 # Add to new population
                 new_population.extend([child1, child2])
@@ -134,48 +162,63 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
         
         execution_time = time.time() - start_time
         
+        # Calculate detailed metrics for the best solution
+        detailed_metrics = {}
+        if best_individual is not None:
+            try:
+                detailed_metrics = self.fitness_calculator.calculate_detailed_metrics(data, best_individual)
+            except Exception as e:
+                self.logger.warning(f"Could not calculate detailed metrics: {e}")
+        
         return {
             'best_fitness': float(best_fitness),
-            'best_portfolio': best_individual.tolist() if best_individual is not None else [],
+            'best_portfolio': best_individual if best_individual is not None else [],
             'execution_time': execution_time,
             'generations': self.generations,
             'population_size': self.population_size,
             'fitness_history': fitness_history,
-            'algorithm': 'genetic_algorithm',
+            'algorithm_name': 'genetic_algorithm',
+            'data_type': data_type,
+            'gpu_accelerated': self.use_gpu,
+            'detailed_metrics': detailed_metrics,
             'parameters': {
                 'mutation_rate': self.mutation_rate,
                 'crossover_rate': self.crossover_rate,
                 'elitism_rate': self.elitism_rate,
-                'selection_method': self.selection_method
+                'selection_method': self.selection_method,
+                'num_strategies': num_strategies,
+                'portfolio_size': actual_size
             }
         }
     
-    def _initialize_population(self, num_strategies: int, portfolio_size: int,
-                              zone_data: Optional[Dict] = None) -> List[np.ndarray]:
+    def _initialize_population(self, strategy_list: List[Union[int, str]], portfolio_size: int,
+                              zone_data: Optional[Dict] = None) -> List[List[Union[int, str]]]:
         """Initialize population with valid portfolios"""
         population = []
+        num_strategies = len(strategy_list)
         
         for _ in range(self.population_size):
             if zone_data and zone_data.get('enabled'):
                 # Create portfolio respecting zone constraints
                 individual = self._create_zone_constrained_portfolio(
-                    num_strategies, portfolio_size, zone_data
+                    strategy_list, portfolio_size, zone_data
                 )
             else:
                 # Random portfolio
-                individual = np.random.choice(num_strategies, portfolio_size, replace=False)
+                individual = list(np.random.choice(strategy_list, portfolio_size, replace=False))
             
             population.append(individual)
         
         return population
     
-    def _create_zone_constrained_portfolio(self, num_strategies: int, portfolio_size: int,
-                                         zone_data: Dict) -> np.ndarray:
+    def _create_zone_constrained_portfolio(self, strategy_list: List[Union[int, str]], 
+                                         portfolio_size: int, zone_data: Dict) -> List[Union[int, str]]:
         """Create portfolio respecting zone constraints"""
         zone_count = zone_data.get('zone_count', 4)
         zone_weights = zone_data.get('zone_weights', [0.25] * zone_count)
         min_per_zone = zone_data.get('min_per_zone', 1)
         
+        num_strategies = len(strategy_list)
         strategies_per_zone = num_strategies // zone_count
         portfolio = []
         
@@ -184,30 +227,29 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
             zone_start = zone * strategies_per_zone
             zone_end = min((zone + 1) * strategies_per_zone, num_strategies)
             
-            zone_strategies = np.arange(zone_start, zone_end)
-            selected = np.random.choice(zone_strategies, 
-                                      min(zone_size, len(zone_strategies)), 
-                                      replace=False)
+            zone_strategies = strategy_list[zone_start:zone_end]
+            selected = list(np.random.choice(zone_strategies, 
+                                           min(zone_size, len(zone_strategies)), 
+                                           replace=False))
             portfolio.extend(selected)
         
         # Ensure we have exactly portfolio_size strategies
-        portfolio = np.array(portfolio)
         if len(portfolio) > portfolio_size:
-            portfolio = np.random.choice(portfolio, portfolio_size, replace=False)
+            portfolio = list(np.random.choice(portfolio, portfolio_size, replace=False))
         elif len(portfolio) < portfolio_size:
             # Add more strategies randomly
             remaining = portfolio_size - len(portfolio)
-            available = np.setdiff1d(np.arange(num_strategies), portfolio)
+            available = [s for s in strategy_list if s not in portfolio]
             if len(available) > 0:
-                additional = np.random.choice(available, 
-                                            min(remaining, len(available)), 
-                                            replace=False)
-                portfolio = np.concatenate([portfolio, additional])
+                additional = list(np.random.choice(available, 
+                                                 min(remaining, len(available)), 
+                                                 replace=False))
+                portfolio.extend(additional)
         
         return portfolio
     
-    def _select_parent(self, population: List[np.ndarray], 
-                      fitness_scores: List[float]) -> np.ndarray:
+    def _select_parent(self, population: List[List[Union[int, str]]], 
+                      fitness_scores: List[float]) -> List[Union[int, str]]:
         """Select parent using configured selection method"""
         if self.selection_method == 'tournament':
             # Tournament selection
@@ -237,8 +279,8 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
             # Default to random selection
             return population[random.randint(0, len(population) - 1)].copy()
     
-    def _crossover(self, parent1: np.ndarray, parent2: np.ndarray,
-                   zone_data: Optional[Dict] = None) -> Tuple[np.ndarray, np.ndarray]:
+    def _crossover(self, parent1: List[Union[int, str]], parent2: List[Union[int, str]],
+                   zone_data: Optional[Dict] = None) -> Tuple[List[Union[int, str]], List[Union[int, str]]]:
         """Perform crossover between two parents"""
         size = len(parent1)
         
@@ -247,9 +289,9 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
         point1 = random.randint(0, size - 1)
         point2 = random.randint(point1 + 1, size)
         
-        # Create children
-        child1 = np.full(size, -1, dtype=int)
-        child2 = np.full(size, -1, dtype=int)
+        # Create children with None placeholders
+        child1 = [None] * size
+        child2 = [None] * size
         
         # Copy segment from parents
         child1[point1:point2] = parent1[point1:point2]
@@ -261,18 +303,20 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
         
         return child1, child2
     
-    def _fill_child(self, child: np.ndarray, parent: np.ndarray) -> None:
+    def _fill_child(self, child: List[Union[int, str, None]], 
+                   parent: List[Union[int, str]]) -> None:
         """Fill remaining positions in child from parent"""
         pos = 0
         for gene in parent:
             if gene not in child:
-                while pos < len(child) and child[pos] != -1:
+                while pos < len(child) and child[pos] is not None:
                     pos += 1
                 if pos < len(child):
                     child[pos] = gene
     
-    def _mutate(self, individual: np.ndarray, num_strategies: int,
-                zone_data: Optional[Dict] = None) -> np.ndarray:
+    def _mutate(self, individual: List[Union[int, str]], 
+               strategy_list: List[Union[int, str]],
+               zone_data: Optional[Dict] = None) -> List[Union[int, str]]:
         """Mutate individual by swapping with random strategy"""
         mutated = individual.copy()
         
@@ -280,11 +324,11 @@ class GeneticAlgorithm(BaseOptimizationAlgorithm):
         pos = random.randint(0, len(mutated) - 1)
         
         # Find strategies not in portfolio
-        available = np.setdiff1d(np.arange(num_strategies), mutated)
+        available = [s for s in strategy_list if s not in mutated]
         
         if len(available) > 0:
             # Swap with random available strategy
-            new_strategy = np.random.choice(available)
+            new_strategy = random.choice(available)
             mutated[pos] = new_strategy
         
         return mutated
