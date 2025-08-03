@@ -10,14 +10,15 @@ import logging
 import numpy as np
 from typing import Union, List, Dict, Callable
 
-# Try to import cuDF for GPU support
-try:
-    import cudf
-    import cupy as cp
-    CUDF_AVAILABLE = True
-except (ImportError, RuntimeError) as e:
-    CUDF_AVAILABLE = False
-    logging.warning(f"cuDF/cuPy not available ({str(e)}), GPU acceleration will be disabled")
+# Import GPU utilities for centralized cuDF handling
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+from gpu_utils import get_cudf_safe, get_cupy_safe, CUDF_AVAILABLE
+
+# Get cuDF and cuPy safely
+cudf = get_cudf_safe()
+cp = get_cupy_safe()
 
 # Import GPU fitness calculation functions
 GPU_CALCULATOR_AVAILABLE = False

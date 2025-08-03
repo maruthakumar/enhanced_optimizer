@@ -17,14 +17,15 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Union
 import numpy as np
 
-# Try to import cuDF for GPU support
-try:
-    import cudf
-    import cupy as cp
-    CUDF_AVAILABLE = True
-except (ImportError, RuntimeError) as e:
-    CUDF_AVAILABLE = False
-    logging.warning(f"cuDF/cuPy not available ({str(e)}), GPU acceleration will be disabled")
+# Import GPU utilities for centralized cuDF handling
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+from gpu_utils import get_cudf_safe, get_cupy_safe, ensure_gpu_compatibility, CUDF_AVAILABLE
+
+# Get cuDF and cuPy safely
+cudf = get_cudf_safe()
+cp = get_cupy_safe()
 
 
 class BaseOptimizationAlgorithm(ABC):
@@ -42,12 +43,16 @@ class BaseOptimizationAlgorithm(ABC):
         self.config = {}
         self.algorithm_name = self.__class__.__name__.replace('Algorithm', '')
         
-        # GPU configuration
-        self.use_gpu = use_gpu and CUDF_AVAILABLE
-        if use_gpu and not CUDF_AVAILABLE:
-            self.logger.warning(f"GPU requested but cuDF not available, falling back to CPU mode")
+        # GPU configuration using centralized utilities
+        self.use_gpu, self.data_type = ensure_gpu_compatibility(use_gpu)
         
-        self.logger.info(f"Initialized {self.algorithm_name} with GPU mode: {self.use_gpu}")
+        # Log GPU status only once per algorithm type
+        if not hasattr(self.__class__, '_gpu_status_logged'):
+            if self.use_gpu:
+                self.logger.info(f"🚀 {self.algorithm_name} initialized with GPU acceleration")
+            else:
+                self.logger.info(f"💻 {self.algorithm_name} initialized in CPU mode")
+            self.__class__._gpu_status_logged = True
         
         # Load configuration if provided
         if config_path:

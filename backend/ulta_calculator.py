@@ -15,6 +15,17 @@ import numpy as np
 import pandas as pd
 from dataclasses import dataclass, asdict
 import json
+import time
+
+# Try to import cuDF for GPU operations
+try:
+    import cudf
+    import cupy as cp
+    CUDF_AVAILABLE = True
+except (ImportError, RuntimeError) as e:
+    CUDF_AVAILABLE = False
+    cudf = None
+    cp = None
 
 
 @dataclass
@@ -526,6 +537,391 @@ class HeavyDBULTACalculator(ULTACalculator):
         query = f"SELECT * FROM {metadata_table} WHERE was_inverted = true"
         # Execute query and populate self.inverted_strategies
         pass
+
+
+class cuDFULTACalculator(ULTACalculator):
+    """
+    cuDF implementation of ULTA Calculator for GPU-accelerated processing.
+    
+    This class extends ULTACalculator to work with cuDF DataFrames for 
+    high-performance processing of large strategy datasets.
+    """
+    
+    def __init__(self, logger: Optional[logging.Logger] = None, config_path: Optional[str] = None, 
+                 chunk_size: int = 10000):
+        """
+        Initialize cuDF ULTA Calculator.
+        
+        Args:
+            logger: Optional logger instance
+            config_path: Optional path to configuration file
+            chunk_size: Number of strategies to process in each chunk for memory management
+        """
+        super().__init__(logger, config_path)
+        
+        if not CUDF_AVAILABLE:
+            self.logger.info("💻 ULTA Calculator using CPU mode (cuDF not available)")
+            self.use_gpu = False
+        else:
+            self.use_gpu = True
+            self.logger.info("cuDF available, GPU acceleration enabled")
+        
+        self.chunk_size = chunk_size
+        self.processing_stats = {
+            'total_strategies': 0,
+            'strategies_inverted': 0,
+            'processing_time': 0.0,
+            'gpu_memory_used': 0.0
+        }
+        
+    def calculate_roi_cudf(self, returns: 'cudf.Series') -> float:
+        """
+        Calculate ROI using cuDF operations (GPU-accelerated).
+        
+        Args:
+            returns: cuDF Series of daily returns
+            
+        Returns:
+            ROI as a float
+        """
+        if not self.use_gpu:
+            return self.calculate_roi(returns.to_pandas().values)
+        
+        # GPU-accelerated sum operation
+        return float(returns.sum())
+    
+    def calculate_drawdown_cudf(self, returns: 'cudf.Series') -> float:
+        """
+        Calculate maximum drawdown using cuDF operations (GPU-accelerated).
+        
+        Args:
+            returns: cuDF Series of daily returns
+            
+        Returns:
+            Maximum drawdown as a negative float
+        """
+        if not self.use_gpu:
+            return self.calculate_drawdown(returns.to_pandas().values)
+        
+        # GPU-accelerated min operation
+        return float(returns.min())
+    
+    def calculate_ratio_cudf(self, roi: float, drawdown: float) -> float:
+        """
+        Calculate ROI/Drawdown ratio using GPU operations.
+        
+        Args:
+            roi: Return on Investment
+            drawdown: Maximum drawdown (negative value)
+            
+        Returns:
+            ROI/Drawdown ratio
+        """
+        # Use cupy for GPU calculation if available
+        if self.use_gpu and cp:
+            roi_gpu = cp.asarray([roi])
+            drawdown_gpu = cp.asarray([abs(drawdown)])
+            
+            # Avoid division by zero
+            ratio_gpu = cp.where(drawdown_gpu != 0, roi_gpu / drawdown_gpu, cp.inf)
+            return float(ratio_gpu[0])
+        else:
+            return self.calculate_ratio(roi, drawdown)
+    
+    def invert_strategy_cudf(self, returns: 'cudf.Series') -> 'cudf.Series':
+        """
+        Invert a strategy using cuDF operations (GPU-accelerated).
+        
+        Args:
+            returns: cuDF Series of daily returns
+            
+        Returns:
+            Inverted returns as cuDF Series
+        """
+        if not self.use_gpu:
+            return cudf.Series(-returns.to_pandas().values)
+        
+        # GPU-accelerated inversion
+        return -returns
+    
+    def should_invert_strategy_cudf(self, returns: 'cudf.Series', strategy_name: str = "") -> Tuple[bool, ULTAStrategyMetrics]:
+        """
+        Determine if a strategy should be inverted using cuDF operations.
+        
+        Args:
+            returns: cuDF Series of daily returns
+            strategy_name: Name of the strategy
+            
+        Returns:
+            Tuple of (should_invert, metrics)
+        """
+        # Check if ULTA is enabled
+        if not self.ulta_config['enabled']:
+            return False, None
+        
+        # Calculate original metrics using GPU
+        original_roi = self.calculate_roi_cudf(returns)
+        original_drawdown = self.calculate_drawdown_cudf(returns)
+        original_ratio = self.calculate_ratio_cudf(original_roi, original_drawdown)
+        
+        # ROI threshold check
+        roi_threshold = self.ulta_config['roi_threshold']
+        if original_roi >= roi_threshold:
+            return False, None
+        
+        # Negative days calculation using cuDF
+        if self.use_gpu:
+            negative_days = int((returns < 0).sum())
+            total_days = len(returns)
+        else:
+            # Fallback to pandas/numpy
+            returns_np = returns.to_pandas().values
+            negative_days = int(np.sum(returns_np < 0))
+            total_days = len(returns_np)
+        
+        # Check thresholds
+        min_negative_days = self.ulta_config['min_negative_days']
+        negative_percentage = self.ulta_config['negative_day_percentage']
+        
+        if negative_days < min_negative_days:
+            return False, None
+        
+        if total_days > 0 and (negative_days / total_days) < negative_percentage:
+            return False, None
+        
+        # Calculate inverted metrics
+        inverted_returns = self.invert_strategy_cudf(returns)
+        inverted_roi = self.calculate_roi_cudf(inverted_returns)
+        inverted_drawdown = self.calculate_drawdown_cudf(inverted_returns)
+        inverted_ratio = self.calculate_ratio_cudf(inverted_roi, inverted_drawdown)
+        
+        # Decision: invert only if inverted ratio is better
+        should_invert = inverted_ratio > original_ratio
+        
+        # Calculate improvement percentage
+        if original_ratio != 0:
+            improvement = ((inverted_ratio - original_ratio) / abs(original_ratio)) * 100
+        else:
+            improvement = float('inf') if inverted_ratio > 0 else 0
+        
+        metrics = ULTAStrategyMetrics(
+            strategy_name=strategy_name,
+            original_roi=original_roi,
+            inverted_roi=inverted_roi,
+            original_drawdown=original_drawdown,
+            inverted_drawdown=inverted_drawdown,
+            original_ratio=original_ratio,
+            inverted_ratio=inverted_ratio,
+            improvement_percentage=improvement,
+            was_inverted=should_invert
+        )
+        
+        return should_invert, metrics
+    
+    def apply_ulta_logic_cudf(self, data: 'cudf.DataFrame', 
+                             start_column: int = 3) -> Tuple['cudf.DataFrame', Dict[str, ULTAStrategyMetrics]]:
+        """
+        Apply ULTA logic to a cuDF DataFrame using GPU acceleration.
+        
+        Args:
+            data: cuDF DataFrame with strategies as columns
+            start_column: Index of first strategy column
+            
+        Returns:
+            Tuple of (processed_data, inverted_strategies_metrics)
+        """
+        start_time = time.time()
+        self.inverted_strategies.clear()
+        
+        # Create a copy of the data
+        if self.use_gpu:
+            updated_data = data.copy()
+        else:
+            # Convert to pandas for processing
+            pandas_data = data.to_pandas()
+            return self._apply_ulta_logic_pandas_fallback(pandas_data, start_column)
+        
+        # Get strategy columns
+        strategy_columns = data.columns[start_column:]
+        self.processing_stats['total_strategies'] = len(strategy_columns)
+        
+        columns_to_drop = []
+        new_columns = {}
+        strategies_processed = 0
+        
+        # Process strategies in chunks for memory management
+        for i in range(0, len(strategy_columns), self.chunk_size):
+            chunk_columns = strategy_columns[i:i + self.chunk_size]
+            
+            for col in chunk_columns:
+                try:
+                    # Get strategy returns as cuDF Series
+                    returns = data[col].fillna(0)
+                    
+                    # Check if strategy should be inverted
+                    should_invert, metrics = self.should_invert_strategy_cudf(returns, str(col))
+                    
+                    if should_invert and metrics:
+                        # Create inverted column name
+                        inv_col = f"{col}_inv"
+                        
+                        # Store inverted returns
+                        new_columns[inv_col] = self.invert_strategy_cudf(returns)
+                        
+                        # Mark original column for removal
+                        columns_to_drop.append(col)
+                        
+                        # Store metrics
+                        self.inverted_strategies[str(col)] = metrics
+                        
+                        self.logger.debug(
+                            f"Inverted strategy {col}: ratio improved from "
+                            f"{metrics.original_ratio:.2f} to {metrics.inverted_ratio:.2f}"
+                        )
+                        
+                    strategies_processed += 1
+                    
+                    # Log progress for large datasets
+                    if strategies_processed % 1000 == 0:
+                        self.logger.info(f"Processed {strategies_processed}/{len(strategy_columns)} strategies")
+                        
+                except Exception as e:
+                    self.logger.error(f"Error applying ULTA logic to column {col}: {e}")
+                    continue
+            
+            # Memory management: trigger garbage collection between chunks
+            if self.use_gpu and cp:
+                cp.get_default_memory_pool().free_all_blocks()
+        
+        # Apply changes to DataFrame
+        if columns_to_drop:
+            updated_data = updated_data.drop(columns_to_drop)
+            
+        if new_columns:
+            # Add new inverted columns
+            for col_name, col_data in new_columns.items():
+                updated_data[col_name] = col_data
+        
+        # Update processing stats
+        self.processing_stats['strategies_inverted'] = len(self.inverted_strategies)
+        self.processing_stats['processing_time'] = time.time() - start_time
+        
+        # Get GPU memory usage if available
+        if self.use_gpu and cp:
+            memory_pool = cp.get_default_memory_pool()
+            self.processing_stats['gpu_memory_used'] = memory_pool.used_bytes() / (1024**3)  # GB
+        
+        self.logger.info(
+            f"ULTA processing completed: {self.processing_stats['strategies_inverted']} "
+            f"strategies inverted out of {self.processing_stats['total_strategies']} "
+            f"in {self.processing_stats['processing_time']:.2f} seconds"
+        )
+        
+        return updated_data, self.inverted_strategies
+    
+    def _apply_ulta_logic_pandas_fallback(self, data: pd.DataFrame, 
+                                         start_column: int) -> Tuple['cudf.DataFrame', Dict[str, ULTAStrategyMetrics]]:
+        """
+        Fallback to pandas implementation when cuDF is not available.
+        
+        Args:
+            data: Pandas DataFrame
+            start_column: Index of first strategy column
+            
+        Returns:
+            Tuple of (cuDF DataFrame, metrics)
+        """
+        self.logger.info("Using pandas fallback for ULTA processing")
+        
+        # Use parent class implementation
+        processed_data, metrics = super().apply_ulta_logic(data, start_column)
+        
+        # Convert back to cuDF if available, otherwise keep as pandas
+        if CUDF_AVAILABLE:
+            try:
+                cudf_data = cudf.from_pandas(processed_data)
+                return cudf_data, metrics
+            except Exception as e:
+                self.logger.warning(f"Failed to convert back to cuDF: {e}")
+                return processed_data, metrics
+        else:
+            return processed_data, metrics
+    
+    def apply_ulta_logic_batch(self, data_batches: List['cudf.DataFrame'], 
+                              start_column: int = 3) -> Tuple[List['cudf.DataFrame'], Dict[str, ULTAStrategyMetrics]]:
+        """
+        Apply ULTA logic to multiple batches of data efficiently.
+        
+        Args:
+            data_batches: List of cuDF DataFrames to process
+            start_column: Index of first strategy column
+            
+        Returns:
+            Tuple of (processed_batches, combined_metrics)
+        """
+        all_metrics = {}
+        processed_batches = []
+        
+        for i, batch in enumerate(data_batches):
+            self.logger.info(f"Processing batch {i+1}/{len(data_batches)}")
+            
+            processed_batch, batch_metrics = self.apply_ulta_logic_cudf(batch, start_column)
+            processed_batches.append(processed_batch)
+            all_metrics.update(batch_metrics)
+        
+        # Update combined inverted strategies
+        self.inverted_strategies = all_metrics
+        
+        return processed_batches, all_metrics
+    
+    def get_processing_stats(self) -> Dict[str, Any]:
+        """
+        Get processing statistics including performance metrics.
+        
+        Returns:
+            Dictionary of processing statistics
+        """
+        stats = self.processing_stats.copy()
+        stats['inversion_rate'] = (
+            stats['strategies_inverted'] / max(1, stats['total_strategies']) * 100
+        )
+        stats['gpu_enabled'] = self.use_gpu
+        stats['average_processing_time_per_strategy'] = (
+            stats['processing_time'] / max(1, stats['total_strategies'])
+        )
+        
+        return stats
+    
+    def generate_performance_report(self) -> str:
+        """
+        Generate a performance report for cuDF ULTA processing.
+        
+        Returns:
+            Formatted performance report string
+        """
+        stats = self.get_processing_stats()
+        
+        report_lines = [
+            "# cuDF ULTA Performance Report",
+            "",
+            f"**GPU Acceleration**: {'Enabled' if stats['gpu_enabled'] else 'Disabled'}",
+            f"**Total Strategies Processed**: {stats['total_strategies']:,}",
+            f"**Strategies Inverted**: {stats['strategies_inverted']:,}",
+            f"**Inversion Rate**: {stats['inversion_rate']:.2f}%",
+            f"**Total Processing Time**: {stats['processing_time']:.2f} seconds",
+            f"**Avg Time per Strategy**: {stats['average_processing_time_per_strategy']*1000:.3f} ms",
+            "",
+            "## Performance Metrics",
+            f"- **Throughput**: {stats['total_strategies']/max(0.001, stats['processing_time']):.0f} strategies/second",
+        ]
+        
+        if stats['gpu_enabled']:
+            report_lines.extend([
+                f"- **GPU Memory Used**: {stats['gpu_memory_used']:.2f} GB",
+                f"- **Memory per Strategy**: {stats['gpu_memory_used']*1024/max(1, stats['total_strategies']):.2f} MB",
+            ])
+        
+        return "\n".join(report_lines)
 
 
 # Convenience function for backward compatibility

@@ -7,14 +7,15 @@ import logging
 from typing import List, Dict, Optional, Tuple
 import numpy as np
 
-# Try to import cuDF and cuPy
-try:
-    import cudf
-    import cupy as cp
-    CUDF_AVAILABLE = True
-except (ImportError, RuntimeError) as e:
-    CUDF_AVAILABLE = False
-    logging.warning(f"cuDF/cuPy not available ({str(e)}), GPU calculations will be disabled")
+# Import GPU utilities for centralized cuDF handling
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from gpu_utils import get_cudf_safe, get_cupy_safe, CUDF_AVAILABLE
+
+# Get cuDF and cuPy safely
+cudf = get_cudf_safe()
+cp = get_cupy_safe()
 
 logger = logging.getLogger(__name__)
 

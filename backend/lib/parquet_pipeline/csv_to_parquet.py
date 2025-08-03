@@ -42,6 +42,11 @@ def detect_csv_schema(csv_path: str, sample_rows: int = 1000) -> Dict[str, str]:
     strategy_columns = []
     
     for col in df_sample.columns:
+        # Skip any Symbol columns that might have gotten included by mistake
+        if col.lower() in ['symbol', 'symbols', 'ticker', 'tickers']:
+            logger.info(f"Skipping symbol column '{col}' - not needed for optimization")
+            continue
+            
         # Check if it's a mandatory column
         if col in MANDATORY_COLUMNS:
             if col == 'Date':
@@ -56,12 +61,12 @@ def detect_csv_schema(csv_path: str, sample_rows: int = 1000) -> Dict[str, str]:
                 schema[col] = 'float64'
         # Otherwise, it's a strategy column
         else:
-            # Verify it's numeric
-            if pd.api.types.is_numeric_dtype(df_sample[col]):
+            # Verify it's numeric and not all NaN
+            if pd.api.types.is_numeric_dtype(df_sample[col]) and not df_sample[col].isna().all():
                 strategy_columns.append(col)
                 schema[col] = 'float64'
             else:
-                logger.warning(f"Non-numeric column '{col}' detected, skipping")
+                logger.warning(f"Non-numeric or empty column '{col}' detected, skipping")
     
     logger.info(f"Detected {len(strategy_columns)} strategy columns")
     logger.info(f"Enhanced columns found: {[col for col in ENHANCED_COLUMNS if col in df_sample.columns]}")

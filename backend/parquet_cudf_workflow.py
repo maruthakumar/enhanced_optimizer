@@ -54,14 +54,12 @@ from lib.cudf_engine import (
     calculate_calmar_ratio_cudf
 )
 
-# Check if cuDF is available
-try:
-    import cudf
-    CUDF_AVAILABLE = True
-    logger.info("✅ cuDF available for GPU acceleration")
-except (ImportError, RuntimeError) as e:
-    CUDF_AVAILABLE = False
-    logger.warning(f"⚠️ cuDF not available ({str(e)}), falling back to CPU mode")
+# Import GPU utilities for centralized cuDF handling
+from lib.gpu_utils import get_cudf_safe, CUDF_AVAILABLE, log_gpu_environment
+
+# Get cuDF safely and log environment once
+cudf = get_cudf_safe()
+log_gpu_environment()
 
 # Import algorithms (reuse existing implementations)
 from algorithms.genetic_algorithm import GeneticAlgorithm
@@ -75,6 +73,9 @@ from algorithms.random_search import RandomSearch
 
 # Import output generation engine
 from output_generation_engine import OutputGenerationEngine
+
+# Import ULTA calculator
+from ulta_calculator import cuDFULTACalculator
 
 class ParquetCuDFWorkflow:
     """
@@ -96,6 +97,13 @@ class ParquetCuDFWorkflow:
             'chunk_size': 1000000,
             'compression': 'snappy',
             'correlation_threshold': 0.7,
+            'ulta': {
+                'enabled': True,
+                'roi_threshold': 0.0,
+                'min_negative_days': 10,
+                'negative_day_percentage': 0.6,
+                'inversion_method': 'negative_daily_returns'
+            },
             'fitness_weights': {
                 'roi_dd_ratio_weight': 0.35,
                 'total_roi_weight': 0.25,
@@ -294,6 +302,82 @@ class ParquetCuDFWorkflow:
             results['num_strategies'] = len(strategy_cols)
             results['num_days'] = len(df)
             
+            # Optimize for small datasets
+            dataset_size = len(strategy_cols) * len(df)
+            is_small_dataset = dataset_size < 10000  # Less than 10k data points
+            
+            if is_small_dataset:
+                logger.info(f"🏃 Small dataset detected ({dataset_size} data points) - using optimized fast path")
+                # Adjust timeouts for faster execution on small datasets
+                for algo in self.config['algorithm_timeouts']:
+                    self.config['algorithm_timeouts'][algo] = min(self.config['algorithm_timeouts'][algo], 10)
+                # Reduce iterations for population-based algorithms
+                if hasattr(self, '_optimize_for_small_dataset'):
+                    self._optimize_for_small_dataset()
+            else:
+                logger.info(f"📊 Standard dataset size ({dataset_size} data points) - using full processing")
+            
+            # Step 2.5: Apply ULTA logic (strategy inversion)
+            ulta_results = None
+            if self.config['ulta']['enabled']:
+                logger.info("Step 2.5: Applying ULTA strategy inversion")
+                ulta_start = time.time()
+                
+                try:
+                    # Create ULTA calculator with cuDF support
+                    ulta_calculator = cuDFULTACalculator(
+                        logger=logger,
+                        config_path=None  # Use embedded config
+                    )
+                    
+                    # Override ULTA config with workflow config
+                    ulta_calculator.ulta_config = self.config['ulta']
+                    
+                    # Apply ULTA logic
+                    if CUDF_AVAILABLE and self.config['use_gpu']:
+                        df, ulta_metrics = ulta_calculator.apply_ulta_logic_cudf(df, start_column=3)
+                    else:
+                        # Fallback to pandas
+                        df_pandas = df.to_pandas() if hasattr(df, 'to_pandas') else df
+                        df_pandas, ulta_metrics = ulta_calculator.apply_ulta_logic(df_pandas, start_column=3)
+                        if CUDF_AVAILABLE:
+                            df = cudf.from_pandas(df_pandas)
+                        else:
+                            df = df_pandas
+                    
+                    # Update strategy columns list (includes inverted strategies)
+                    strategy_cols = list(df.columns[3:])  # Refresh strategy column list
+                    
+                    # Store ULTA results
+                    ulta_results = {
+                        'enabled': True,
+                        'processing_time': time.time() - ulta_start,
+                        'strategies_analyzed': ulta_calculator.processing_stats['total_strategies'],
+                        'strategies_inverted': len(ulta_metrics),
+                        'inversion_rate': len(ulta_metrics) / max(1, ulta_calculator.processing_stats['total_strategies']) * 100,
+                        'performance_stats': ulta_calculator.get_processing_stats(),
+                        'inverted_strategies': list(ulta_metrics.keys())
+                    }
+                    
+                    logger.info(
+                        f"ULTA processing completed: {len(ulta_metrics)} strategies inverted "
+                        f"({ulta_results['inversion_rate']:.1f}%) in {ulta_results['processing_time']:.2f}s"
+                    )
+                    
+                except Exception as e:
+                    logger.error(f"ULTA processing failed: {e}")
+                    ulta_results = {
+                        'enabled': True,
+                        'error': str(e),
+                        'processing_time': time.time() - ulta_start
+                    }
+            else:
+                logger.info("ULTA strategy inversion disabled")
+                ulta_results = {'enabled': False}
+            
+            results['ulta'] = ulta_results
+            results['num_strategies'] = len(strategy_cols)  # Update with potentially new strategy count
+            
             # Step 3: Calculate correlations
             logger.info("Step 3: Calculating correlations")
             corr_start = time.time()
@@ -434,6 +518,8 @@ def main():
     parser.add_argument('--config', '-c', help='Configuration file path')
     parser.add_argument('--no-gpu', action='store_true', help='Disable GPU acceleration')
     parser.add_argument('--compare-legacy', action='store_true', help='Compare against legacy system results')
+    parser.add_argument('--enable-ulta', action='store_true', help='Enable ULTA strategy inversion')
+    parser.add_argument('--disable-ulta', action='store_true', help='Disable ULTA strategy inversion')
     
     args = parser.parse_args()
     
@@ -460,6 +546,12 @@ def main():
     config['portfolio_size'] = args.portfolio_size
     if args.no_gpu:
         config['use_gpu'] = False
+    
+    # Handle ULTA flags
+    if args.enable_ulta:
+        config['ulta']['enabled'] = True
+    elif args.disable_ulta:
+        config['ulta']['enabled'] = False
     
     # Save configuration
     config_path = os.path.join(output_dir, 'workflow_config.json')
