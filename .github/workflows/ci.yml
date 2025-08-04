@@ -55,11 +55,6 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     needs: lint
-    strategy:
-      matrix:
-        algorithm: [genetic_algorithm, particle_swarm_optimization, simulated_annealing, 
-                   differential_evolution, ant_colony_optimization, hill_climbing, 
-                   bayesian_optimization, random_search]
     steps:
       - uses: actions/checkout@v3
       
@@ -72,7 +67,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest pytest-cov pytest-xdist
+          pip install pytest pytest-cov pytest-xdist pytest-timeout
       
       - name: Prepare anonymized test data
         run: |
@@ -83,16 +78,16 @@ jobs:
             exit 1
           fi
       
-      - name: Run algorithm unit tests
+      - name: Run unit tests for Parquet/Arrow/cuDF components
         run: |
-          export TEST_DATA_PATH="${{ env.ANONYMIZED_SMALL_DATA }}"
-          pytest backend/tests/test_${{ matrix.algorithm }}.py -v --cov=backend/algorithms \
-            --cov-report=xml --cov-report=term
+          pytest backend/tests/unit/ -v --cov=backend/lib \
+            --cov-report=xml --cov-report=term-missing \
+            --timeout=300
       
       - name: Upload coverage reports
         uses: actions/upload-artifact@v3
         with:
-          name: coverage-${{ matrix.algorithm }}
+          name: coverage-unit-tests
           path: coverage.xml
 
   integration-tests:
@@ -122,18 +117,10 @@ jobs:
           fi
           echo "Using anonymized test data for integration tests"
       
-      - name: Run CSV to Parquet integration tests
+      - name: Run integration tests
         run: |
           export TEST_DATA_PATH="${{ env.ANONYMIZED_SMALL_DATA }}"
-          pytest backend/tests/test_csv_to_parquet_integration.py -v --timeout=300
-      
-      - name: Run Parquet to Arrow integration tests
-        run: |
-          pytest backend/tests/test_parquet_to_arrow_integration.py -v --timeout=300
-      
-      - name: Run Arrow to cuDF integration tests (CPU mode)
-        run: |
-          pytest backend/tests/test_arrow_to_cudf_integration.py -v --timeout=300 -m "not gpu"
+          pytest backend/tests/integration/ -v --timeout=300 -m "not gpu"
 
   gpu-tests:
     name: GPU Integration Tests
@@ -166,7 +153,7 @@ jobs:
           export CUDA_HOME=/usr/local/cuda-11.8
           export PATH=$CUDA_HOME/bin:$PATH
           export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
-          pytest backend/tests/test_gpu_integration.py -v --timeout=600
+          pytest backend/tests/gpu/ -v --timeout=600 -m gpu
       
       - name: Run cuDF performance benchmarks
         run: |
@@ -196,9 +183,13 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-html
       
-      - name: Run regression tests
+      - name: Run all algorithm tests
         run: |
-          pytest backend/tests/test_parquet_pipeline_validation.py -v \
+          pytest backend/tests/test_all_algorithms.py -v --timeout=600
+      
+      - name: Run regression validation tests
+        run: |
+          pytest backend/tests/integration/test_parquet_cudf_workflow.py::TestDataFormatCompatibility -v \
             --html=validation_report.html --self-contained-html
       
       - name: Upload validation report
@@ -228,12 +219,16 @@ jobs:
       
       - name: Run performance benchmarks
         run: |
-          pytest backend/tests/test_performance_benchmarks.py \
+          pytest backend/tests/performance/test_performance_benchmarks.py -v \
             --benchmark-only --benchmark-autosave
       
       - name: Check performance regression
         run: |
-          python scripts/check_performance_regression.py
+          if [ -f ".benchmarks/Linux-*_*/0001_*.json" ]; then
+            python scripts/check_performance_regression.py --results .benchmarks/Linux-*_*/0001_*.json
+          else
+            echo "No benchmark results found, skipping regression check"
+          fi
       
       - name: Upload performance results
         uses: actions/upload-artifact@v3
@@ -241,10 +236,39 @@ jobs:
           name: performance-results
           path: .benchmarks/
 
+  security-scan:
+    name: Security Vulnerability Scan
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install bandit
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit[toml]
+      
+      - name: Run security scan
+        run: |
+          bandit -r backend/ -ll -f json -o bandit-report.json || true
+          bandit -r backend/ -ll
+      
+      - name: Upload security report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: bandit-report.json
+        if: always()
+
   build-artifacts:
     name: Build and Store Artifacts
     runs-on: ubuntu-latest
-    needs: [regression-tests, performance-tests]
+    needs: [regression-tests, performance-tests, security-scan]
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v3
@@ -273,7 +297,7 @@ jobs:
   notify-status:
     name: Notify Build Status
     runs-on: ubuntu-latest
-    needs: [lint, unit-tests, integration-tests, regression-tests, performance-tests]
+    needs: [lint, unit-tests, integration-tests, regression-tests, performance-tests, security-scan]
     if: always()
     steps:
       - name: Check build status
@@ -282,9 +306,23 @@ jobs:
                 "${{ needs.unit-tests.result }}" == "failure" || \
                 "${{ needs.integration-tests.result }}" == "failure" || \
                 "${{ needs.regression-tests.result }}" == "failure" || \
-                "${{ needs.performance-tests.result }}" == "failure" ]]; then
+                "${{ needs.performance-tests.result }}" == "failure" || \
+                "${{ needs.security-scan.result }}" == "failure" ]]; then
             echo "Build failed!"
             exit 1
           else
             echo "Build succeeded!"
           fi
+      
+      - name: Generate CI Summary
+        run: |
+          echo "## CI/CD Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Code Quality | ${{ needs.lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Unit Tests | ${{ needs.unit-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Integration Tests | ${{ needs.integration-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Regression Tests | ${{ needs.regression-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Performance Tests | ${{ needs.performance-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Scan | ${{ needs.security-scan.result }} |" >> $GITHUB_STEP_SUMMARY

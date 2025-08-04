@@ -1,0 +1,57 @@
+[tool.black]
+# Black code formatter configuration
+line-length = 100
+target-version = ['py310']
+include = '\.pyi?$'
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/backend/lib/legacy/
+| ^/backend/tests/data/
+| ^/docs/
+| ^/build/
+| ^/dist/
+| ^/\.git/
+| ^/\.mypy_cache/
+| ^/\.pytest_cache/
+| ^/\.venv/
+| ^/venv/
+'''
+
+[tool.pytest.ini_options]
+# Additional pytest configuration (supplements pytest.ini)
+minversion = "7.0"
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+]
+testpaths = [
+    "backend/tests",
+]
+
+[tool.coverage.run]
+source = ["backend"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/virtualenv/*",
+    "*/legacy/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if False:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
