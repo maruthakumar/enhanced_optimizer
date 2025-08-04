@@ -1,0 +1,18 @@
+{
+  "filename": "quick_test.csv",
+  "strategy_count": 10,
+  "trading_days": 5,
+  "correlation_pattern": "medium",
+  "file_size_mb": 0.0009489059448242188,
+  "generated_at": "2025-08-04T02:58:14.040368",
+  "data_range": {
+    "start_date": "2023-01-02",
+    "end_date": "2023-01-06"
+  },
+  "statistics": {
+    "mean_return": -0.0029798425128937153,
+    "std_return": 0.017944585604347908,
+    "min_value": 9441.874030418368,
+    "max_value": 10513.773587933927
+  }
+}

@@ -1,0 +1,198 @@
+name: Parquet Pipeline Benchmark
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Run benchmarks daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: 'Specific scenario to run (leave empty for all)'
+        required: false
+        type: string
+      fail_on_sla:
+        description: 'Fail build on SLA violations'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    # Use GPU-enabled runner if available
+    # runs-on: [self-hosted, gpu]
+    
+    timeout-minutes: 30
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy pyarrow matplotlib psutil
+        # Install cuDF if GPU available (optional)
+        # pip install cudf-cu11 --extra-index-url=https://pypi.nvidia.com
+    
+    - name: Create benchmark directories
+      run: |
+        mkdir -p benchmarks/{scripts,data,reports,config}
+        mkdir -p benchmarks/reports/ci_artifacts
+    
+    - name: Generate test datasets
+      run: |
+        cd benchmarks/scripts
+        python generate_test_data.py --all-scenarios
+      timeout-minutes: 5
+    
+    - name: Run benchmarks
+      id: benchmark
+      run: |
+        cd benchmarks/scripts
+        
+        # Set benchmark parameters
+        SCENARIO_ARG=""
+        if [ -n "${{ github.event.inputs.scenario }}" ]; then
+          SCENARIO_ARG="--scenario ${{ github.event.inputs.scenario }}"
+        fi
+        
+        FAIL_ON_SLA=""
+        if [ "${{ github.event.inputs.fail_on_sla }}" = "true" ]; then
+          FAIL_ON_SLA="--fail-on-sla"
+        fi
+        
+        # Run benchmark with timeout
+        timeout 25m python parquet_pipeline_benchmark.py \
+          $SCENARIO_ARG \
+          $FAIL_ON_SLA \
+          --verbose \
+          --output ../reports/ci_artifacts/benchmark_results_ci.json
+      timeout-minutes: 25
+    
+    - name: Generate reports
+      if: always()
+      run: |
+        cd benchmarks/scripts
+        if [ -f ../reports/ci_artifacts/benchmark_results_ci.json ]; then
+          python generate_report.py \
+            --results ../reports/ci_artifacts/benchmark_results_ci.json \
+            --output-dir ../reports/ci_artifacts \
+            --format all
+        else
+          echo "No benchmark results found to generate reports"
+        fi
+    
+    - name: Upload benchmark artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-results-${{ github.run_number }}
+        path: benchmarks/reports/ci_artifacts/
+        retention-days: 30
+    
+    - name: Check SLA compliance
+      if: github.event.inputs.fail_on_sla == 'true' || github.event_name != 'workflow_dispatch'
+      run: |
+        if [ -f benchmarks/reports/ci_artifacts/benchmark_results_ci.json ]; then
+          python -c "
+          import json
+          import sys
+          
+          with open('benchmarks/reports/ci_artifacts/benchmark_results_ci.json', 'r') as f:
+              data = json.load(f)
+          
+          scenarios = data.get('scenarios', [])
+          violations = []
+          
+          for scenario in scenarios:
+              validation = scenario.get('validation', {})
+              if not validation.get('sla_compliance', False):
+                  dataset = scenario.get('dataset_info', {})
+                  actual = validation.get('actual_time_ms', 0)
+                  target = validation.get('target_time_ms', 0)
+                  violations.append(f\"{dataset.get('name', 'Unknown')}: {actual:.0f}ms > {target:.0f}ms\")
+          
+          if violations:
+              print('SLA VIOLATIONS DETECTED:')
+              for violation in violations:
+                  print(f'  - {violation}')
+              sys.exit(1)
+          else:
+              print('All scenarios meet SLA requirements')
+          "
+        else
+          echo "No benchmark results to check"
+          exit 1
+    
+    - name: Comment on PR with results
+      if: github.event_name == 'pull_request' && always()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const path = 'benchmarks/reports/ci_artifacts/benchmark_results_ci.json';
+          
+          if (fs.existsSync(path)) {
+            const data = JSON.parse(fs.readFileSync(path, 'utf8'));
+            const scenarios = data.scenarios || [];
+            
+            let comment = '## 📊 Benchmark Results\n\n';
+            comment += `**Scenarios Run:** ${scenarios.length}\n`;
+            
+            const compliant = scenarios.filter(s => s.validation?.sla_compliance).length;
+            const complianceRate = scenarios.length > 0 ? (compliant / scenarios.length * 100).toFixed(0) : 0;
+            comment += `**SLA Compliance:** ${complianceRate}% (${compliant}/${scenarios.length})\n\n`;
+            
+            comment += '| Scenario | Time (ms) | Target (ms) | Status | Speedup |\n';
+            comment += '|----------|-----------|-------------|--------|----------|\n';
+            
+            scenarios.forEach(scenario => {
+              const dataset = scenario.dataset_info || {};
+              const validation = scenario.validation || {};
+              const status = validation.sla_compliance ? '✅' : '❌';
+              const speedup = validation.speedup_factor ? `${validation.speedup_factor.toFixed(1)}x` : 'N/A';
+              
+              comment += `| ${dataset.name || 'Unknown'} | ${validation.actual_time_ms || 0} | ${validation.target_time_ms || 0} | ${status} | ${speedup} |\n`;
+            });
+            
+            comment += '\n📄 [View detailed report in artifacts](../actions/runs/' + context.runId + ')';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
+    
+    - name: Performance regression check
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "Checking for performance regressions..."
+        # This would compare against baseline stored in repository
+        # For now, just log that we would do this check
+        echo "Performance regression check would be implemented here"
+        echo "Would compare against: benchmarks/data/performance_baselines.json"

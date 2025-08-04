@@ -42,6 +42,14 @@ except (ImportError, RuntimeError) as e:
 
 logger = logging.getLogger(__name__)
 
+# Try to import enhanced fitness adapter
+ENHANCED_FITNESS_AVAILABLE = False
+try:
+    from algorithms.enhanced_fitness_adapter import EnhancedFitnessAdapter, create_enhanced_fitness_adapter
+    ENHANCED_FITNESS_AVAILABLE = True
+except (ImportError, RuntimeError) as e:
+    logger.info(f"Enhanced fitness adapter not available: {str(e)}")
+
 
 class FitnessCalculator:
     """
@@ -276,3 +284,39 @@ def create_gpu_fitness_function(df: 'cudf.DataFrame',
     """
     calculator = FitnessCalculator(use_gpu=True, metrics_config=metrics_config)
     return calculator._create_cudf_fitness_function(df)
+
+
+def create_fitness_calculator_from_config(config: Dict, 
+                                        use_enhanced: Optional[bool] = None) -> FitnessCalculator:
+    """
+    Create appropriate fitness calculator based on configuration.
+    
+    Args:
+        config: Configuration dictionary
+        use_enhanced: Force enhanced mode (None = auto-detect from config)
+        
+    Returns:
+        FitnessCalculator or EnhancedFitnessAdapter instance
+    """
+    # Check if enhanced mode is requested
+    if use_enhanced is None:
+        fitness_mode = config.get('FITNESS_CALCULATION', {}).get('mode', 'legacy')
+        use_enhanced = fitness_mode in ['enhanced', 'hybrid']
+    
+    # Create enhanced adapter if available and requested
+    if use_enhanced and ENHANCED_FITNESS_AVAILABLE:
+        logger.info("Creating enhanced fitness calculator")
+        return create_enhanced_fitness_adapter(config)
+    else:
+        # Create standard calculator
+        metrics_config = {
+            'roi_dd_ratio_weight': config.get('METRICS', {}).get('roi_dd_ratio_weight', 1.0),
+            'total_roi_weight': config.get('METRICS', {}).get('total_roi_weight', 0.0),
+            'max_drawdown_weight': config.get('METRICS', {}).get('max_drawdown_weight', 0.0),
+            'win_rate_weight': config.get('METRICS', {}).get('win_rate_weight', 0.0),
+            'profit_factor_weight': config.get('METRICS', {}).get('profit_factor_weight', 0.0)
+        }
+        use_gpu = config.get('SYSTEM', {}).get('use_gpu', True)
+        
+        logger.info(f"Creating standard fitness calculator (GPU: {use_gpu})")
+        return FitnessCalculator(use_gpu=use_gpu, metrics_config=metrics_config)

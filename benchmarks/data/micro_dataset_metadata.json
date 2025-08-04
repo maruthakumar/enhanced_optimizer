@@ -1,0 +1,18 @@
+{
+  "filename": "micro_dataset.csv",
+  "strategy_count": 500,
+  "trading_days": 50,
+  "correlation_pattern": "medium",
+  "file_size_mb": 0.4325065612792969,
+  "generated_at": "2025-08-04T02:55:35.492317",
+  "data_range": {
+    "start_date": "2023-01-02",
+    "end_date": "2023-03-10"
+  },
+  "statistics": {
+    "mean_return": -0.002828923891397494,
+    "std_return": 0.022193193741544225,
+    "min_value": 5081.158165339776,
+    "max_value": 12968.896684669593
+  }
+}

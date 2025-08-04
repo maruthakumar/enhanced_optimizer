@@ -1,0 +1,54 @@
+{
+  "dataset_config": {
+    "size_categories": ["micro", "small", "medium", "large"],
+    "strategy_counts": [500, 2500, 10000, 25000],
+    "trading_days": [50, 100, 250],
+    "correlation_patterns": ["low", "medium", "high"]
+  },
+  "performance_thresholds": {
+    "max_runtime_seconds": 3.0,
+    "min_speedup_factor": 10.0,
+    "max_memory_gb": 8.0,
+    "min_gpu_utilization": 0.7
+  },
+  "benchmark_scenarios": [
+    {
+      "name": "micro_dataset",
+      "strategy_count": 500,
+      "trading_days": 50,
+      "target_time_ms": 1000,
+      "description": "Small dataset for quick validation"
+    },
+    {
+      "name": "production_baseline",
+      "strategy_count": 2500,
+      "trading_days": 82,
+      "target_time_ms": 2500,
+      "description": "Representative production workload"
+    },
+    {
+      "name": "large_portfolio",
+      "strategy_count": 10000,
+      "trading_days": 250,
+      "target_time_ms": 3000,
+      "description": "Large dataset stress test"
+    },
+    {
+      "name": "sla_boundary",
+      "strategy_count": 3000,
+      "trading_days": 100,
+      "target_time_ms": 2900,
+      "description": "SLA boundary testing"
+    }
+  ],
+  "compression_settings": {
+    "parquet_compression": ["snappy", "gzip"],
+    "compression_levels": [1, 6, 9]
+  },
+  "reporting_config": {
+    "output_formats": ["json", "html", "csv"],
+    "include_charts": true,
+    "historical_comparison": true,
+    "retention_days": 90
+  }
+}

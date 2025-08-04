@@ -1,0 +1,18 @@
+{
+  "filename": "production_baseline.csv",
+  "strategy_count": 2500,
+  "trading_days": 82,
+  "correlation_pattern": "medium",
+  "file_size_mb": 3.5412559509277344,
+  "generated_at": "2025-08-04T02:55:39.144725",
+  "data_range": {
+    "start_date": "2023-01-02",
+    "end_date": "2023-04-25"
+  },
+  "statistics": {
+    "mean_return": -0.0023314550190819067,
+    "std_return": 0.01975255432873343,
+    "min_value": 4875.048522817963,
+    "max_value": 16866.063508772953
+  }
+}
